@@ -25,10 +25,10 @@ import torch
 class ServoDelta:
     """Joint delta plus before and after residual diagnostics"""
 
-    delta_q   : torch.Tensor  # Field: per-joint IK increment applied to the current joint positions
-    err_before: torch.Tensor  # Field: tensor containing err before values for batched env rows
-    err_after : torch.Tensor  # Field: tensor containing err after values for batched env rows
-    active    : torch.Tensor  # Field: whether this configuration or runtime path is active
+    delta_q   : torch.Tensor  # per-joint IK increment applied to the current joint positions
+    err_before: torch.Tensor  # tensor containing err before values for batched env rows
+    err_after : torch.Tensor  # tensor containing err after values for batched env rows
+    active    : torch.Tensor  # whether this configuration or runtime path is active
 
 
 def damped_least_squares_delta(

@@ -37,20 +37,20 @@ SaveBestCheckpointFn = Callable[["BestCheckpointJob"], None]
 class BestCheckpointJob:
     """One best-checkpoint save request"""
 
-    global_step   : int   # Field: training step associated with this record or action
-    dest_path     : str   # Field: destination path for the file being written or copied
-    include_replay: bool  # Field: boolean value indicating the include replay state for best checkpoint job
+    global_step   : int   # training step associated with this record or action
+    dest_path     : str   # destination path for the file being written or copied
+    include_replay: bool  # boolean value indicating the include replay state for best checkpoint job
 
 
 @dataclass(frozen=True)
 class BestCheckpointDecision:
     """Best-checkpoint comparison output for the training loop"""
 
-    current_state  : dict[str, float | int]  # Field: integer current state value tracked by best checkpoint decision
-    next_best_state: Mapping[str, float | int]  # Field: integer next best state value tracked by best checkpoint decision
-    comparison     : EvalComparison  # Field: stores comparison for best checkpoint decision
-    job            : BestCheckpointJob | None  # Field: integer job value tracked by best checkpoint decision
-    message        : str | None  # Field: human-readable status or error detail
+    current_state  : dict[str, float | int]  # integer current state value tracked by best checkpoint decision
+    next_best_state: Mapping[str, float | int]  # integer next best state value tracked by best checkpoint decision
+    comparison     : EvalComparison  # stores comparison for best checkpoint decision
+    job            : BestCheckpointJob | None  # integer job value tracked by best checkpoint decision
+    message        : str | None  # human-readable status or error detail
 
     @property
     def is_better(self) -> bool:

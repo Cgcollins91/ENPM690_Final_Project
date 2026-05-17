@@ -52,20 +52,20 @@ class NativeUpdateAgent(Protocol):
 class NativeRolloutStatUpdate:
     """Rows used for rollout normalization stats"""
 
-    obs_tensor     : torch.Tensor  # Field: policy observation tensor passed to the actor or replay path
-    priv_obs_tensor: torch.Tensor | None  # Field: privileged observation tensor passed to critic-side logic
-    reward_tensor  : torch.Tensor  # Field: tensor containing reward tensor values for batched env rows
-    active_env_mask: torch.Tensor | None = None  # Field: mask selecting env rows that are still active
+    obs_tensor     : torch.Tensor  # policy observation tensor passed to the actor or replay path
+    priv_obs_tensor: torch.Tensor | None  # privileged observation tensor passed to critic-side logic
+    reward_tensor  : torch.Tensor  # tensor containing reward tensor values for batched env rows
+    active_env_mask: torch.Tensor | None = None  # mask selecting env rows that are still active
 
 
 @dataclass(frozen=True)
 class NativeUpdateRequest:
     """Inputs for one native TD update call"""
 
-    agent        : NativeUpdateAgent  # Field: stores agent for native update request
-    replay       : ReplayAddTarget  # Field: stores replay for native update request
-    batch_size   : int  # Field: number of replay samples used in each update batch
-    progress_step: int | None = None  # Field: step count used for progress step scheduling or reporting
+    agent        : NativeUpdateAgent  # stores agent for native update request
+    replay       : ReplayAddTarget  # stores replay for native update request
+    batch_size   : int  # number of replay samples used in each update batch
+    progress_step: int | None = None  # step count used for progress step scheduling or reporting
 
 
 def _active_rows(tensor: torch.Tensor | None, mask: torch.Tensor | None) -> torch.Tensor | None:

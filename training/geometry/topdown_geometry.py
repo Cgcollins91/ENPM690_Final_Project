@@ -24,8 +24,8 @@ from .geometry import quat_wxyz_to_matrix
 class YawAxisSelection:
     """Normalized yaw-axis mode and world XY axis"""
 
-    mode      : str  # Field: string mode value used by yaw axis selection
-    axis_world: torch.Tensor  # Field: tensor containing axis world values for batched env rows
+    mode      : str  # string mode value used by yaw axis selection
+    axis_world: torch.Tensor  # tensor containing axis world values for batched env rows
 
 
 def normalize_topdown_yaw_axis_mode(axis_mode: str | None) -> str:

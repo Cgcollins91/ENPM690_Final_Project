@@ -26,7 +26,7 @@ from ..core.runner import TrainingRunResult
 class NativeTrainerState:
     """Runtime objects owned by a native Isaac training run"""
 
-    payload : Mapping[str, Any] = field(default_factory=dict)  # Field: string payload value used by native trainer state
+    payload : Mapping[str, Any] = field(default_factory=dict)  # string payload value used by native trainer state
 
     def get(self, key: str, default: Any = None) -> Any:
         """Read one payload value"""
@@ -37,9 +37,9 @@ class NativeTrainerState:
 class NativeTrainerCallbacks:
     """Callback surface for the native Isaac backend"""
 
-    startup : Callable[[TrainerRuntimeContext, RuntimeConfigBundle], NativeTrainerState]  # Field: callback used for the startup operation
-    run_loop: Callable[[TrainerRuntimeContext, RuntimeConfigBundle, NativeTrainerState], TrainingRunResult]  # Field: callback used for the run loop operation
-    finalize: Callable[[TrainerRuntimeContext, RuntimeConfigBundle, NativeTrainerState], None] | None = None  # Field: callback used for the finalize operation
+    startup : Callable[[TrainerRuntimeContext, RuntimeConfigBundle], NativeTrainerState]  # callback used for the startup operation
+    run_loop: Callable[[TrainerRuntimeContext, RuntimeConfigBundle, NativeTrainerState], TrainingRunResult]  # callback used for the run loop operation
+    finalize: Callable[[TrainerRuntimeContext, RuntimeConfigBundle, NativeTrainerState], None] | None = None  # callback used for the finalize operation
 
 
 def run_native_isaac_training(

@@ -24,33 +24,33 @@ import torch
 class EpisodeMetricTensors:
     """Metric tensors used to update episode bests"""
 
-    tip                     : torch.Tensor  # Field: tensor containing tip values for batched env rows
-    phase1_palm             : torch.Tensor  # Field: tensor containing phase1 palm values for batched env rows
-    phase1_orient           : torch.Tensor  # Field: tensor containing phase1 orient values for batched env rows
-    contact                 : torch.Tensor  # Field: tensor containing contact values for batched env rows
-    strict_contact          : torch.Tensor  # Field: tensor containing strict contact values for batched env rows
-    lift                    : torch.Tensor  # Field: tensor containing lift values for batched env rows
-    lift_with_strict_contact: torch.Tensor  # Field: tensor containing lift with strict contact values for batched env rows
-    curl                    : torch.Tensor  # Field: tensor containing curl values for batched env rows
-    topdown_stage           : torch.Tensor  # Field: current topdown curriculum stage per environment
-    topdown_unlock          : torch.Tensor  # Field: tensor containing topdown unlock values for batched env rows
+    tip                     : torch.Tensor  # tensor containing tip values for batched env rows
+    phase1_palm             : torch.Tensor  # tensor containing phase1 palm values for batched env rows
+    phase1_orient           : torch.Tensor  # tensor containing phase1 orient values for batched env rows
+    contact                 : torch.Tensor  # tensor containing contact values for batched env rows
+    strict_contact          : torch.Tensor  # tensor containing strict contact values for batched env rows
+    lift                    : torch.Tensor  # tensor containing lift values for batched env rows
+    lift_with_strict_contact: torch.Tensor  # tensor containing lift with strict contact values for batched env rows
+    curl                    : torch.Tensor  # tensor containing curl values for batched env rows
+    topdown_stage           : torch.Tensor  # current topdown curriculum stage per environment
+    topdown_unlock          : torch.Tensor  # tensor containing topdown unlock values for batched env rows
 
 
 @dataclass(frozen=True)
 class TopdownProgressMetricTensors:
     """Topdown tensors used to build progress summaries"""
 
-    stage              : torch.Tensor  # Field: tensor containing stage values for batched env rows
-    reach_hold         : torch.Tensor  # Field: tensor containing reach hold values for batched env rows
-    align_hold         : torch.Tensor  # Field: tensor containing align hold values for batched env rows
-    stage2_age         : torch.Tensor  # Field: tensor containing stage2 age values for batched env rows
-    contact_pose_hold  : torch.Tensor  # Field: tensor containing contact pose hold values for batched env rows
-    contact_pose_ready : torch.Tensor  # Field: boolean/tensor readiness state for contact pose
-    contact_pose_age   : torch.Tensor  # Field: tensor containing contact pose age values for batched env rows
-    unlock             : torch.Tensor  # Field: tensor containing unlock values for batched env rows
-    contact_pose_shell : torch.Tensor  # Field: tensor containing contact pose shell values for batched env rows
-    contact_palm_dist  : torch.Tensor  # Field: tensor containing contact palm dist values for batched env rows
-    contact_palm_height: torch.Tensor  # Field: tensor containing contact palm height values for batched env rows
+    stage              : torch.Tensor  # tensor containing stage values for batched env rows
+    reach_hold         : torch.Tensor  # tensor containing reach hold values for batched env rows
+    align_hold         : torch.Tensor  # tensor containing align hold values for batched env rows
+    stage2_age         : torch.Tensor  # tensor containing stage2 age values for batched env rows
+    contact_pose_hold  : torch.Tensor  # tensor containing contact pose hold values for batched env rows
+    contact_pose_ready : torch.Tensor  # boolean/tensor readiness state for contact pose
+    contact_pose_age   : torch.Tensor  # tensor containing contact pose age values for batched env rows
+    unlock             : torch.Tensor  # tensor containing unlock values for batched env rows
+    contact_pose_shell : torch.Tensor  # tensor containing contact pose shell values for batched env rows
+    contact_palm_dist  : torch.Tensor  # tensor containing contact palm dist values for batched env rows
+    contact_palm_height: torch.Tensor  # tensor containing contact palm height values for batched env rows
 
 
 def select_done_or_live(

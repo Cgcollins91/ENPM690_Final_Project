@@ -22,23 +22,23 @@ import torch
 class FingerXYZGateConfig:
     """Distance thresholds for block-center xyz finger gate"""
 
-    start_m : float = 0.085  # Field: floating-point start m value used by finger x y z gate config
-    full_m  : float = 0.025  # Field: floating-point full m value used by finger x y z gate config
-    linear  : bool  = False  # Field: boolean value indicating the linear state for finger x y z gate config
-    min_gate: float = 1.0e-6  # Field: floating-point min gate value used by finger x y z gate config
+    start_m : float = 0.085  # floating-point start m value used by finger x y z gate config
+    full_m  : float = 0.025  # floating-point full m value used by finger x y z gate config
+    linear  : bool  = False  # boolean value indicating the linear state for finger x y z gate config
+    min_gate: float = 1.0e-6  # floating-point min gate value used by finger x y z gate config
 
 
 @dataclass(frozen=True)
 class FingerCenterGateConfig:
     """Finger center readiness gate selection"""
 
-    use_xyz_gate       : bool  = False  # Field: boolean value indicating the use xyz gate state for finger center gate config
-    xyz_gate_min       : float = 1.0e-6  # Field: floating-point xyz gate min value used by finger center gate config
-    tip_xy_max         : float = 0.0  # Field: floating-point tip xy max value used by finger center gate config
-    max_tip_xy_max     : float = 0.0  # Field: floating-point max tip xy max value used by finger center gate config
-    tip_z_max          : float = 0.075  # Field: floating-point tip z max value used by finger center gate config
-    align_angle_max_deg: float = 15.0  # Field: floating-point align angle max deg value used by finger center gate config
-    align_err_max      : float = 0.0  # Field: floating-point align err max value used by finger center gate config
+    use_xyz_gate       : bool  = False  # boolean value indicating the use xyz gate state for finger center gate config
+    xyz_gate_min       : float = 1.0e-6  # floating-point xyz gate min value used by finger center gate config
+    tip_xy_max         : float = 0.0  # floating-point tip xy max value used by finger center gate config
+    max_tip_xy_max     : float = 0.0  # floating-point max tip xy max value used by finger center gate config
+    tip_z_max          : float = 0.075  # floating-point tip z max value used by finger center gate config
+    align_angle_max_deg: float = 15.0  # floating-point align angle max deg value used by finger center gate config
+    align_err_max      : float = 0.0  # floating-point align err max value used by finger center gate config
 
 
 def resolve_xyz_gate_thresholds(

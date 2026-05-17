@@ -55,133 +55,133 @@ def _str(args: Mapping[str, object], name: str, default: str = "") -> str:
 class TrainingCountsConfig:
     """Rollout size replay and TD update cadence"""
 
-    num_envs        : int  # Field: number of parallel environment rows represented
-    total_steps     : int  # Field: step count used for total steps scheduling or reporting
-    start_steps     : int  # Field: step count used for start steps scheduling or reporting
-    batch_size      : int  # Field: number of replay samples used in each update batch
-    updates_per_step: int  # Field: step count used for updates per step scheduling or reporting
-    n_step          : int  # Field: step count used for n step scheduling or reporting
-    replay_size     : int  # Field: configured or observed replay-buffer size
-    hidden_dim      : int  # Field: integer hidden dim value tracked by training counts config
-    policy_delay    : int  # Field: integer policy delay value tracked by training counts config
-    rl_phase_start_steps: int  # Field: global step where RL-phase overrides begin
+    num_envs        : int  # number of parallel environment rows represented
+    total_steps     : int  # step count used for total steps scheduling or reporting
+    start_steps     : int  # step count used for start steps scheduling or reporting
+    batch_size      : int  # number of replay samples used in each update batch
+    updates_per_step: int  # step count used for updates per step scheduling or reporting
+    n_step          : int  # step count used for n step scheduling or reporting
+    replay_size     : int  # configured or observed replay-buffer size
+    hidden_dim      : int  # integer hidden dim value tracked by training counts config
+    policy_delay    : int  # integer policy delay value tracked by training counts config
+    rl_phase_start_steps: int  # global step where RL-phase overrides begin
 
 
 @dataclass(frozen=True)
 class OptimizationRuntimeConfig:
     """TD3 optimizer discount and noise settings"""
 
-    gamma                   : float  # Field: discount factor used by TD3 updates
-    tau                     : float  # Field: target-network interpolation factor for TD3 updates
-    actor_lr                : float  # Field: actor optimizer learning rate
-    critic_lr               : float  # Field: critic optimizer learning rate
-    exploration_noise       : float  # Field: floating-point exploration noise value used by optimization runtime config
-    exploration_noise_finger: float  # Field: floating-point exploration noise finger value used by optimization runtime config
-    policy_noise            : float  # Field: floating-point policy noise value used by optimization runtime config
-    policy_noise_finger     : float  # Field: floating-point policy noise finger value used by optimization runtime config
-    noise_clip              : float  # Field: floating-point noise clip value used by optimization runtime config
-    target_q_clip           : float  # Field: floating-point target q clip value used by optimization runtime config
-    critic_grad_clip        : float  # Field: floating-point critic grad clip value used by optimization runtime config
-    actor_pre_tanh_l2       : float  # Field: floating-point actor pre tanh l2 value used by optimization runtime config
-    actor_freeze_steps      : int  # Field: step count used for actor freeze steps scheduling or reporting
-    critic_burn_in_steps    : int  # Field: step count used for critic burn in steps scheduling or reporting
+    gamma                   : float  # discount factor used by TD3 updates
+    tau                     : float  # target-network interpolation factor for TD3 updates
+    actor_lr                : float  # actor optimizer learning rate
+    critic_lr               : float  # critic optimizer learning rate
+    exploration_noise       : float  # floating-point exploration noise value used by optimization runtime config
+    exploration_noise_finger: float  # floating-point exploration noise finger value used by optimization runtime config
+    policy_noise            : float  # floating-point policy noise value used by optimization runtime config
+    policy_noise_finger     : float  # floating-point policy noise finger value used by optimization runtime config
+    noise_clip              : float  # floating-point noise clip value used by optimization runtime config
+    target_q_clip           : float  # floating-point target q clip value used by optimization runtime config
+    critic_grad_clip        : float  # floating-point critic grad clip value used by optimization runtime config
+    actor_pre_tanh_l2       : float  # floating-point actor pre tanh l2 value used by optimization runtime config
+    actor_freeze_steps      : int  # step count used for actor freeze steps scheduling or reporting
+    critic_burn_in_steps    : int  # step count used for critic burn in steps scheduling or reporting
 
 
 @dataclass(frozen=True)
 class AssistRuntimeConfig:
     """Policy assist BC and DAgger schedule settings"""
 
-    policy_bc_relabel              : bool  # Field: boolean value indicating the policy bc relabel state for assist runtime config
-    policy_assist_mix              : float  # Field: floating-point policy assist mix value used by assist runtime config
-    policy_assist_mix_floor        : float  # Field: floating-point policy assist mix floor value used by assist runtime config
-    policy_assist_decay_steps      : int  # Field: step count used for policy assist decay steps scheduling or reporting
-    policy_assist_decay_start_steps: int  # Field: step count used for policy assist decay start steps scheduling or reporting
-    teacher_bc_weight              : float  # Field: weight applied to teacher bc terms
-    teacher_bc_arm_weight          : float  # Field: weight applied to teacher bc arm terms
-    teacher_bc_finger_weight       : float  # Field: weight applied to teacher bc finger terms
-    teacher_bc_decay_steps         : int  # Field: step count used for teacher bc decay steps scheduling or reporting
-    bc_only_steps                  : int  # Field: step count used for bc only steps scheduling or reporting
-    bc_only_weight                 : float  # Field: weight applied to bc only terms
-    bc_only_arm_weight             : float  # Field: weight applied to bc only arm terms
-    bc_only_finger_weight          : float  # Field: weight applied to bc only finger terms
-    assist_noise_arm               : float  # Field: floating-point assist noise arm value used by assist runtime config
-    assist_noise_finger            : float  # Field: floating-point assist noise finger value used by assist runtime config
-    assist_noise_clean_bc_target   : bool  # Field: boolean value indicating the assist noise clean bc target state for assist runtime config
+    policy_bc_relabel              : bool  # boolean value indicating the policy bc relabel state for assist runtime config
+    policy_assist_mix              : float  # floating-point policy assist mix value used by assist runtime config
+    policy_assist_mix_floor        : float  # floating-point policy assist mix floor value used by assist runtime config
+    policy_assist_decay_steps      : int  # step count used for policy assist decay steps scheduling or reporting
+    policy_assist_decay_start_steps: int  # step count used for policy assist decay start steps scheduling or reporting
+    teacher_bc_weight              : float  # weight applied to teacher bc terms
+    teacher_bc_arm_weight          : float  # weight applied to teacher bc arm terms
+    teacher_bc_finger_weight       : float  # weight applied to teacher bc finger terms
+    teacher_bc_decay_steps         : int  # step count used for teacher bc decay steps scheduling or reporting
+    bc_only_steps                  : int  # step count used for bc only steps scheduling or reporting
+    bc_only_weight                 : float  # weight applied to bc only terms
+    bc_only_arm_weight             : float  # weight applied to bc only arm terms
+    bc_only_finger_weight          : float  # weight applied to bc only finger terms
+    assist_noise_arm               : float  # floating-point assist noise arm value used by assist runtime config
+    assist_noise_finger            : float  # floating-point assist noise finger value used by assist runtime config
+    assist_noise_clean_bc_target   : bool  # boolean value indicating the assist noise clean bc target state for assist runtime config
 
 
 @dataclass(frozen=True)
 class EvalRuntimeConfig:
     """Eval play and logging cadence settings"""
 
-    eval_every             : int  # Field: global transition interval between inline eval runs; 0 keeps automatic cadence
-    eval_steps             : int  # Field: step count used for eval steps scheduling or reporting
-    eval_episodes          : int  # Field: integer eval episodes value tracked by eval runtime config
-    eval_start_steps       : int  # Field: step count used for eval start steps scheduling or reporting
-    eval_teacher_assist_mix: float  # Field: floating-point eval teacher assist mix value used by eval runtime config
-    play                   : bool  # Field: boolean value indicating the play state for eval runtime config
-    play_skip_checkpoint   : bool  # Field: boolean value indicating the play skip checkpoint state for eval runtime config
-    play_episodes          : int  # Field: integer play episodes value tracked by eval runtime config
-    log_every              : int  # Field: integer log every value tracked by eval runtime config
-    sleep                  : float  # Field: floating-point sleep value used by eval runtime config
+    eval_every             : int  # global transition interval between inline eval runs; 0 keeps automatic cadence
+    eval_steps             : int  # step count used for eval steps scheduling or reporting
+    eval_episodes          : int  # integer eval episodes value tracked by eval runtime config
+    eval_start_steps       : int  # step count used for eval start steps scheduling or reporting
+    eval_teacher_assist_mix: float  # floating-point eval teacher assist mix value used by eval runtime config
+    play                   : bool  # boolean value indicating the play state for eval runtime config
+    play_skip_checkpoint   : bool  # boolean value indicating the play skip checkpoint state for eval runtime config
+    play_episodes          : int  # integer play episodes value tracked by eval runtime config
+    log_every              : int  # integer log every value tracked by eval runtime config
+    sleep                  : float  # floating-point sleep value used by eval runtime config
 
 
 @dataclass(frozen=True)
 class CheckpointRuntimeConfig:
     """Checkpoint resume and handoff settings"""
 
-    checkpoint_path                   : str  # Field: checkpoint file path used for load/save operations
-    log_jsonl                         : str  # Field: JSONL log path or enablement flag for structured logging
-    tensorboard_dir                   : str  # Field: filesystem location for tensorboard dir
-    phase1_checkpoint                 : str  # Field: string phase1 checkpoint value used by checkpoint runtime config
-    phase1_teacher_only               : bool  # Field: boolean value indicating the phase1 teacher only state for checkpoint runtime config
-    resume_checkpoint                 : str  # Field: string resume checkpoint value used by checkpoint runtime config
-    actor_init_checkpoint             : str  # Field: string actor init checkpoint value used by checkpoint runtime config
-    checkpoint_every                  : int  # Field: integer checkpoint every value tracked by checkpoint runtime config
-    rolling_checkpoint_every          : int  # Field: integer rolling checkpoint every value tracked by checkpoint runtime config
-    rolling_checkpoint_keep           : int  # Field: integer rolling checkpoint keep value tracked by checkpoint runtime config
-    save_replay_in_checkpoint         : bool  # Field: boolean value indicating the save replay in checkpoint state for checkpoint runtime config
-    resume_replay                     : bool  # Field: boolean value indicating the resume replay state for checkpoint runtime config
-    resume_global_step                : bool  # Field: step count used for resume global step scheduling or reporting
-    force_dagger_after_resume         : bool  # Field: boolean value indicating the force dagger after resume state for checkpoint runtime config
-    reset_optimizers_on_resume        : bool  # Field: boolean value indicating the reset optimizers on resume state for checkpoint runtime config
-    handoff_checkpoint_path           : str  # Field: filesystem location for handoff checkpoint path
-    final_handoff_checkpoint_path     : str  # Field: filesystem location for final handoff checkpoint path
-    stop_after_handoff_checkpoint     : bool  # Field: boolean value indicating the stop after handoff checkpoint state for checkpoint runtime config
-    allow_handoff_source_hash_mismatch: bool  # Field: boolean value indicating the allow handoff source hash mismatch state for checkpoint runtime config
+    checkpoint_path                   : str  # checkpoint file path used for load/save operations
+    log_jsonl                         : str  # JSONL log path or enablement flag for structured logging
+    tensorboard_dir                   : str  # filesystem location for tensorboard dir
+    phase1_checkpoint                 : str  # string phase1 checkpoint value used by checkpoint runtime config
+    phase1_teacher_only               : bool  # boolean value indicating the phase1 teacher only state for checkpoint runtime config
+    resume_checkpoint                 : str  # string resume checkpoint value used by checkpoint runtime config
+    actor_init_checkpoint             : str  # string actor init checkpoint value used by checkpoint runtime config
+    checkpoint_every                  : int  # integer checkpoint every value tracked by checkpoint runtime config
+    rolling_checkpoint_every          : int  # integer rolling checkpoint every value tracked by checkpoint runtime config
+    rolling_checkpoint_keep           : int  # integer rolling checkpoint keep value tracked by checkpoint runtime config
+    save_replay_in_checkpoint         : bool  # boolean value indicating the save replay in checkpoint state for checkpoint runtime config
+    resume_replay                     : bool  # boolean value indicating the resume replay state for checkpoint runtime config
+    resume_global_step                : bool  # step count used for resume global step scheduling or reporting
+    force_dagger_after_resume         : bool  # boolean value indicating the force dagger after resume state for checkpoint runtime config
+    reset_optimizers_on_resume        : bool  # boolean value indicating the reset optimizers on resume state for checkpoint runtime config
+    handoff_checkpoint_path           : str  # filesystem location for handoff checkpoint path
+    final_handoff_checkpoint_path     : str  # filesystem location for final handoff checkpoint path
+    stop_after_handoff_checkpoint     : bool  # boolean value indicating the stop after handoff checkpoint state for checkpoint runtime config
+    allow_handoff_source_hash_mismatch: bool  # boolean value indicating the allow handoff source hash mismatch state for checkpoint runtime config
 
 
 @dataclass(frozen=True)
 class TeacherRuntimeConfig:
     """Teacher action and contact pre-roll settings"""
 
-    arm_controller                        : str  # Field: string arm controller value used by teacher runtime config
-    teacher_arm_source                    : str  # Field: string teacher arm source value used by teacher runtime config
-    finger_action_mode                    : str  # Field: configured interpretation of finger action columns
-    finger_delta_scale                    : float  # Field: scale applied to finger delta action columns
-    finger_curl_mode                      : str  # Field: string finger curl mode value used by teacher runtime config
-    topdown_contact_teacher               : bool  # Field: boolean value indicating the topdown contact teacher state for teacher runtime config
-    topdown_contact_teacher_bypass_unlock : bool  # Field: boolean value indicating the topdown contact teacher bypass unlock state for teacher runtime config
-    topdown_contact_teacher_close_rate    : float  # Field: floating-point topdown contact teacher close rate value used by teacher runtime config
-    topdown_contact_teacher_start_fraction: float  # Field: floating-point topdown contact teacher start fraction value used by teacher runtime config
-    topdown_contact_teacher_max_fraction  : float  # Field: floating-point topdown contact teacher max fraction value used by teacher runtime config
-    topdown_contact_teacher_middle_scale  : float  # Field: multiplier applied to topdown contact teacher middle terms
-    contact_start_mode                    : str  # Field: string contact start mode value used by teacher runtime config
-    contact_preroll_max_steps             : int  # Field: step count used for contact preroll max steps scheduling or reporting
-    contact_preroll_touch_mode            : str  # Field: string contact preroll touch mode value used by teacher runtime config
-    topdown_preroll_fraction              : float  # Field: floating-point topdown preroll fraction value used by teacher runtime config
-    topdown_preroll_max_steps             : int  # Field: step count used for topdown preroll max steps scheduling or reporting
+    arm_controller                        : str  # string arm controller value used by teacher runtime config
+    teacher_arm_source                    : str  # string teacher arm source value used by teacher runtime config
+    finger_action_mode                    : str  # configured interpretation of finger action columns
+    finger_delta_scale                    : float  # scale applied to finger delta action columns
+    finger_curl_mode                      : str  # string finger curl mode value used by teacher runtime config
+    topdown_contact_teacher               : bool  # boolean value indicating the topdown contact teacher state for teacher runtime config
+    topdown_contact_teacher_bypass_unlock : bool  # boolean value indicating the topdown contact teacher bypass unlock state for teacher runtime config
+    topdown_contact_teacher_close_rate    : float  # floating-point topdown contact teacher close rate value used by teacher runtime config
+    topdown_contact_teacher_start_fraction: float  # floating-point topdown contact teacher start fraction value used by teacher runtime config
+    topdown_contact_teacher_max_fraction  : float  # floating-point topdown contact teacher max fraction value used by teacher runtime config
+    topdown_contact_teacher_middle_scale  : float  # multiplier applied to topdown contact teacher middle terms
+    contact_start_mode                    : str  # string contact start mode value used by teacher runtime config
+    contact_preroll_max_steps             : int  # step count used for contact preroll max steps scheduling or reporting
+    contact_preroll_touch_mode            : str  # string contact preroll touch mode value used by teacher runtime config
+    topdown_preroll_fraction              : float  # floating-point topdown preroll fraction value used by teacher runtime config
+    topdown_preroll_max_steps             : int  # step count used for topdown preroll max steps scheduling or reporting
 
 
 @dataclass(frozen=True)
 class RuntimeConfigBundle:
     """Typed config bundle for migrated trainer code"""
 
-    counts      : TrainingCountsConfig  # Field: stores counts for runtime config bundle
-    optimization: OptimizationRuntimeConfig  # Field: stores optimization for runtime config bundle
-    assist      : AssistRuntimeConfig  # Field: string assist value used by runtime config bundle
-    eval        : EvalRuntimeConfig  # Field: stores eval for runtime config bundle
-    checkpoint  : CheckpointRuntimeConfig  # Field: integer checkpoint value tracked by runtime config bundle
-    teacher     : TeacherRuntimeConfig  # Field: stores teacher for runtime config bundle
+    counts      : TrainingCountsConfig  # stores counts for runtime config bundle
+    optimization: OptimizationRuntimeConfig  # stores optimization for runtime config bundle
+    assist      : AssistRuntimeConfig  # string assist value used by runtime config bundle
+    eval        : EvalRuntimeConfig  # stores eval for runtime config bundle
+    checkpoint  : CheckpointRuntimeConfig  # integer checkpoint value tracked by runtime config bundle
+    teacher     : TeacherRuntimeConfig  # stores teacher for runtime config bundle
 
 
 def build_runtime_config_bundle(request: TrainingCliRequest) -> RuntimeConfigBundle:

@@ -33,33 +33,33 @@ FingerModeFn = Callable[[torch.Tensor], torch.Tensor]
 class NativeTeacherConfig:
     """Teacher action mode switches"""
 
-    topdown_contact_teacher_enabled: bool  # Field: boolean state indicating whether topdown contact teacher is enabled
-    topdown_curriculum_task        : bool = True  # Field: boolean value indicating the topdown curriculum task state for native teacher config
+    topdown_contact_teacher_enabled: bool  # boolean state indicating whether topdown contact teacher is enabled
+    topdown_curriculum_task        : bool = True  # boolean value indicating the topdown curriculum task state for native teacher config
 
 
 @dataclass(frozen=True)
 class NativeTeacherRequest:
     """Inputs for one native teacher action"""
 
-    env                           : object  # Field: environment/backend object used by this runtime helper
-    mapped_indices                : torch.Tensor  # Field: column indices used to map between action layouts
-    mapped_scales                 : torch.Tensor  # Field: scales applied while mapping action columns
-    closure_fraction              : torch.Tensor  # Field: normalized finger-closure progress fraction
-    compute_finger_in_current_mode: FingerModeFn  # Field: stores compute finger in current mode for native teacher request
-    contact_parts                 : TopdownContactTeacherParts | None = None  # Field: stores contact parts for native teacher request
-    stage                         : torch.Tensor | None               = None  # Field: tensor containing stage values for batched env rows
-    episode_step                  : int | torch.Tensor | None         = None  # Field: per-env step count inside the current episode
+    env                           : object  # environment/backend object used by this runtime helper
+    mapped_indices                : torch.Tensor  # column indices used to map between action layouts
+    mapped_scales                 : torch.Tensor  # scales applied while mapping action columns
+    closure_fraction              : torch.Tensor  # normalized finger-closure progress fraction
+    compute_finger_in_current_mode: FingerModeFn  # stores compute finger in current mode for native teacher request
+    contact_parts                 : TopdownContactTeacherParts | None = None  # stores contact parts for native teacher request
+    stage                         : torch.Tensor | None               = None  # tensor containing stage values for batched env rows
+    episode_step                  : int | torch.Tensor | None         = None  # per-env step count inside the current episode
 
 
 @dataclass(frozen=True)
 class NativeTeacherAction:
     """Reduced teacher action and named components"""
 
-    action          : torch.Tensor  # Field: environment action tensor selected for the step
-    arm_action      : torch.Tensor  # Field: tensor containing arm action values for batched env rows
-    finger_action   : torch.Tensor  # Field: tensor containing finger action values for batched env rows
-    closure_fraction: torch.Tensor  # Field: normalized finger-closure progress fraction
-    descent         : torch.Tensor | None  # Field: tensor containing descent values for batched env rows
+    action          : torch.Tensor  # environment action tensor selected for the step
+    arm_action      : torch.Tensor  # tensor containing arm action values for batched env rows
+    finger_action   : torch.Tensor  # tensor containing finger action values for batched env rows
+    closure_fraction: torch.Tensor  # normalized finger-closure progress fraction
+    descent         : torch.Tensor | None  # tensor containing descent values for batched env rows
 
 
 def select_native_teacher_action(

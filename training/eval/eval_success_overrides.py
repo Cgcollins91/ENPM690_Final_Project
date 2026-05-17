@@ -25,18 +25,18 @@ from .eval_metrics import EvalTaskKind
 class EvalSuccessThresholds:
     """Thresholds used to bound terminal success metrics"""
 
-    pregrasp_tight_tolerance               : float  # Field: threshold/tolerance used when evaluating pregrasp tight tolerance
-    grasp_success_palm_ready_tolerance     : float  # Field: threshold/tolerance used when evaluating grasp success palm ready tolerance
-    grasp_success_palm_orient_deg          : float  # Field: floating-point grasp success palm orient deg value used by eval success thresholds
-    open_hand_align_face_distance_tolerance: float  # Field: threshold/tolerance used when evaluating open hand align face distance tolerance
-    open_hand_align_angle_deg              : float  # Field: floating-point open hand align angle deg value used by eval success thresholds
-    grasp_success_opposed_face_threshold   : float  # Field: threshold/tolerance used when evaluating grasp success opposed face threshold
-    grasp_success_block_disp_max           : float  # Field: floating-point grasp success block disp max value used by eval success thresholds
-    curl_success_threshold                 : float  # Field: threshold/tolerance used when evaluating curl success threshold
-    topdown_lift_success_contact_min       : float  # Field: floating-point topdown lift success contact min value used by eval success thresholds
-    topdown_lift_success_height            : float  # Field: floating-point topdown lift success height value used by eval success thresholds
-    topdown_lift_success_xy_drift_max      : float  # Field: floating-point topdown lift success xy drift max value used by eval success thresholds
-    topdown_lift_success_block_tilt_max_deg: float = 0.0  # Field: floating-point topdown lift success block tilt max deg value used by eval success thresholds
+    pregrasp_tight_tolerance               : float  # threshold/tolerance used when evaluating pregrasp tight tolerance
+    grasp_success_palm_ready_tolerance     : float  # threshold/tolerance used when evaluating grasp success palm ready tolerance
+    grasp_success_palm_orient_deg          : float  # floating-point grasp success palm orient deg value used by eval success thresholds
+    open_hand_align_face_distance_tolerance: float  # threshold/tolerance used when evaluating open hand align face distance tolerance
+    open_hand_align_angle_deg              : float  # floating-point open hand align angle deg value used by eval success thresholds
+    grasp_success_opposed_face_threshold   : float  # threshold/tolerance used when evaluating grasp success opposed face threshold
+    grasp_success_block_disp_max           : float  # floating-point grasp success block disp max value used by eval success thresholds
+    curl_success_threshold                 : float  # threshold/tolerance used when evaluating curl success threshold
+    topdown_lift_success_contact_min       : float  # floating-point topdown lift success contact min value used by eval success thresholds
+    topdown_lift_success_height            : float  # floating-point topdown lift success height value used by eval success thresholds
+    topdown_lift_success_xy_drift_max      : float  # floating-point topdown lift success xy drift max value used by eval success thresholds
+    topdown_lift_success_block_tilt_max_deg: float = 0.0  # floating-point topdown lift success block tilt max deg value used by eval success thresholds
 
 
 def _float_value(values: Mapping[str, Any], key: str, default: float = math.nan) -> float:

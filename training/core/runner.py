@@ -23,10 +23,10 @@ from .context import TrainerRuntimeContext
 class TrainingRunResult:
     """Summary returned by a trainer backend"""
 
-    status     : str  # Field: string status value used by training run result
-    global_step: int                  = 0  # Field: training step associated with this record or action
-    episode_idx: int                  = 0  # Field: training episode index associated with this record
-    metrics    : Mapping[str, object] = field(default_factory=dict)  # Field: named metric values emitted with the result
+    status     : str  # string status value used by training run result
+    global_step: int                  = 0  # training step associated with this record or action
+    episode_idx: int                  = 0  # training episode index associated with this record
+    metrics    : Mapping[str, object] = field(default_factory=dict)  # named metric values emitted with the result
 
 
 class TrainingBackend(Protocol):

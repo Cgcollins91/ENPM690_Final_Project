@@ -60,11 +60,11 @@ from .runtime import SUPPORTED_TOPDOWN_TASK, TopdownTaskRuntime, env_flag
 class TrainingCliRequest:
     """Core CLI values needed before Isaac startup"""
 
-    argv        : tuple[str, ...]      # Field: raw command-line argument list for parser entrypoints
-    known_args  : Mapping[str, object] # Field: string known args value used by training cli request
-    unknown_args: tuple[str, ...]      # Field: string unknown args value used by training cli request
-    project_root: str                  # Field: filesystem location for project root
-    env         : Mapping[str, str] = field(default_factory=dict)  # Field: environment/backend object used by this runtime helper
+    argv        : tuple[str, ...]      # raw command-line argument list for parser entrypoints
+    known_args  : Mapping[str, object] # string known args value used by training cli request
+    unknown_args: tuple[str, ...]      # string unknown args value used by training cli request
+    project_root: str                  # filesystem location for project root
+    env         : Mapping[str, str] = field(default_factory=dict)  # environment/backend object used by this runtime helper
 
     @property
     def task(self) -> str:

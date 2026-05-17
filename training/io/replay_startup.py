@@ -25,7 +25,7 @@ from .handoff import handoff_compatibility_mismatch, replay_resume_compatibility
 class ReplayStateTarget(Protocol):
     """Replay buffer surface needed for startup restore"""
 
-    size : int  # Field: integer size value tracked by replay state target
+    size : int  # integer size value tracked by replay state target
 
     def load_state_dict(self, state: Mapping[str, object]) -> None:
         """Load replay buffer state"""
@@ -44,22 +44,22 @@ class AgentStateTarget(Protocol):
 class ReplayResumeResult:
     """Outcome of replay resume from an existing checkpoint"""
 
-    loaded            : bool  # Field: boolean value indicating the loaded state for replay resume result
-    replay_size       : int  # Field: configured or observed replay-buffer size
-    source_global_step: int  # Field: step count used for source global step scheduling or reporting
+    loaded            : bool  # boolean value indicating the loaded state for replay resume result
+    replay_size       : int  # configured or observed replay-buffer size
+    source_global_step: int  # step count used for source global step scheduling or reporting
 
 
 @dataclass(frozen=True)
 class HandoffReuseResult:
     """Outcome of optional handoff checkpoint reuse"""
 
-    reused                   : bool  # Field: boolean value indicating the reused state for handoff reuse result
-    stale                    : bool  # Field: boolean value indicating the stale state for handoff reuse result
-    unusable                 : bool  # Field: boolean value indicating the unusable state for handoff reuse result
-    reason                   : str | None  # Field: string reason value used by handoff reuse result
-    transitions_collected    : int  # Field: number of replay transitions collected so far
-    replay_size              : int  # Field: configured or observed replay-buffer size
-    skip_training_after_reuse: bool  # Field: boolean value indicating the skip training after reuse state for handoff reuse result
+    reused                   : bool  # boolean value indicating the reused state for handoff reuse result
+    stale                    : bool  # boolean value indicating the stale state for handoff reuse result
+    unusable                 : bool  # boolean value indicating the unusable state for handoff reuse result
+    reason                   : str | None  # string reason value used by handoff reuse result
+    transitions_collected    : int  # number of replay transitions collected so far
+    replay_size              : int  # configured or observed replay-buffer size
+    skip_training_after_reuse: bool  # boolean value indicating the skip training after reuse state for handoff reuse result
 
 
 def replay_state_from_checkpoint(checkpoint: Mapping[str, object], *, context: str) -> Mapping[str, object]:

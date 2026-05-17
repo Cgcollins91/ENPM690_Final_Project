@@ -88,7 +88,7 @@ def _contact_force_magnitude(env: "ManagerBasedRLEnv", sensor_name: str) -> torc
     sensor = _scene_entity(env, sensor_name)
     force_matrix = getattr(sensor.data, "force_matrix_w", None)
     if force_matrix is not None:
-        forces = force_matrix[:, 0].sum(dim=1)
+        forces = _sm._active_filter_forces(env, force_matrix)
     else:
         net_forces = getattr(sensor.data, "net_forces_w", None)
         if net_forces is None:

@@ -38,22 +38,22 @@ from .observations import (
 class StartupObservationContract:
     """Resolved startup observation contract"""
 
-    obs_keys             : tuple[str, ...]  # Field: ordered keys used to resolve obs values
-    obs_tensor           : torch.Tensor  # Field: policy observation tensor passed to the actor or replay path
-    obs_dim              : int  # Field: width of the policy observation vector
-    privileged_obs_tensor: torch.Tensor | None  # Field: tensor containing privileged obs tensor values for batched env rows
-    privileged_obs_dim   : int  # Field: integer privileged obs dim value tracked by startup observation contract
-    columns              : ObservationColumnLayout  # Field: stores columns for startup observation contract
+    obs_keys             : tuple[str, ...]  # ordered keys used to resolve obs values
+    obs_tensor           : torch.Tensor  # policy observation tensor passed to the actor or replay path
+    obs_dim              : int  # width of the policy observation vector
+    privileged_obs_tensor: torch.Tensor | None  # tensor containing privileged obs tensor values for batched env rows
+    privileged_obs_dim   : int  # integer privileged obs dim value tracked by startup observation contract
+    columns              : ObservationColumnLayout  # stores columns for startup observation contract
 
 
 @dataclass(frozen=True)
 class StartupActionContract:
     """Resolved startup action dimensions"""
 
-    action_dim          : int  # Field: width of the policy action vector
-    full_action_dim     : int  # Field: integer full action dim value tracked by startup action contract
-    policy_action_joints: tuple[str, ...]  # Field: string policy action joints value used by startup action contract
-    env_action_joints   : tuple[str, ...]  # Field: string env action joints value used by startup action contract
+    action_dim          : int  # width of the policy action vector
+    full_action_dim     : int  # integer full action dim value tracked by startup action contract
+    policy_action_joints: tuple[str, ...]  # string policy action joints value used by startup action contract
+    env_action_joints   : tuple[str, ...]  # string env action joints value used by startup action contract
 
 
 def resolve_startup_observation_contract(

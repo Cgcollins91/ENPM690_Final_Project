@@ -57,8 +57,8 @@ def env_float(name: str, default: float, env: Mapping[str, str] | None = None) -
 class TopdownTaskRuntime:
     """Task routing state without Isaac side effects"""
 
-    task: str                      = SUPPORTED_TOPDOWN_TASK  # Field: string task value used by topdown task runtime
-    env : Mapping[str, str] | None = None  # Field: environment/backend object used by this runtime helper
+    task: str                      = SUPPORTED_TOPDOWN_TASK  # string task value used by topdown task runtime
+    env : Mapping[str, str] | None = None  # environment/backend object used by this runtime helper
 
     def validate_supported(self) -> None:
         """Raise when the task is outside the standalone trainer contract"""

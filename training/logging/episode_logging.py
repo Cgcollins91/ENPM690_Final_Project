@@ -21,29 +21,29 @@ from dataclasses import dataclass
 class EpisodeEndSummary:
     """Scalar fields printed at episode end"""
 
-    episode_idx                  : int  # Field: training episode index associated with this record
-    episode_step                 : int  # Field: per-env step count inside the current episode
-    episode_return               : float  # Field: floating-point episode return value used by episode end summary
-    best_tip                     : float = 0.0  # Field: floating-point best tip value used by episode end summary
-    best_phase1_palm             : float = 0.0  # Field: floating-point best phase1 palm value used by episode end summary
-    best_phase1_orient           : float = 0.0  # Field: floating-point best phase1 orient value used by episode end summary
-    thumb_err                    : float = 0.0  # Field: floating-point thumb err value used by episode end summary
-    idx_err                      : float = 0.0  # Field: floating-point idx err value used by episode end summary
-    align_face                   : float = 0.0  # Field: block face selected for alignment scoring
-    align_angle                  : float = 0.0  # Field: alignment angle value used by topdown/contact metrics
-    best_contact                 : float = 0.0  # Field: floating-point best contact value used by episode end summary
-    strict_contact               : float = 0.0  # Field: floating-point strict contact value used by episode end summary
-    best_strict_contact          : float = 0.0  # Field: floating-point best strict contact value used by episode end summary
-    best_lift                    : float = 0.0  # Field: floating-point best lift value used by episode end summary
-    best_lift_with_strict_contact: float = 0.0  # Field: floating-point best lift with strict contact value used by episode end summary
-    best_curl                    : float = 0.0  # Field: floating-point best curl value used by episode end summary
-    success                      : bool  = False  # Field: success flag or rate for the rollout/evaluation record
-    physical_success             : bool  = False  # Field: boolean value indicating the physical success state for episode end summary
-    off_table                    : bool  = False  # Field: flag indicating that the block left the table/work surface
-    block_drift                  : bool  = False  # Field: measured block drift used by diagnostics or success checks
-    best_topdown_stage           : int   = -1  # Field: highest topdown curriculum stage reached so far
-    max_topdown_unlock           : float = 0.0  # Field: floating-point max topdown unlock value used by episode end summary
-    failure_mode                 : str   = "unknown"  # Field: string failure mode value used by episode end summary
+    episode_idx                  : int  # training episode index associated with this record
+    episode_step                 : int  # per-env step count inside the current episode
+    episode_return               : float  # floating-point episode return value used by episode end summary
+    best_tip                     : float = 0.0  # floating-point best tip value used by episode end summary
+    best_phase1_palm             : float = 0.0  # floating-point best phase1 palm value used by episode end summary
+    best_phase1_orient           : float = 0.0  # floating-point best phase1 orient value used by episode end summary
+    thumb_err                    : float = 0.0  # floating-point thumb err value used by episode end summary
+    idx_err                      : float = 0.0  # floating-point idx err value used by episode end summary
+    align_face                   : float = 0.0  # block face selected for alignment scoring
+    align_angle                  : float = 0.0  # alignment angle value used by topdown/contact metrics
+    best_contact                 : float = 0.0  # floating-point best contact value used by episode end summary
+    strict_contact               : float = 0.0  # floating-point strict contact value used by episode end summary
+    best_strict_contact          : float = 0.0  # floating-point best strict contact value used by episode end summary
+    best_lift                    : float = 0.0  # floating-point best lift value used by episode end summary
+    best_lift_with_strict_contact: float = 0.0  # floating-point best lift with strict contact value used by episode end summary
+    best_curl                    : float = 0.0  # floating-point best curl value used by episode end summary
+    success                      : bool  = False  # success flag or rate for the rollout/evaluation record
+    physical_success             : bool  = False  # boolean value indicating the physical success state for episode end summary
+    off_table                    : bool  = False  # flag indicating that the block left the table/work surface
+    block_drift                  : bool  = False  # measured block drift used by diagnostics or success checks
+    best_topdown_stage           : int   = -1  # highest topdown curriculum stage reached so far
+    max_topdown_unlock           : float = 0.0  # floating-point max topdown unlock value used by episode end summary
+    failure_mode                 : str   = "unknown"  # string failure mode value used by episode end summary
 
 
 def _episode_prefix(summary: EpisodeEndSummary) -> str:

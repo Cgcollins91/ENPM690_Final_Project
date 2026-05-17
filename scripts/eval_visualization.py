@@ -1,5 +1,24 @@
 #!/usr/bin/env python3
-"""Launch GUI visualization for a checkpoint using its training-run manifest."""
+"""
+Launch Isaac Sim with Head for GUI visualization for a checkpoint using its training-run manifest
+
+This script is intended to be used with runs launched by the provided training scripts, which save a manifest.json 
+containing the launch command and environment variables. Given a checkpoint and run directory, this script will construct a 
+new command that reuses the original launch configuration but modifies it for visualization instead of training. 
+The new command is then executed to launch Isaac Sim with the appropriate settings for visualizing the specified checkpoint.
+
+Modes: (--mode)
+- teacher: Visualize the teacher policy (if applicable). By default, this will skip loading the checkpoint since it may not be compatible with the 
+     teacher-only mode; set --load-checkpoint-in-teacher-mode to load it anyway.
+- policy: Visualize the learned policy only.
+- mixed: Visualize a mixture of teacher and policy actions, controlled by --teacher-assist-mix (0.0 = policy only, 1.0 = teacher only). 
+    This can be useful for visualizing intermediate checkpoints that may not perform well on their own, or for understanding the contribution of 
+    the teacher vs policy at different stages of training.
+    
+
+    
+
+"""
 
 from __future__ import annotations
 
@@ -221,6 +240,8 @@ def build_command(
     _remove_arg(command, "--actor-init-checkpoint")
     _remove_arg(command, "--stop-after-handoff-checkpoint", takes_value=False)
     _remove_arg(command, "--save-replay-in-checkpoint", takes_value=False)
+    _remove_arg(command, "--adaptive-policy-assist", takes_value=False)
+    _remove_arg(command, "--stop-on-adaptive-assist-floor", takes_value=False)
     _scrub_playback_checkpoint_env(env)
 
     _add_flag(command, "--play")
@@ -235,6 +256,38 @@ def build_command(
     _replace_arg(command, "--sleep", args.sleep)
     _replace_arg(command, "--viewport-camera", args.camera)
     _replace_arg(command, "--tensorboard-dir", "off")
+    _replace_arg(command, "--total-steps", max(1, int(args.steps) * int(args.episodes) * int(args.num_envs)))
+    _replace_arg(command, "--start-steps", 0)
+    _replace_arg(command, "--updates-per-step", 0)
+    _replace_arg(command, "--policy-bc-relabel", 0)
+    _replace_arg(command, "--rl-policy-bc-relabel", 0)
+    _replace_arg(command, "--policy-assist-mix", 0.0)
+    _replace_arg(command, "--policy-assist-mix-floor", 0.0)
+    _replace_arg(command, "--policy-assist-arm-mix", 0.0)
+    _replace_arg(command, "--policy-assist-arm-mix-floor", 0.0)
+    _replace_arg(command, "--policy-assist-finger-mix", 0.0)
+    _replace_arg(command, "--policy-assist-finger-mix-floor", 0.0)
+    _replace_arg(command, "--teacher-bc-weight", 0.0)
+    _replace_arg(command, "--teacher-bc-arm-weight", 0.0)
+    _replace_arg(command, "--teacher-bc-finger-weight", 0.0)
+    _replace_arg(command, "--bc-only-weight", 0.0)
+    _replace_arg(command, "--bc-only-arm-weight", 0.0)
+    _replace_arg(command, "--bc-only-finger-weight", 0.0)
+    _replace_arg(command, "--assist-noise-arm", 0.0)
+    _replace_arg(command, "--assist-noise-finger", 0.0)
+    _replace_arg(command, "--exploration-noise", 0.0)
+    _replace_arg(command, "--exploration-noise-finger", 0.0)
+    _replace_arg(command, "--policy-noise", 0.0)
+    _replace_arg(command, "--policy-noise-finger", 0.0)
+    _replace_arg(command, "--rl-policy-assist-mix", 0.0)
+    _replace_arg(command, "--rl-policy-assist-mix-floor", 0.0)
+    _replace_arg(command, "--rl-teacher-bc-weight", 0.0)
+    _replace_arg(command, "--rl-teacher-bc-arm-weight", 0.0)
+    _replace_arg(command, "--rl-teacher-bc-finger-weight", 0.0)
+    _replace_arg(command, "--rl-exploration-noise", 0.0)
+    _replace_arg(command, "--rl-exploration-noise-finger", 0.0)
+    _replace_arg(command, "--rl-policy-noise", 0.0)
+    _replace_arg(command, "--rl-policy-noise-finger", 0.0)
 
     if args.mode == "teacher":
         teacher_mix = 1.0
@@ -295,10 +348,11 @@ def build_command(
                 "HEADLESS",
                 "ENABLE_CAMERAS",
                 "DISABLE_CAMERA_PERCEPTION",
-                "NUM_ENVS",
-                "EVAL_STEPS",
-                "EVAL_EPISODES",
-            )
+            "NUM_ENVS",
+            "EVAL_STEPS",
+            "EVAL_EPISODES",
+        )
+        if key in env
         },
     }
     return command, env, manifest
@@ -326,8 +380,8 @@ def main() -> int:
     parser.add_argument("--steps", type=int, default=1000)
     parser.add_argument("--episodes", type=int, default=3)
     parser.add_argument("--num-envs", type=int, default=1)
-    parser.add_argument("--replay-size", type=int, default=2048)
-    parser.add_argument("--camera", default="overview")
+    parser.add_argument("--replay-size", type=int, default=0)
+    parser.add_argument("--camera", default="table_overhead")
     parser.add_argument("--sleep", type=float, default=0.01)
     parser.add_argument("--isaac-python", default=str(DEFAULT_ISAAC_PYTHON))
     parser.add_argument("--env", action="append", default=[], metavar="KEY=VALUE")

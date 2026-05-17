@@ -30,9 +30,9 @@ import torch
 class ScalarEvent:
     """One TensorBoard scalar write"""
 
-    name       : str  # Field: string name value used by scalar event
-    value      : float  # Field: floating-point value value used by scalar event
-    global_step: int  # Field: training step associated with this record or action
+    name       : str  # string name value used by scalar event
+    value      : float  # floating-point value value used by scalar event
+    global_step: int  # training step associated with this record or action
 
 
 TRAIN_ENV_TENSOR_STATS = (

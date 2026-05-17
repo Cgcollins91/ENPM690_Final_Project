@@ -41,21 +41,21 @@ class StateDictSource(Protocol):
 class TrainingCheckpointMetadata:
     """Metadata fields persisted beside learner state"""
 
-    task                 : str  # Field: string task value used by training checkpoint metadata
-    global_step          : int  # Field: training step associated with this record or action
-    episode_idx          : int | torch.Tensor  # Field: training episode index associated with this record
-    arm_controller       : str  # Field: string arm controller value used by training checkpoint metadata
-    td3_backend          : str  # Field: string td3 backend value used by training checkpoint metadata
-    obs_schema_version   : int  # Field: integer obs schema version value tracked by training checkpoint metadata
-    obs_keys             : tuple[str, ...]  # Field: ordered keys used to resolve obs values
-    obs_dim              : int  # Field: width of the policy observation vector
-    priv_obs_dim         : int  # Field: width of the privileged observation vector
-    policy_action_spec   : ReducedActionSpec  # Field: action layout spec expected by the policy output
-    env_action_spec      : ReducedActionSpec  # Field: action layout spec expected by the environment
-    log_jsonl            : str | None                  = None  # Field: JSONL log path or enablement flag for structured logging
-    args                 : Mapping[str, object]        = field(default_factory=dict)  # Field: parsed CLI/config arguments passed into this helper
-    ik_arm_joints        : tuple[str, ...]             = ()  # Field: string ik arm joints value used by training checkpoint metadata
-    handoff_compatibility: Mapping[str, object] | None = None  # Field: string handoff compatibility value used by training checkpoint metadata
+    task                 : str  # string task value used by training checkpoint metadata
+    global_step          : int  # training step associated with this record or action
+    episode_idx          : int | torch.Tensor  # training episode index associated with this record
+    arm_controller       : str  # string arm controller value used by training checkpoint metadata
+    td3_backend          : str  # string td3 backend value used by training checkpoint metadata
+    obs_schema_version   : int  # integer obs schema version value tracked by training checkpoint metadata
+    obs_keys             : tuple[str, ...]  # ordered keys used to resolve obs values
+    obs_dim              : int  # width of the policy observation vector
+    priv_obs_dim         : int  # width of the privileged observation vector
+    policy_action_spec   : ReducedActionSpec  # action layout spec expected by the policy output
+    env_action_spec      : ReducedActionSpec  # action layout spec expected by the environment
+    log_jsonl            : str | None                  = None  # JSONL log path or enablement flag for structured logging
+    args                 : Mapping[str, object]        = field(default_factory=dict)  # parsed CLI/config arguments passed into this helper
+    ik_arm_joints        : tuple[str, ...]             = ()  # string ik arm joints value used by training checkpoint metadata
+    handoff_compatibility: Mapping[str, object] | None = None  # string handoff compatibility value used by training checkpoint metadata
 
 
 def capture_rng_state() -> dict[str, object]:
@@ -209,13 +209,23 @@ def load_training_checkpoint(
     path: str | os.PathLike[str],              # Param: filesystem path read or written by this helper
     *,
     map_location: str | torch.device = "cpu",  # Param: string input for map location
+    mmap: bool = False,                        # Param: use memory-mapped tensor storage when supported
 ) -> dict[str, object]:
     """Load a checkpoint with Python objects allowed"""
     target = os.fspath(path)
     try:
-        loaded = torch.load(target, map_location=map_location, weights_only=False)
+        loaded = torch.load(target, map_location=map_location, weights_only=False, mmap=bool(mmap))
     except TypeError:
         loaded = torch.load(target, map_location=map_location)
     if not isinstance(loaded, dict):
         raise RuntimeError(f"checkpoint payload must be a dict, got {type(loaded).__name__}")
     return loaded
+
+
+def load_training_checkpoint_mmap(
+    path: str | os.PathLike[str],              # Param: filesystem path read or written by this helper
+    *,
+    map_location: str | torch.device = "cpu",  # Param: string input for map location
+) -> dict[str, object]:
+    """Load a checkpoint using lazy mapped tensor storage when supported."""
+    return load_training_checkpoint(path, map_location=map_location, mmap=True)

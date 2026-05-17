@@ -46,9 +46,9 @@ EpisodeStepSource = int | torch.Tensor | Callable[[], int | torch.Tensor | None]
 class NativeTeacherHookState:
     """Latest native teacher action captured for env action assembly"""
 
-    last_action        : NativeTeacherAction | None = None  # Field: stores last action for native teacher hook state
-    cached_action      : NativeTeacherAction | None = None  # Field: stores cached action for native teacher hook state
-    cached_episode_step: torch.Tensor | None        = None  # Field: step count used for cached episode step scheduling or reporting
+    last_action        : NativeTeacherAction | None = None  # stores last action for native teacher hook state
+    cached_action      : NativeTeacherAction | None = None  # stores cached action for native teacher hook state
+    cached_episode_step: torch.Tensor | None        = None  # step count used for cached episode step scheduling or reporting
 
 
 def clear_native_teacher_hook_state(state: NativeTeacherHookState) -> None:

@@ -24,37 +24,37 @@ import torch
 class EvalStepMasks:
     """Masks produced by one eval state update"""
 
-    active_mask  : torch.Tensor  # Field: boolean mask selecting active rows for eval step masks
-    live_mask    : torch.Tensor  # Field: boolean mask selecting live rows for eval step masks
-    new_done_mask: torch.Tensor  # Field: boolean mask selecting new done rows for eval step masks
-    timeout_flags: torch.Tensor  # Field: per-env timeout flags returned by the environment step
-    done_flags   : torch.Tensor  # Field: per-env done flags returned by the environment step
+    active_mask  : torch.Tensor  # boolean mask selecting active rows for eval step masks
+    live_mask    : torch.Tensor  # boolean mask selecting live rows for eval step masks
+    new_done_mask: torch.Tensor  # boolean mask selecting new done rows for eval step masks
+    timeout_flags: torch.Tensor  # per-env timeout flags returned by the environment step
+    done_flags   : torch.Tensor  # per-env done flags returned by the environment step
 
 
 @dataclass(frozen=True)
 class EvalEnv0Outcome:
     """Env-0 terminal booleans for eval trace lines"""
 
-    success            : bool  # Field: success flag or rate for the rollout/evaluation record
-    off_table          : bool  # Field: flag indicating that the block left the table/work surface
-    phase15_shell_drift: bool  # Field: boolean value indicating the phase15 shell drift state for eval env0 outcome
-    block_drift        : bool  # Field: measured block drift used by diagnostics or success checks
-    timeout            : bool  # Field: boolean value indicating the timeout state for eval env0 outcome
-    done               : bool  # Field: done flag tensor or scalar returned by the environment step
+    success            : bool  # success flag or rate for the rollout/evaluation record
+    off_table          : bool  # flag indicating that the block left the table/work surface
+    phase15_shell_drift: bool  # boolean value indicating the phase15 shell drift state for eval env0 outcome
+    block_drift        : bool  # measured block drift used by diagnostics or success checks
+    timeout            : bool  # boolean value indicating the timeout state for eval env0 outcome
+    done               : bool  # done flag tensor or scalar returned by the environment step
 
 
 @dataclass
 class EvalEpisodeState:
     """Mutable eval returns and done flags"""
 
-    return_env              : torch.Tensor  # Field: tensor containing return env values for batched env rows
-    done_mask               : torch.Tensor  # Field: boolean mask selecting done rows for eval episode state
-    success_mask            : torch.Tensor  # Field: boolean mask selecting success rows for eval episode state
-    off_table_mask          : torch.Tensor  # Field: boolean mask selecting off table rows for eval episode state
-    phase15_shell_drift_mask: torch.Tensor  # Field: boolean mask selecting phase15 shell drift rows for eval episode state
-    block_drift_mask        : torch.Tensor  # Field: boolean mask selecting block drift rows for eval episode state
-    timeout_mask            : torch.Tensor  # Field: boolean mask selecting timeout rows for eval episode state
-    steps_env               : torch.Tensor  # Field: tensor containing steps env values for batched env rows
+    return_env              : torch.Tensor  # tensor containing return env values for batched env rows
+    done_mask               : torch.Tensor  # boolean mask selecting done rows for eval episode state
+    success_mask            : torch.Tensor  # boolean mask selecting success rows for eval episode state
+    off_table_mask          : torch.Tensor  # boolean mask selecting off table rows for eval episode state
+    phase15_shell_drift_mask: torch.Tensor  # boolean mask selecting phase15 shell drift rows for eval episode state
+    block_drift_mask        : torch.Tensor  # boolean mask selecting block drift rows for eval episode state
+    timeout_mask            : torch.Tensor  # boolean mask selecting timeout rows for eval episode state
+    steps_env               : torch.Tensor  # tensor containing steps env values for batched env rows
 
     @classmethod
     def create(

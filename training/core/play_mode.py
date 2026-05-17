@@ -29,14 +29,14 @@ from .configs import RuntimeConfigBundle
 class PlayModePlan:
     """Resolved play-mode settings for deterministic eval-only runs"""
 
-    enabled                   : bool  # Field: true when --play switches the run into eval-only rollout mode
-    skip_checkpoint           : bool  # Field: allows play mode to start without loading checkpoint_path
-    checkpoint_path           : str  # Field: checkpoint loaded before play rollout unless skip_checkpoint is set
-    log_jsonl                 : str  # Field: JSONL file that receives play/eval event rows
-    play_episodes             : int  # Field: number of eval episodes to run while play mode is active
-    eval_teacher_assist_mix   : float  # Field: teacher-assist ratio used to validate and configure play rollout
-    forced_policy_assist_mix  : float = 0.0  # Field: policy-assist mix override applied only during play mode
-    forced_policy_assist_floor: float = 0.0  # Field: policy-assist floor override applied only during play mode
+    enabled                   : bool  # true when --play switches the run into eval-only rollout mode
+    skip_checkpoint           : bool  # allows play mode to start without loading checkpoint_path
+    checkpoint_path           : str  # checkpoint loaded before play rollout unless skip_checkpoint is set
+    log_jsonl                 : str  # JSONL file that receives play/eval event rows
+    play_episodes             : int  # number of eval episodes to run while play mode is active
+    eval_teacher_assist_mix   : float  # teacher-assist ratio used to validate and configure play rollout
+    forced_policy_assist_mix  : float = 0.0  # policy-assist mix override applied only during play mode
+    forced_policy_assist_floor: float = 0.0  # policy-assist floor override applied only during play mode
 
     @property
     def log_dir(self) -> str:

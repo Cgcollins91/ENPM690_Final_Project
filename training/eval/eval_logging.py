@@ -28,45 +28,45 @@ from .eval_metrics import EvalTaskKind
 class EvalStepLineSummary:
     """Scalar fields printed during eval rollout"""
 
-    global_step       : int  # Field: training step associated with this record or action
-    eval_episode_idx  : int  # Field: evaluation episode index for this record
-    eval_step         : int  # Field: step count used for eval step scheduling or reporting
-    reward            : float  # Field: reward tensor or scalar produced by the environment step
-    done              : bool  # Field: done flag tensor or scalar returned by the environment step
-    success           : bool  # Field: success flag or rate for the rollout/evaluation record
-    tip               : float = 0.0  # Field: floating-point tip value used by eval step line summary
-    thumb_err         : float = 0.0  # Field: floating-point thumb err value used by eval step line summary
-    idx_err           : float = 0.0  # Field: floating-point idx err value used by eval step line summary
-    palm              : float = 0.0  # Field: floating-point palm value used by eval step line summary
-    orient_deg        : float = 0.0  # Field: floating-point orient deg value used by eval step line summary
-    phase1_ready      : bool  = False  # Field: boolean/tensor readiness state for phase1
-    align_face        : float = 0.0  # Field: block face selected for alignment scoring
-    align_angle       : float = 0.0  # Field: alignment angle value used by topdown/contact metrics
-    opposed_face      : float = 0.0  # Field: block face opposite the active contact/alignment face
-    contact           : float = 0.0  # Field: floating-point contact value used by eval step line summary
-    strict_contact    : float = 0.0  # Field: floating-point strict contact value used by eval step line summary
-    both_contact      : float = 0.0  # Field: floating-point both contact value used by eval step line summary
-    any_contact       : float = 0.0  # Field: floating-point any contact value used by eval step line summary
-    hand_contact      : float = 0.0  # Field: floating-point hand contact value used by eval step line summary
-    thumb_contact     : float = 0.0  # Field: contact strength observed at the thumb side
-    index_contact     : float = 0.0  # Field: contact strength observed at the index-finger side
-    curl              : float = 0.0  # Field: floating-point curl value used by eval step line summary
-    lift              : float = 0.0  # Field: floating-point lift value used by eval step line summary
-    hand_force        : float = 0.0  # Field: aggregate hand/contact force used for diagnostics or gates
-    block_disp        : float = 0.0  # Field: block displacement value used by metrics or summaries
-    thumb_to_block    : float = 0.0  # Field: floating-point thumb to block value used by eval step line summary
-    index_to_block    : float = 0.0  # Field: floating-point index to block value used by eval step line summary
-    shell_drift       : bool  = False  # Field: boolean value indicating the shell drift state for eval step line summary
-    off_table         : bool  = False  # Field: flag indicating that the block left the table/work surface
-    block_drift       : bool  = False  # Field: measured block drift used by diagnostics or success checks
-    topdown_stage     : int   = -1  # Field: current topdown curriculum stage per environment
-    best_topdown_stage: int   = -1  # Field: highest topdown curriculum stage reached so far
-    reach_hold        : int   = 0  # Field: integer reach hold value tracked by eval step line summary
-    align_hold        : int   = 0  # Field: integer align hold value tracked by eval step line summary
-    unlock_progress   : float = 0.0  # Field: floating-point unlock progress value used by eval step line summary
-    drop_axis_deg     : float = 0.0  # Field: floating-point drop axis deg value used by eval step line summary
-    yaw_axis_deg      : float = 0.0  # Field: floating-point yaw axis deg value used by eval step line summary
-    spread_axis_deg   : float = 0.0  # Field: floating-point spread axis deg value used by eval step line summary
+    global_step       : int  # training step associated with this record or action
+    eval_episode_idx  : int  # evaluation episode index for this record
+    eval_step         : int  # step count used for eval step scheduling or reporting
+    reward            : float  # reward tensor or scalar produced by the environment step
+    done              : bool  # done flag tensor or scalar returned by the environment step
+    success           : bool  # success flag or rate for the rollout/evaluation record
+    tip               : float = 0.0  # floating-point tip value used by eval step line summary
+    thumb_err         : float = 0.0  # floating-point thumb err value used by eval step line summary
+    idx_err           : float = 0.0  # floating-point idx err value used by eval step line summary
+    palm              : float = 0.0  # floating-point palm value used by eval step line summary
+    orient_deg        : float = 0.0  # floating-point orient deg value used by eval step line summary
+    phase1_ready      : bool  = False  # boolean/tensor readiness state for phase1
+    align_face        : float = 0.0  # block face selected for alignment scoring
+    align_angle       : float = 0.0  # alignment angle value used by topdown/contact metrics
+    opposed_face      : float = 0.0  # block face opposite the active contact/alignment face
+    contact           : float = 0.0  # floating-point contact value used by eval step line summary
+    strict_contact    : float = 0.0  # floating-point strict contact value used by eval step line summary
+    both_contact      : float = 0.0  # floating-point both contact value used by eval step line summary
+    any_contact       : float = 0.0  # floating-point any contact value used by eval step line summary
+    hand_contact      : float = 0.0  # floating-point hand contact value used by eval step line summary
+    thumb_contact     : float = 0.0  # contact strength observed at the thumb side
+    index_contact     : float = 0.0  # contact strength observed at the index-finger side
+    curl              : float = 0.0  # floating-point curl value used by eval step line summary
+    lift              : float = 0.0  # floating-point lift value used by eval step line summary
+    hand_force        : float = 0.0  # aggregate hand/contact force used for diagnostics or gates
+    block_disp        : float = 0.0  # block displacement value used by metrics or summaries
+    thumb_to_block    : float = 0.0  # floating-point thumb to block value used by eval step line summary
+    index_to_block    : float = 0.0  # floating-point index to block value used by eval step line summary
+    shell_drift       : bool  = False  # boolean value indicating the shell drift state for eval step line summary
+    off_table         : bool  = False  # flag indicating that the block left the table/work surface
+    block_drift       : bool  = False  # measured block drift used by diagnostics or success checks
+    topdown_stage     : int   = -1  # current topdown curriculum stage per environment
+    best_topdown_stage: int   = -1  # highest topdown curriculum stage reached so far
+    reach_hold        : int   = 0  # integer reach hold value tracked by eval step line summary
+    align_hold        : int   = 0  # integer align hold value tracked by eval step line summary
+    unlock_progress   : float = 0.0  # floating-point unlock progress value used by eval step line summary
+    drop_axis_deg     : float = 0.0  # floating-point drop axis deg value used by eval step line summary
+    yaw_axis_deg      : float = 0.0  # floating-point yaw axis deg value used by eval step line summary
+    spread_axis_deg   : float = 0.0  # floating-point spread axis deg value used by eval step line summary
 
 
 def _eval_step_prefix(summary: EvalStepLineSummary) -> str:

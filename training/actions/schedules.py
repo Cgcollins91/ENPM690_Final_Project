@@ -69,17 +69,17 @@ def policy_assist_schedule(
 class PolicyAssistScheduleConfig:
     """Teacher-assist schedule knobs for global arm and finger mixes"""
 
-    start_steps       : int  # Field: step count used for start steps scheduling or reporting
-    peak              : float  # Field: floating-point peak value used by policy assist schedule config
-    floor             : float  # Field: floating-point floor value used by policy assist schedule config
-    decay_steps       : int  # Field: step count used for decay steps scheduling or reporting
-    decay_start_steps : int   = -1  # Field: step count used for decay start steps scheduling or reporting
-    arm_peak          : float = -1.0  # Field: floating-point arm peak value used by policy assist schedule config
-    arm_floor         : float = -1.0  # Field: floating-point arm floor value used by policy assist schedule config
-    arm_decay_steps   : int   = -1  # Field: step count used for arm decay steps scheduling or reporting
-    finger_peak       : float = -1.0  # Field: floating-point finger peak value used by policy assist schedule config
-    finger_floor      : float = -1.0  # Field: floating-point finger floor value used by policy assist schedule config
-    finger_decay_steps: int   = -1  # Field: step count used for finger decay steps scheduling or reporting
+    start_steps       : int  # step count used for start steps scheduling or reporting
+    peak              : float  # floating-point peak value used by policy assist schedule config
+    floor             : float  # floating-point floor value used by policy assist schedule config
+    decay_steps       : int  # step count used for decay steps scheduling or reporting
+    decay_start_steps : int   = -1  # step count used for decay start steps scheduling or reporting
+    arm_peak          : float = -1.0  # floating-point arm peak value used by policy assist schedule config
+    arm_floor         : float = -1.0  # floating-point arm floor value used by policy assist schedule config
+    arm_decay_steps   : int   = -1  # step count used for arm decay steps scheduling or reporting
+    finger_peak       : float = -1.0  # floating-point finger peak value used by policy assist schedule config
+    finger_floor      : float = -1.0  # floating-point finger floor value used by policy assist schedule config
+    finger_decay_steps: int   = -1  # step count used for finger decay steps scheduling or reporting
 
 
 def global_policy_assist_mix(global_step: int, config: PolicyAssistScheduleConfig) -> float:

@@ -30,9 +30,9 @@ from .runtime import SUPPORTED_TOPDOWN_TASK
 class TrainerPaths:
     """Filesystem paths used by one training run"""
 
-    checkpoint_path: str  # Field: checkpoint file path used for load/save operations
-    log_jsonl      : str  # Field: JSONL log path or enablement flag for structured logging
-    tensorboard_dir: str | None = None  # Field: filesystem location for tensorboard dir
+    checkpoint_path: str  # checkpoint file path used for load/save operations
+    log_jsonl      : str  # JSONL log path or enablement flag for structured logging
+    tensorboard_dir: str | None = None  # filesystem location for tensorboard dir
 
     @property
     def checkpoint_dir(self) -> str:
@@ -44,38 +44,38 @@ class TrainerPaths:
 class TrainerDimensions:
     """Resolved observation and action dimensions"""
 
-    obs_dim        : int  # Field: width of the policy observation vector
-    action_dim     : int  # Field: width of the policy action vector
-    full_action_dim: int  # Field: integer full action dim value tracked by trainer dimensions
-    priv_obs_dim   : int = 0  # Field: width of the privileged observation vector
+    obs_dim        : int  # width of the policy observation vector
+    action_dim     : int  # width of the policy action vector
+    full_action_dim: int  # integer full action dim value tracked by trainer dimensions
+    priv_obs_dim   : int = 0  # width of the privileged observation vector
 
 
 @dataclass(frozen=True)
 class TrainerActionContext:
     """Resolved action specs and controller mode"""
 
-    arm_controller    : str                # Field: string arm controller value used by trainer action context
-    finger_action_mode: str                # Field: configured interpretation of finger action columns
-    finger_delta_scale: float              # Field: scale applied to finger delta action columns
-    policy_action_spec: ReducedActionSpec  # Field: action layout spec expected by the policy output
-    env_action_spec   : ReducedActionSpec  # Field: action layout spec expected by the environment
+    arm_controller    : str                # string arm controller value used by trainer action context
+    finger_action_mode: str                # configured interpretation of finger action columns
+    finger_delta_scale: float              # scale applied to finger delta action columns
+    policy_action_spec: ReducedActionSpec  # action layout spec expected by the policy output
+    env_action_spec   : ReducedActionSpec  # action layout spec expected by the environment
 
 
 @dataclass(frozen=True)
 class TrainerRuntimeContext:
     """Import-safe runtime context for trainer modules"""
 
-    task              : str                     # Field: string task value used by trainer runtime context
-    td3_backend       : str                     # Field: string td3 backend value used by trainer runtime context
-    seed              : int                     # Field: integer seed value tracked by trainer runtime context
-    device            : str                     # Field: torch device where tensor fields should live
-    paths             : TrainerPaths            # Field: filesystem path for paths
-    dims              : TrainerDimensions       # Field: stores dims for trainer runtime context
-    action            : TrainerActionContext    # Field: environment action tensor selected for the step
-    obs_schema_version: int                                                 # Field: integer obs schema version value tracked by trainer runtime context
-    obs_keys          : tuple[str, ...]                                     # Field: ordered keys used to resolve obs values
-    env               : Mapping[str, str]    = field(default_factory=dict)  # Field: environment/backend object used by this runtime helper
-    args              : Mapping[str, object] = field(default_factory=dict)  # Field: parsed CLI/config arguments passed into this helper
+    task              : str                     # string task value used by trainer runtime context
+    td3_backend       : str                     # string td3 backend value used by trainer runtime context
+    seed              : int                     # integer seed value tracked by trainer runtime context
+    device            : str                     # torch device where tensor fields should live
+    paths             : TrainerPaths            # filesystem path for paths
+    dims              : TrainerDimensions       # stores dims for trainer runtime context
+    action            : TrainerActionContext    # environment action tensor selected for the step
+    obs_schema_version: int                                                 # integer obs schema version value tracked by trainer runtime context
+    obs_keys          : tuple[str, ...]                                     # ordered keys used to resolve obs values
+    env               : Mapping[str, str]    = field(default_factory=dict)  # environment/backend object used by this runtime helper
+    args              : Mapping[str, object] = field(default_factory=dict)  # parsed CLI/config arguments passed into this helper
 
     def validate_supported(self) -> None:
         """Raise if this context is outside the standalone trainer contract"""

@@ -38,13 +38,13 @@ PolicyTeacherFn = Callable[..., Any]
 class NativePhase1StartupResult:
     """Summary of native Phase 1 startup handling"""
 
-    requested             : bool                                 # Field: boolean value indicating the requested state for native phase1 startup result
-    skipped_ik            : bool                        = False  # Field: boolean value indicating the skipped ik state for native phase1 startup result
-    actor_copy_skipped    : bool                        = False  # Field: boolean value indicating the actor copy skipped state for native phase1 startup result
-    actor_copy_skip_reason: str | None                  = None   # Field: string actor copy skip reason value used by native phase1 startup result
-    actor_copy_applied    : Mapping[str, object] | None = None   # Field: string actor copy applied value used by native phase1 startup result
-    obs_stats_applied     : Mapping[str, object] | None = None   # Field: string obs stats applied value used by native phase1 startup result
-    policy_teacher        : Any                         = None   # Field: stores policy teacher for native phase1 startup result
+    requested             : bool                                 # boolean value indicating the requested state for native phase1 startup result
+    skipped_ik            : bool                        = False  # boolean value indicating the skipped ik state for native phase1 startup result
+    actor_copy_skipped    : bool                        = False  # boolean value indicating the actor copy skipped state for native phase1 startup result
+    actor_copy_skip_reason: str | None                  = None   # string actor copy skip reason value used by native phase1 startup result
+    actor_copy_applied    : Mapping[str, object] | None = None   # string actor copy applied value used by native phase1 startup result
+    obs_stats_applied     : Mapping[str, object] | None = None   # string obs stats applied value used by native phase1 startup result
+    policy_teacher        : Any                         = None   # stores policy teacher for native phase1 startup result
 
 
 def policy_arm_joint_names(context: TrainerRuntimeContext, *, finger_count: int = 7) -> tuple[str, ...]:

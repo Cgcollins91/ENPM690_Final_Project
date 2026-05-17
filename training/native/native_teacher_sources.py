@@ -46,21 +46,21 @@ ContactPartsFn = Callable[[object, torch.Tensor, torch.Tensor, int | torch.Tenso
 class NativeTeacherEnvSourceConfig:
     """Conventional env source names for native teacher hooks"""
 
-    mapped_indices_names  : tuple[str, ...] = ("mapped_indices", "_mapped_indices")  # Field: source names for mapped action-column indices
-    mapped_scales_names   : tuple[str, ...] = ("mapped_scales", "_mapped_scales")  # Field: source names for mapped action-column scales
-    stage_names           : tuple[str, ...] = ("_topdown_stage", "topdown_stage")  # Field: ordered names used to resolve stage attributes
-    closure_fraction_names: tuple[str, ...] = (  # Field: ordered names used to resolve closure fraction attributes
+    mapped_indices_names  : tuple[str, ...] = ("mapped_indices", "_mapped_indices")  # source names for mapped action-column indices
+    mapped_scales_names   : tuple[str, ...] = ("mapped_scales", "_mapped_scales")  # source names for mapped action-column scales
+    stage_names           : tuple[str, ...] = ("_topdown_stage", "topdown_stage")  # ordered names used to resolve stage attributes
+    closure_fraction_names: tuple[str, ...] = (  # ordered names used to resolve closure fraction attributes
         "_topdown_contact_teacher_closure_fraction",
         "topdown_contact_teacher_closure_fraction",
     )
-    contact_parts_names    : tuple[str, ...] = (                                       # Field: ordered names used to resolve contact parts attributes
+    contact_parts_names    : tuple[str, ...] = (                                       # ordered names used to resolve contact parts attributes
         "native_contact_teacher_parts",
         "topdown_contact_teacher_parts",
         "contact_teacher_parts_fn",
     )
-    episode_step_names: tuple[str, ...] = ("episode_length_buf", "episode_step")  # Field: ordered names used to resolve episode step attributes
-    num_arm           : int             = 6  # Field: number of arm action dimensions in the active layout
-    num_fingers       : int             = 7  # Field: number of finger action dimensions in the active layout
+    episode_step_names: tuple[str, ...] = ("episode_length_buf", "episode_step")  # ordered names used to resolve episode step attributes
+    num_arm           : int             = 6  # number of arm action dimensions in the active layout
+    num_fingers       : int             = 7  # number of finger action dimensions in the active layout
 
 
 def _find_value(owner: object, names: Sequence[str]) -> object | None:

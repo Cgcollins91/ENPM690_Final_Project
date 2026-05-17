@@ -30,7 +30,7 @@ from ..actions.action_gates import ActionGateConfig, topdown_xyz_preload_fractio
 from ..model.agent_factory import make_td3_agent
 from ..model.agents import TD3Config
 from ..model.upstream_fasttd3 import UpstreamFastTD3Config, make_upstream_fasttd3_agent
-from ..io.checkpoint_io import load_training_checkpoint
+from ..io.checkpoint_io import load_training_checkpoint, load_training_checkpoint_mmap
 from ..core.configs import RuntimeConfigBundle
 from ..core.context import TrainerRuntimeContext
 from ..state.replay import ReplayBuffer
@@ -51,35 +51,35 @@ CheckpointLoader = Callable[[str], Mapping[str, object]]
 class NativeComponentFactories:
     """Factories used to construct native trainer runtime objects"""
 
-    agent_factory         : AgentFactory                                     = make_td3_agent  # Field: stores agent factory for native component factories
-    replay_factory        : ReplayFactory                                    = ReplayBuffer  # Field: stores replay factory for native component factories
-    checkpoint_loader     : CheckpointLoader                                 = load_training_checkpoint  # Field: integer checkpoint loader value tracked by native component factories
-    summary_writer_cls    : type | None                                      = None  # Field: stores summary writer cls for native component factories
-    upstream_agent_factory: Callable[[int, int, object, int], object] | None = None  # Field: callback used for the upstream agent factory operation
+    agent_factory         : AgentFactory                                     = make_td3_agent  # stores agent factory for native component factories
+    replay_factory        : ReplayFactory                                    = ReplayBuffer  # stores replay factory for native component factories
+    checkpoint_loader     : CheckpointLoader                                 = load_training_checkpoint  # integer checkpoint loader value tracked by native component factories
+    summary_writer_cls    : type | None                                      = None  # stores summary writer cls for native component factories
+    upstream_agent_factory: Callable[[int, int, object, int], object] | None = None  # callback used for the upstream agent factory operation
 
 
 @dataclass(frozen=True)
 class NativeStartupCheckpoints:
     """Checkpoint payloads requested by startup options"""
 
-    resume    : Mapping[str, object] | None = None  # Field: string resume value used by native startup checkpoints
-    actor_init: Mapping[str, object] | None = None  # Field: string actor init value used by native startup checkpoints
-    phase1    : Mapping[str, object] | None = None  # Field: string phase1 value used by native startup checkpoints
-    handoff   : Mapping[str, object] | None = None  # Field: checkpoint loaded for replay handoff reuse
-    play      : Mapping[str, object] | None = None  # Field: checkpoint loaded for play/eval mode
+    resume    : Mapping[str, object] | None = None  # string resume value used by native startup checkpoints
+    actor_init: Mapping[str, object] | None = None  # string actor init value used by native startup checkpoints
+    phase1    : Mapping[str, object] | None = None  # string phase1 value used by native startup checkpoints
+    handoff   : Mapping[str, object] | None = None  # checkpoint loaded for replay handoff reuse
+    play      : Mapping[str, object] | None = None  # checkpoint loaded for play/eval mode
 
 
 @dataclass(frozen=True)
 class NativeTrainingComponents:
     """Runtime components needed by the native training loop"""
 
-    agent             : object  # Field: stores agent for native training components
-    replay            : object  # Field: stores replay for native training components
-    tensorboard_plan  : TensorBoardPlan  # Field: stores tensorboard plan for native training components
-    tensorboard_writer: object | None  # Field: stores tensorboard writer for native training components
-    checkpoint_plan   : CheckpointStartupPlan  # Field: integer checkpoint plan value tracked by native training components
-    checkpoints       : NativeStartupCheckpoints  # Field: integer checkpoints value tracked by native training components
-    td3_config        : TD3Config  # Field: stores td3 config for native training components
+    agent             : object  # stores agent for native training components
+    replay            : object  # stores replay for native training components
+    tensorboard_plan  : TensorBoardPlan  # stores tensorboard plan for native training components
+    tensorboard_writer: object | None  # stores tensorboard writer for native training components
+    checkpoint_plan   : CheckpointStartupPlan  # integer checkpoint plan value tracked by native training components
+    checkpoints       : NativeStartupCheckpoints  # integer checkpoints value tracked by native training components
+    td3_config        : TD3Config  # stores td3 config for native training components
 
 
 def _bool_arg(context: TrainerRuntimeContext, name: str, default: bool = False) -> bool:
@@ -236,12 +236,19 @@ def load_requested_startup_checkpoints(
     def _load_optional(path: str) -> Mapping[str, object] | None:
         return loader(path) if path and os.path.isfile(path) else None
 
+    def _load_play(path: str) -> Mapping[str, object] | None:
+        if not path:
+            return None
+        if loader is load_training_checkpoint:
+            return load_training_checkpoint_mmap(path)
+        return loader(path)
+
     return NativeStartupCheckpoints(
         resume=_load(configs.checkpoint.resume_checkpoint),
         actor_init=_load(configs.checkpoint.actor_init_checkpoint),
         phase1=_load(configs.checkpoint.phase1_checkpoint),
         handoff=_load_optional(configs.checkpoint.handoff_checkpoint_path),
-        play=_load(configs.checkpoint.checkpoint_path) if configs.eval.play and not configs.eval.play_skip_checkpoint else None,
+        play=_load_play(configs.checkpoint.checkpoint_path) if configs.eval.play and not configs.eval.play_skip_checkpoint else None,
     )
 
 
@@ -300,8 +307,9 @@ def create_native_training_components(
         custom_config=td3_config,
         upstream_factory=upstream_agent_factory,
     )
+    replay_size = 0 if configs.eval.play else configs.counts.replay_size
     replay = factories.replay_factory(
-        configs.counts.replay_size,
+        replay_size,
         context.dims.obs_dim,
         context.dims.action_dim,
         context.dims.priv_obs_dim,

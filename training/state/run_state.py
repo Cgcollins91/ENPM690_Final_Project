@@ -29,14 +29,14 @@ from ..eval.eval_metrics import initial_best_eval_state
 class PrerollRuntimeState:
     """Mutable contact pre-roll counters and windows"""
 
-    active              : torch.Tensor  # Field: whether this configuration or runtime path is active
-    steps               : torch.Tensor  # Field: tensor containing steps values for batched env rows
-    release_steps_window: deque[int] = field(default_factory=lambda: deque(maxlen=1000))  # Field: integer release steps window value tracked by preroll runtime state
-    forced_window       : deque[int] = field(default_factory=lambda: deque(maxlen=1000))  # Field: integer forced window value tracked by preroll runtime state
-    release_total       : int        = 0  # Field: integer release total value tracked by preroll runtime state
-    timeout_total       : int        = 0  # Field: integer timeout total value tracked by preroll runtime state
-    next_summary        : int        = 1000  # Field: integer next summary value tracked by preroll runtime state
-    heartbeat_every     : int        = 25  # Field: integer heartbeat every value tracked by preroll runtime state
+    active              : torch.Tensor  # whether this configuration or runtime path is active
+    steps               : torch.Tensor  # tensor containing steps values for batched env rows
+    release_steps_window: deque[int] = field(default_factory=lambda: deque(maxlen=1000))  # integer release steps window value tracked by preroll runtime state
+    forced_window       : deque[int] = field(default_factory=lambda: deque(maxlen=1000))  # integer forced window value tracked by preroll runtime state
+    release_total       : int        = 0  # integer release total value tracked by preroll runtime state
+    timeout_total       : int        = 0  # integer timeout total value tracked by preroll runtime state
+    next_summary        : int        = 1000  # integer next summary value tracked by preroll runtime state
+    heartbeat_every     : int        = 25  # integer heartbeat every value tracked by preroll runtime state
 
     @property
     def active_count(self) -> int:
@@ -48,16 +48,16 @@ class PrerollRuntimeState:
 class TrainingLoopStartupState:
     """Mutable state initialized before the rollout loop"""
 
-    episode                          : EpisodeState  # Field: stores episode for training loop startup state
-    n_step_queues                    : list[deque]  # Field: ordered collection of n step queues entries for training loop startup state
-    preroll                          : PrerollRuntimeState  # Field: stores preroll for training loop startup state
-    best_eval_state                  : dict[str, float]  # Field: floating-point best eval state value used by training loop startup state
-    cadence                          : TrainingCadence  # Field: stores cadence for training loop startup state
-    transitions_collected            : int                      = 0  # Field: number of replay transitions collected so far
-    auto_handoff_loaded              : bool                     = False  # Field: boolean value indicating the auto handoff loaded state for training loop startup state
-    skip_training_after_handoff_reuse: bool                     = False  # Field: boolean value indicating the skip training after handoff reuse state for training loop startup state
-    last_update_info                 : dict[str, object] | None = None  # Field: string last update info value used by training loop startup state
-    last_actor_update_info           : dict[str, object] | None = None  # Field: string last actor update info value used by training loop startup state
+    episode                          : EpisodeState  # stores episode for training loop startup state
+    n_step_queues                    : list[deque]  # ordered collection of n step queues entries for training loop startup state
+    preroll                          : PrerollRuntimeState  # stores preroll for training loop startup state
+    best_eval_state                  : dict[str, float]  # floating-point best eval state value used by training loop startup state
+    cadence                          : TrainingCadence  # stores cadence for training loop startup state
+    transitions_collected            : int                      = 0  # number of replay transitions collected so far
+    auto_handoff_loaded              : bool                     = False  # boolean value indicating the auto handoff loaded state for training loop startup state
+    skip_training_after_handoff_reuse: bool                     = False  # boolean value indicating the skip training after handoff reuse state for training loop startup state
+    last_update_info                 : dict[str, object] | None = None  # string last update info value used by training loop startup state
+    last_actor_update_info           : dict[str, object] | None = None  # string last actor update info value used by training loop startup state
 
 
 def initial_n_step_queues(num_envs: int) -> list[deque]:

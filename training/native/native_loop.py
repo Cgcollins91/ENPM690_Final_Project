@@ -67,48 +67,48 @@ StopFn = Callable[
 class NativeLoopOptions:
     """Runtime loop switches that are independent of Isaac objects"""
 
-    eval_every                    : int | None = None  # Field: integer eval every value tracked by native loop options
-    max_outer_steps               : int | None = None  # Field: step count used for max outer steps scheduling or reporting
-    legacy_contact_preroll_enabled: bool       = False  # Field: boolean state indicating whether legacy contact preroll is enabled
-    topdown_preroll_enabled       : bool       = False  # Field: boolean state indicating whether topdown preroll is enabled
+    eval_every                    : int | None = None  # integer eval every value tracked by native loop options
+    max_outer_steps               : int | None = None  # step count used for max outer steps scheduling or reporting
+    legacy_contact_preroll_enabled: bool       = False  # boolean state indicating whether legacy contact preroll is enabled
+    topdown_preroll_enabled       : bool       = False  # boolean state indicating whether topdown preroll is enabled
 
 
 @dataclass(frozen=True)
 class NativeLoopStepBatch:
     """Result of one vectorized env step collection"""
 
-    num_added                : int  # Field: count of added values
-    replay_size              : int  # Field: configured or observed replay-buffer size
-    done_flags               : torch.Tensor  # Field: per-env done flags returned by the environment step
-    active_env_mask          : torch.Tensor  # Field: mask selecting env rows that are still active
-    existing_checkpoint_names: tuple[str, ...] = ()  # Field: ordered names used to resolve existing checkpoint attributes
+    num_added                : int  # count of added values
+    replay_size              : int  # configured or observed replay-buffer size
+    done_flags               : torch.Tensor  # per-env done flags returned by the environment step
+    active_env_mask          : torch.Tensor  # mask selecting env rows that are still active
+    existing_checkpoint_names: tuple[str, ...] = ()  # ordered names used to resolve existing checkpoint attributes
 
 
 @dataclass(frozen=True)
 class NativeLoopCallbacks:
     """Callback surface for native loop side effects"""
 
-    collect_step : CollectStepFn  # Field: step count used for collect step scheduling or reporting
-    update_step  : UpdateFn | None = None  # Field: step count used for update step scheduling or reporting
-    on_step_plan : PlanFn | None   = None  # Field: stores on step plan for native loop callbacks
-    on_log       : PlanFn | None   = None  # Field: stores on log for native loop callbacks
-    on_eval      : PlanFn | None   = None  # Field: stores on eval for native loop callbacks
-    on_checkpoint: PlanFn | None   = None  # Field: stores on checkpoint for native loop callbacks
-    on_done_reset: PlanFn | None   = None  # Field: stores on done reset for native loop callbacks
-    should_stop  : StopFn | None   = None  # Field: stores should stop for native loop callbacks
+    collect_step : CollectStepFn  # step count used for collect step scheduling or reporting
+    update_step  : UpdateFn | None = None  # step count used for update step scheduling or reporting
+    on_step_plan : PlanFn | None   = None  # stores on step plan for native loop callbacks
+    on_log       : PlanFn | None   = None  # stores on log for native loop callbacks
+    on_eval      : PlanFn | None   = None  # stores on eval for native loop callbacks
+    on_checkpoint: PlanFn | None   = None  # stores on checkpoint for native loop callbacks
+    on_done_reset: PlanFn | None   = None  # stores on done reset for native loop callbacks
+    should_stop  : StopFn | None   = None  # stores should stop for native loop callbacks
 
 
 @dataclass(frozen=True)
 class NativeLoopRunSummary:
     """Summary from a native rollout loop pass"""
 
-    status               : str  # Field: string status value used by native loop run summary
-    global_step          : int  # Field: training step associated with this record or action
-    transitions_collected: int  # Field: number of replay transitions collected so far
-    outer_steps          : int  # Field: step count used for outer steps scheduling or reporting
-    update_steps         : int  # Field: step count used for update steps scheduling or reporting
-    eval_runs            : int  # Field: integer eval runs value tracked by native loop run summary
-    checkpoint_jobs      : int  # Field: integer checkpoint jobs value tracked by native loop run summary
+    status               : str  # string status value used by native loop run summary
+    global_step          : int  # training step associated with this record or action
+    transitions_collected: int  # number of replay transitions collected so far
+    outer_steps          : int  # step count used for outer steps scheduling or reporting
+    update_steps         : int  # step count used for update steps scheduling or reporting
+    eval_runs            : int  # integer eval runs value tracked by native loop run summary
+    checkpoint_jobs      : int  # integer checkpoint jobs value tracked by native loop run summary
 
     def as_result(self) -> TrainingRunResult:
         """Return runner-compatible result"""

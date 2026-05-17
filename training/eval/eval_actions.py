@@ -34,20 +34,20 @@ TeacherActionFn = Callable[[], torch.Tensor]
 class EvalActionDiagnostics:
     """Teacher comparison diagnostics for one eval action"""
 
-    actor_teacher_arm_mse   : float = math.nan  # Field: floating-point actor teacher arm mse value used by eval action diagnostics
-    actor_teacher_finger_mse: float = math.nan  # Field: floating-point actor teacher finger mse value used by eval action diagnostics
-    teacher_action_l2       : float = math.nan  # Field: floating-point teacher action l2 value used by eval action diagnostics
-    teacher_available       : bool  = False     # Field: whether teacher action data is available for this row
+    actor_teacher_arm_mse   : float = math.nan  # floating-point actor teacher arm mse value used by eval action diagnostics
+    actor_teacher_finger_mse: float = math.nan  # floating-point actor teacher finger mse value used by eval action diagnostics
+    teacher_action_l2       : float = math.nan  # floating-point teacher action l2 value used by eval action diagnostics
+    teacher_available       : bool  = False     # whether teacher action data is available for this row
 
 
 @dataclass(frozen=True)
 class EvalActionResult:
     """Policy and mixed action tensors for eval"""
 
-    policy_action : torch.Tensor  # Field: raw policy action before teacher or gate overrides
-    action        : torch.Tensor  # Field: environment action tensor selected for the step
-    teacher_action: torch.Tensor | None  # Field: teacher action tensor used for override or behavior cloning
-    diagnostics   : EvalActionDiagnostics  # Field: structured diagnostic values captured with the result
+    policy_action : torch.Tensor  # raw policy action before teacher or gate overrides
+    action        : torch.Tensor  # environment action tensor selected for the step
+    teacher_action: torch.Tensor | None  # teacher action tensor used for override or behavior cloning
+    diagnostics   : EvalActionDiagnostics  # structured diagnostic values captured with the result
 
 
 def clamp_eval_teacher_assist_mix(value: float) -> float:
@@ -157,12 +157,17 @@ def select_eval_action(
     policy_action = select_policy_action_fn(obs_tensor).clamp(-1.0, 1.0)
     policy_action = apply_action_processors(policy_action, policy_processors)
     teacher_action = None
+    teacher_required = clamp_eval_teacher_assist_mix(teacher_assist_mix) >= 1.0
     if teacher_action_fn is not None:
         try:
             teacher_action = teacher_action_fn().clamp(-1.0, 1.0)
             teacher_action = apply_action_processors(teacher_action, teacher_processors)
-        except Exception:
+        except Exception as exc:
+            if teacher_required:
+                raise RuntimeError("eval teacher action failed while teacher assist mix is 1.0") from exc
             teacher_action = None
+    elif teacher_required:
+        raise RuntimeError("eval teacher assist mix is 1.0, but no teacher_action_fn is installed")
     diagnostics = eval_action_diagnostics(
         policy_action,
         teacher_action,

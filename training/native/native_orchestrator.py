@@ -38,12 +38,12 @@ FinalizeFn = Callable[[TrainerRuntimeContext, RuntimeConfigBundle, NativeTrainer
 class NativeTrainingAssembly:
     """Native trainer pieces that can replace the subprocess backend later"""
 
-    loop_callbacks       : NativeLoopCallbacks  # Field: stores loop callbacks for native training assembly
-    startup_options      : NativeStartupOptions   = NativeStartupOptions()  # Field: stores startup options for native training assembly
-    loop_options         : NativeLoopOptions      = NativeLoopOptions()  # Field: stores loop options for native training assembly
-    component_fn         : ComponentFn | None     = None  # Field: callback used for the component fn operation
-    checkpoint_startup_fn: StartupResultFn | None = None  # Field: callback used for the checkpoint startup fn operation
-    phase1_startup_fn    : StartupResultFn | None = None  # Field: callback used for the phase1 startup fn operation
+    loop_callbacks       : NativeLoopCallbacks  # stores loop callbacks for native training assembly
+    startup_options      : NativeStartupOptions   = NativeStartupOptions()  # stores startup options for native training assembly
+    loop_options         : NativeLoopOptions      = NativeLoopOptions()  # stores loop options for native training assembly
+    component_fn         : ComponentFn | None     = None  # callback used for the component fn operation
+    checkpoint_startup_fn: StartupResultFn | None = None  # callback used for the checkpoint startup fn operation
+    phase1_startup_fn    : StartupResultFn | None = None  # callback used for the phase1 startup fn operation
 
 
 def _env_attr_int(env: Any, name: str, default: int | None = None) -> int | None:

@@ -31,12 +31,12 @@ SamplePrerollMaskFn = Callable[[torch.Tensor], torch.Tensor]
 class DoneEpisodeResetPlan:
     """Done rows and active done rows for reset bookkeeping"""
 
-    done_ids                      : torch.Tensor  # Field: tensor containing done ids values for batched env rows
-    active_done_ids               : torch.Tensor  # Field: tensor containing active done ids values for batched env rows
-    legacy_contact_preroll_enabled: bool  # Field: boolean state indicating whether legacy contact preroll is enabled
-    topdown_preroll_enabled       : bool  # Field: boolean state indicating whether topdown preroll is enabled
-    env0_done                     : bool = False  # Field: boolean value indicating the env0 done state for done episode reset plan
-    env0_active                   : bool = False  # Field: boolean state indicating whether env0 is active
+    done_ids                      : torch.Tensor  # tensor containing done ids values for batched env rows
+    active_done_ids               : torch.Tensor  # tensor containing active done ids values for batched env rows
+    legacy_contact_preroll_enabled: bool  # boolean state indicating whether legacy contact preroll is enabled
+    topdown_preroll_enabled       : bool  # boolean state indicating whether topdown preroll is enabled
+    env0_done                     : bool = False  # boolean value indicating the env0 done state for done episode reset plan
+    env0_active                   : bool = False  # boolean state indicating whether env0 is active
 
     @property
     def has_done(self) -> bool:

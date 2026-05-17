@@ -24,12 +24,12 @@ import torch
 class TopdownContactTeacherParts:
     """Closed-loop topdown contact teacher action parts"""
 
-    finger_action   : torch.Tensor  # Field: tensor containing finger action values for batched env rows
-    closure_fraction: torch.Tensor  # Field: normalized finger-closure progress fraction
-    descent         : torch.Tensor  # Field: tensor containing descent values for batched env rows
-    xy_offset       : torch.Tensor  # Field: tensor containing xy offset values for batched env rows
-    inward          : torch.Tensor  # Field: tensor containing inward values for batched env rows
-    tip_servo       : torch.Tensor  # Field: tensor containing tip servo values for batched env rows
+    finger_action   : torch.Tensor  # tensor containing finger action values for batched env rows
+    closure_fraction: torch.Tensor  # normalized finger-closure progress fraction
+    descent         : torch.Tensor  # tensor containing descent values for batched env rows
+    xy_offset       : torch.Tensor  # tensor containing xy offset values for batched env rows
+    inward          : torch.Tensor  # tensor containing inward values for batched env rows
+    tip_servo       : torch.Tensor  # tensor containing tip servo values for batched env rows
 
 
 def topdown_contact_teacher_parts_from_tuple(

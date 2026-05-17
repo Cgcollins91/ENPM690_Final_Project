@@ -20,31 +20,31 @@ from dataclasses import dataclass
 class ProgressLineSummary:
     """Scalar fields printed on periodic training progress lines"""
 
-    global_step       : int  # Field: training step associated with this record or action
-    episode_idx       : int  # Field: training episode index associated with this record
-    episode_step      : int  # Field: per-env step count inside the current episode
-    phase_name        : str  # Field: string phase name value used by progress line summary
-    action_source     : str  # Field: string action source value used by progress line summary
-    reward            : float  # Field: reward tensor or scalar produced by the environment step
-    tip               : float  # Field: floating-point tip value used by progress line summary
-    palm              : float  # Field: floating-point palm value used by progress line summary
-    palm_height_error : float  # Field: floating-point palm height error value used by progress line summary
-    orient_deg        : float  # Field: floating-point orient deg value used by progress line summary
-    thumb_err         : float  # Field: floating-point thumb err value used by progress line summary
-    idx_err           : float  # Field: floating-point idx err value used by progress line summary
-    thumb_target_delta: tuple[float, float, float]  # Field: floating-point thumb target delta value used by progress line summary
-    index_target_delta: tuple[float, float, float]  # Field: floating-point index target delta value used by progress line summary
-    done_envs         : int  # Field: integer done envs value tracked by progress line summary
-    geometry_frame    : str  # Field: string geometry frame value used by progress line summary
-    replay_size       : int  # Field: configured or observed replay-buffer size
-    assist_mix        : float  # Field: floating-point assist mix value used by progress line summary
-    assist_arm_mix    : float  # Field: floating-point assist arm mix value used by progress line summary
-    assist_finger_mix : float  # Field: floating-point assist finger mix value used by progress line summary
-    progress_bits     : str = ""  # Field: string progress bits value used by progress line summary
-    stage_bits        : str = ""  # Field: string stage bits value used by progress line summary
-    done_bits         : str = ""  # Field: string done bits value used by progress line summary
-    update_bits       : str = ""  # Field: string update bits value used by progress line summary
-    reward_term_bits  : str = ""  # Field: string reward term bits value used by progress line summary
+    global_step       : int  # training step associated with this record or action
+    episode_idx       : int  # training episode index associated with this record
+    episode_step      : int  # per-env step count inside the current episode
+    phase_name        : str  # string phase name value used by progress line summary
+    action_source     : str  # string action source value used by progress line summary
+    reward            : float  # reward tensor or scalar produced by the environment step
+    tip               : float  # floating-point tip value used by progress line summary
+    palm              : float  # floating-point palm value used by progress line summary
+    palm_height_error : float  # floating-point palm height error value used by progress line summary
+    orient_deg        : float  # floating-point orient deg value used by progress line summary
+    thumb_err         : float  # floating-point thumb err value used by progress line summary
+    idx_err           : float  # floating-point idx err value used by progress line summary
+    thumb_target_delta: tuple[float, float, float]  # floating-point thumb target delta value used by progress line summary
+    index_target_delta: tuple[float, float, float]  # floating-point index target delta value used by progress line summary
+    done_envs         : int  # integer done envs value tracked by progress line summary
+    geometry_frame    : str  # string geometry frame value used by progress line summary
+    replay_size       : int  # configured or observed replay-buffer size
+    assist_mix        : float  # floating-point assist mix value used by progress line summary
+    assist_arm_mix    : float  # floating-point assist arm mix value used by progress line summary
+    assist_finger_mix : float  # floating-point assist finger mix value used by progress line summary
+    progress_bits     : str = ""  # string progress bits value used by progress line summary
+    stage_bits        : str = ""  # string stage bits value used by progress line summary
+    done_bits         : str = ""  # string done bits value used by progress line summary
+    update_bits       : str = ""  # string update bits value used by progress line summary
+    reward_term_bits  : str = ""  # string reward term bits value used by progress line summary
 
 
 def _parse_key_value_bits(*bit_strings: str) -> dict[str, str]:

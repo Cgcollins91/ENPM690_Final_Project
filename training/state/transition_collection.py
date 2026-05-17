@@ -33,9 +33,9 @@ TEACHER_TRANSITION_SOURCES = (
 class TransitionCollectionResult:
     """Rows appended to n-step queues"""
 
-    appended_env_ids: tuple[int, ...]  # Field: integer appended env ids value tracked by transition collection result
-    skipped_env_ids : tuple[int, ...]  # Field: integer skipped env ids value tracked by transition collection result
-    is_teacher_value: float  # Field: floating-point is teacher value value used by transition collection result
+    appended_env_ids: tuple[int, ...]  # integer appended env ids value tracked by transition collection result
+    skipped_env_ids : tuple[int, ...]  # integer skipped env ids value tracked by transition collection result
+    is_teacher_value: float  # floating-point is teacher value value used by transition collection result
 
     @property
     def appended_count(self) -> int:

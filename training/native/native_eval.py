@@ -46,51 +46,51 @@ EvalStepMetricsFn = Callable[[EvalEpisodeState, EvalStepMasks, int], None]
 class NativeEvalTerminalFlags:
     """Per-env eval terminal condition flags beyond env done"""
 
-    success            : torch.Tensor  # Field: success flag or rate for the rollout/evaluation record
-    off_table          : torch.Tensor  # Field: flag indicating that the block left the table/work surface
-    phase15_shell_drift: torch.Tensor  # Field: tensor containing phase15 shell drift values for batched env rows
-    block_drift        : torch.Tensor  # Field: measured block drift used by diagnostics or success checks
+    success            : torch.Tensor  # success flag or rate for the rollout/evaluation record
+    off_table          : torch.Tensor  # flag indicating that the block left the table/work surface
+    phase15_shell_drift: torch.Tensor  # tensor containing phase15 shell drift values for batched env rows
+    block_drift        : torch.Tensor  # measured block drift used by diagnostics or success checks
 
 
 @dataclass(frozen=True)
 class NativeEvalConfig:
     """Static settings for one native eval episode"""
 
-    obs_keys          : Sequence[str]  # Field: ordered keys used to resolve obs values
-    global_step       : int  # Field: training step associated with this record or action
-    eval_episode_idx  : int  # Field: evaluation episode index for this record
-    max_steps         : int  # Field: step count used for max steps scheduling or reporting
-    teacher_assist_mix: float                                = 0.0  # Field: floating-point teacher assist mix value used by native eval config
-    num_arm           : int                                  = 0  # Field: number of arm action dimensions in the active layout
-    num_fingers       : int                                  = 0  # Field: number of finger action dimensions in the active layout
-    action_assembly   : NativeEnvActionAssemblyConfig | None = None  # Field: stores action assembly for native eval config
+    obs_keys          : Sequence[str]  # ordered keys used to resolve obs values
+    global_step       : int  # training step associated with this record or action
+    eval_episode_idx  : int  # evaluation episode index for this record
+    max_steps         : int  # step count used for max steps scheduling or reporting
+    teacher_assist_mix: float                                = 0.0  # floating-point teacher assist mix value used by native eval config
+    num_arm           : int                                  = 0  # number of arm action dimensions in the active layout
+    num_fingers       : int                                  = 0  # number of finger action dimensions in the active layout
+    action_assembly   : NativeEnvActionAssemblyConfig | None = None  # stores action assembly for native eval config
 
 
 @dataclass(frozen=True)
 class NativeEvalCallbacks:
     """Injected eval rollout side effects"""
 
-    reset_fn               : EnvResetFn  # Field: callback used for the reset fn operation
-    env_step_fn            : EnvStepFn  # Field: callback used for the env step fn operation
-    select_policy_action_fn: PolicyActionFn  # Field: callback used for the select policy action fn operation
-    teacher_action_fn      : TeacherActionFn | None                        = None  # Field: callback used for the teacher action fn operation
-    terminal_flags_fn      : TerminalFlagFn | None                         = None  # Field: callback used for the terminal flags fn operation
-    env_values_fn          : EvalEnvValuesFn | None                        = None  # Field: callback used for the env values fn operation
-    step_metrics_fn        : EvalStepMetricsFn | None                      = None  # Field: callback used to collect per-step eval metrics
-    policy_processors      : Sequence[ActionProcessor]                     = ()  # Field: ordered collection of policy processors entries for native eval callbacks
-    teacher_processors     : Sequence[ActionProcessor]                     = ()  # Field: ordered collection of teacher processors entries for native eval callbacks
-    assemble_env_action_fn : Callable[[torch.Tensor], torch.Tensor] | None = None  # Field: callback used for the assemble env action fn operation
-    reset_cache_fn         : ResetCacheFn | None                           = None  # Field: callback used for the reset cache fn operation
+    reset_fn               : EnvResetFn  # callback used for the reset fn operation
+    env_step_fn            : EnvStepFn  # callback used for the env step fn operation
+    select_policy_action_fn: PolicyActionFn  # callback used for the select policy action fn operation
+    teacher_action_fn      : TeacherActionFn | None                        = None  # callback used for the teacher action fn operation
+    terminal_flags_fn      : TerminalFlagFn | None                         = None  # callback used for the terminal flags fn operation
+    env_values_fn          : EvalEnvValuesFn | None                        = None  # callback used for the env values fn operation
+    step_metrics_fn        : EvalStepMetricsFn | None                      = None  # callback used to collect per-step eval metrics
+    policy_processors      : Sequence[ActionProcessor]                     = ()  # ordered collection of policy processors entries for native eval callbacks
+    teacher_processors     : Sequence[ActionProcessor]                     = ()  # ordered collection of teacher processors entries for native eval callbacks
+    assemble_env_action_fn : Callable[[torch.Tensor], torch.Tensor] | None = None  # callback used for the assemble env action fn operation
+    reset_cache_fn         : ResetCacheFn | None                           = None  # callback used for the reset cache fn operation
 
 
 @dataclass(frozen=True)
 class NativeEvalResult:
     """Result from one native eval episode rollout"""
 
-    summary    : dict[str, object]  # Field: string summary value used by native eval result
-    state      : EvalEpisodeState  # Field: stores state for native eval result
-    steps_taken: int  # Field: integer steps taken value tracked by native eval result
-    diagnostics: tuple[EvalActionDiagnostics, ...]  # Field: structured diagnostic values captured with the result
+    summary    : dict[str, object]  # string summary value used by native eval result
+    state      : EvalEpisodeState  # stores state for native eval result
+    steps_taken: int  # integer steps taken value tracked by native eval result
+    diagnostics: tuple[EvalActionDiagnostics, ...]  # structured diagnostic values captured with the result
 
 
 def _policy_obs(obs: Mapping[str, object]) -> Mapping[str, torch.Tensor]:

@@ -30,11 +30,11 @@ import torch
 class PocketSweepResult:
     """Best pocket-sweep joint proposal and score diagnostics"""
 
-    joint_pos_des: torch.Tensor  # Field: desired joint positions after the IK step and soft-limit clamp
-    delta_q      : torch.Tensor  # Field: per-joint IK increment applied to the current joint positions
-    score_before : torch.Tensor  # Field: tensor containing score before values for batched env rows
-    score_after  : torch.Tensor  # Field: tensor containing score after values for batched env rows
-    active       : torch.Tensor  # Field: whether this configuration or runtime path is active
+    joint_pos_des: torch.Tensor  # desired joint positions after the IK step and soft-limit clamp
+    delta_q      : torch.Tensor  # per-joint IK increment applied to the current joint positions
+    score_before : torch.Tensor  # tensor containing score before values for batched env rows
+    score_after  : torch.Tensor  # tensor containing score after values for batched env rows
+    active       : torch.Tensor  # whether this configuration or runtime path is active
 
 
 def pocket_sweep_score(

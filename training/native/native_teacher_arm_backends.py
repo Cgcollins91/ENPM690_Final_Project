@@ -61,7 +61,7 @@ LegacyArmFn = Callable[..., torch.Tensor]
 class CallableTeacherArmBackend:
     """TeacherArmBackend that delegates to a request-shaped callable"""
 
-    compute_fn : RequestArmFn  # Field: callback used for the compute fn operation
+    compute_fn : RequestArmFn  # callback used for the compute fn operation
 
     def compute_teacher_arm_reduced(self, request: TeacherArmRequest) -> torch.Tensor:
         """Return arm action from the injected callable"""
@@ -72,7 +72,7 @@ class CallableTeacherArmBackend:
 class LegacyCallableTeacherArmBackend:
     """TeacherArmBackend for legacy env mapped_indices mapped_scales callables"""
 
-    compute_fn : LegacyArmFn  # Field: callback used for the compute fn operation
+    compute_fn : LegacyArmFn  # callback used for the compute fn operation
 
     def compute_teacher_arm_reduced(self, request: TeacherArmRequest) -> torch.Tensor:
         """Return arm action from a legacy-shaped callable"""
@@ -93,13 +93,13 @@ class LegacyCallableTeacherArmBackend:
 class EnvMethodTeacherArmBackend:
     """TeacherArmBackend that dispatches to an env-owned method"""
 
-    env         : object  # Field: environment/backend object used by this runtime helper
-    method_names: tuple[str, ...] = (  # Field: ordered names used to resolve method attributes
+    env         : object  # environment/backend object used by this runtime helper
+    method_names: tuple[str, ...] = (  # ordered names used to resolve method attributes
         "native_teacher_arm_reduced",
         "compute_native_teacher_arm_reduced",
         "compute_teacher_arm_reduced",
     )
-    legacy_call  : bool = False         # Field: boolean value indicating the legacy call state for env method teacher arm backend
+    legacy_call  : bool = False         # boolean value indicating the legacy call state for env method teacher arm backend
 
     def _method(self) -> Callable[..., torch.Tensor]:
         for name in self.method_names:
@@ -734,10 +734,10 @@ def ensure_teacher_arm_action(
 class ValidatingTeacherArmBackend:
     """TeacherArmBackend wrapper that validates output shape"""
 
-    backend : object  # Field: stores backend for validating teacher arm backend
-    num_envs: int  # Field: number of parallel environment rows represented
-    num_arm : int  # Field: number of arm action dimensions in the active layout
-    device  : torch.device | str  # Field: torch device where tensor fields should live
+    backend : object  # stores backend for validating teacher arm backend
+    num_envs: int  # number of parallel environment rows represented
+    num_arm : int  # number of arm action dimensions in the active layout
+    device  : torch.device | str  # torch device where tensor fields should live
 
     def compute_teacher_arm_reduced(self, request: TeacherArmRequest) -> torch.Tensor:
         """Return validated arm action from an inner backend"""

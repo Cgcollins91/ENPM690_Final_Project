@@ -21,6 +21,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 import importlib
 import importlib.util
+import inspect
 import math
 import os
 import time
@@ -65,26 +66,55 @@ def _timing_mark(enabled: bool, train_step: int, label: str, start: float) -> fl
 class UpstreamFastTD3Classes:
     """Actor and critic classes loaded from upstream FastTD3"""
 
-    actor_cls : type  # Field: stores actor cls for upstream fast t d3 classes
-    critic_cls: type  # Field: stores critic cls for upstream fast t d3 classes
+    actor_cls : type  # stores actor cls for upstream fast t d3 classes
+    critic_cls: type  # stores critic cls for upstream fast t d3 classes
 
 
 @dataclass(frozen=True)
 class UpstreamFastTD3Config:
     """Constructor/runtime settings for the upstream FastTD3 backend"""
 
-    init_scale       : float = 0.01  # Field: actor init scale used by upstream FastTD3
-    actor_hidden_dim : int   = 512  # Field: actor hidden width used by upstream FastTD3
-    critic_hidden_dim: int   = 1024  # Field: critic hidden width used by upstream FastTD3
-    std_min          : float = 0.001  # Field: minimum actor std used by upstream FastTD3
-    std_max          : float = 0.4  # Field: maximum actor std used by upstream FastTD3
-    num_atoms        : int   = 51  # Field: critic categorical support atom count
-    v_min            : float = -5.0  # Field: critic categorical support minimum
-    v_max            : float = 0.0  # Field: critic categorical support maximum
-    weight_decay     : float = 0.0  # Field: AdamW weight decay for upstream backend
-    use_cdq          : bool  = True  # Field: use clipped double-Q distribution selection
-    num_envs         : int   = 1  # Field: environment count for upstream actor buffers
-    fasttd3_repo     : str   = ""  # Field: optional upstream FastTD3 checkout path
+    init_scale       : float = 0.01     # actor init scale used by upstream FastTD3
+    actor_hidden_dim : int   = 512      # actor hidden width used by upstream FastTD3
+    critic_hidden_dim: int   = 1024     # critic hidden width used by upstream FastTD3
+    std_min          : float = 0.001    # minimum actor std used by upstream FastTD3
+    std_max          : float = 0.4      # maximum actor std used by upstream FastTD3
+    num_atoms        : int   = 51       # critic categorical support atom count
+    v_min            : float = -5.0     # critic categorical support minimum
+    v_max            : float = 0.0      # critic categorical support maximum
+    weight_decay     : float = 0.0      # AdamW weight decay for upstream backend
+    use_cdq          : bool  = True     # use clipped double-Q distribution selection
+    num_envs         : int   = 1        # environment count for upstream actor buffers
+    fasttd3_repo     : str   = ""       # optional upstream FastTD3 checkout path
+    sim_type         : str   = ""       # simulator feature encoder mode used by upstream FastTD3
+    sim_dimension    : int   = 64       # simulator feature width used by upstream FastTD3
+    seq_len          : int   = 8        # simulator sequence length used by upstream FastTD3
+
+
+def _ensure_expected_fasttd3_api(classes: UpstreamFastTD3Classes, *, source: str) -> None:
+    """
+    Reject FastTD3 packages other than the checkpoint-compatible GitHub API shape
+    """
+    try:
+        actor_params = inspect.signature(classes.actor_cls.__init__).parameters
+        critic_params = inspect.signature(classes.critic_cls.__init__).parameters
+    except (TypeError, ValueError) as exc:
+        raise RuntimeError(f"could not inspect FastTD3 API from {source}") from exc
+    actor_required = {"n_obs", "n_act", "num_envs", "init_scale", "hidden_dim", "std_min", "std_max", "device"}
+    critic_required = {"n_obs", "n_act", "num_atoms", "v_min", "v_max", "hidden_dim", "device"}
+    simulator_params = {"sim_type", "sim_dimension", "seq_len"}
+    if (
+        not actor_required.issubset(actor_params)
+        or not critic_required.issubset(critic_params)
+        or simulator_params.intersection(actor_params)
+        or simulator_params.intersection(critic_params)
+    ):
+        raise RuntimeError(
+            "unsupported FastTD3 API detected. This project expects the checkpoint-compatible GitHub API "
+            "from requirements.txt: "
+            "fast_td3 @ git+https://github.com/younggyoseo/FastTD3.git@7acc3a3c739d2beaae57386407acfb29ee3928fa. "
+            "Reinstall dependencies in the Isaac environment or set FASTTD3_REPO to that checkout."
+        )
 
 
 def fasttd3_repo_module_path(fasttd3_repo: str) -> str:
@@ -114,7 +144,9 @@ def load_fasttd3_classes_from_repo(fasttd3_repo: str) -> UpstreamFastTD3Classes:
         raise RuntimeError(f"could not load upstream FastTD3 module from {module_path}")
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
-    return UpstreamFastTD3Classes(actor_cls=module.Actor, critic_cls=module.Critic)
+    classes = UpstreamFastTD3Classes(actor_cls=module.Actor, critic_cls=module.Critic)
+    _ensure_expected_fasttd3_api(classes, source=module_path)
+    return classes
 
 
 def load_fasttd3_classes_from_environment() -> UpstreamFastTD3Classes:
@@ -128,7 +160,9 @@ def load_fasttd3_classes_from_environment() -> UpstreamFastTD3Classes:
             "`pip install git+https://github.com/younggyoseo/FastTD3.git`, "
             "or set FASTTD3_REPO=/path/to/FastTD3."
         ) from exc
-    return UpstreamFastTD3Classes(actor_cls=module.Actor, critic_cls=module.Critic)
+    classes = UpstreamFastTD3Classes(actor_cls=module.Actor, critic_cls=module.Critic)
+    _ensure_expected_fasttd3_api(classes, source="installed fast_td3 package")
+    return classes
 
 
 def load_upstream_fasttd3_classes(fasttd3_repo: str = "") -> UpstreamFastTD3Classes:

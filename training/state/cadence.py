@@ -37,10 +37,10 @@ from pathlib import PurePath
 class CadenceState:
     """Next scheduled eval and checkpoint steps"""
 
-    next_eval_step              : int | None  # Field: step count used for next eval step scheduling or reporting
-    next_checkpoint_step        : int | None  # Field: step count used for next checkpoint step scheduling or reporting
-    next_rolling_checkpoint_step: int | None  # Field: step count used for next rolling checkpoint step scheduling or reporting
-    eval_every                  : int | None = None  # Field: effective interval controlling eval cadence
+    next_eval_step              : int | None  # step count used for next eval step scheduling or reporting
+    next_checkpoint_step        : int | None  # step count used for next checkpoint step scheduling or reporting
+    next_rolling_checkpoint_step: int | None  # step count used for next rolling checkpoint step scheduling or reporting
+    eval_every                  : int | None = None  # effective interval controlling eval cadence
 
 
 TrainingCadence = CadenceState

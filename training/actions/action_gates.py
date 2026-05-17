@@ -48,44 +48,44 @@ import torch
 class ActionGateConfig:
     """Configuration for import-safe action gating"""
 
-    num_arm                             : int  # Field: number of arm action dimensions in the active layout
-    num_fingers                         : int  # Field: number of finger action dimensions in the active layout
-    align_task                          : bool       = False  # Field: boolean value indicating the align task state for action gate config
-    contact_task                        : bool       = False  # Field: boolean value indicating the contact task state for action gate config
-    topdown_curriculum                  : bool       = True  # Field: boolean value indicating the topdown curriculum state for action gate config
-    contact_finger_close_cap            : float      = 0.70  # Field: floating-point contact finger close cap value used by action gate config
-    contact_unlock_obs_col              : int | None = None  # Field: integer contact unlock obs col value tracked by action gate config
-    curriculum_unlock_obs_col           : int | None = None  # Field: integer curriculum unlock obs col value tracked by action gate config
-    stage_one_hot_obs_col               : int | None = None  # Field: integer stage one hot obs col value tracked by action gate config
-    contact_unlock_gate_threshold       : float      = 0.5  # Field: threshold/tolerance used when evaluating contact unlock gate threshold
-    contact_unlock_gate_start           : float      = 0.20  # Field: floating-point contact unlock gate start value used by action gate config
-    mirror_middle_to_index              : bool       = False  # Field: index identifying the mirror middle to entry
-    three_finger_centering              : bool       = False  # Field: boolean value indicating the three finger centering state for action gate config
-    topdown_contact_teacher_middle_scale: float      = 1.0  # Field: multiplier applied to topdown contact teacher middle terms
-    finger_action_mode                  : str        = "absolute"  # Field: configured interpretation of finger action columns
-    finger_close_gate_mode              : str        = "center"  # Field: string finger close gate mode value used by action gate config
-    finger_xyz_preload_fraction         : float      = 0.20  # Field: floating-point finger xyz preload fraction value used by action gate config
+    num_arm                             : int  # number of arm action dimensions in the active layout
+    num_fingers                         : int  # number of finger action dimensions in the active layout
+    align_task                          : bool       = False  # boolean value indicating the align task state for action gate config
+    contact_task                        : bool       = False  # boolean value indicating the contact task state for action gate config
+    topdown_curriculum                  : bool       = True  # boolean value indicating the topdown curriculum state for action gate config
+    contact_finger_close_cap            : float      = 0.70  # floating-point contact finger close cap value used by action gate config
+    contact_unlock_obs_col              : int | None = None  # integer contact unlock obs col value tracked by action gate config
+    curriculum_unlock_obs_col           : int | None = None  # integer curriculum unlock obs col value tracked by action gate config
+    stage_one_hot_obs_col               : int | None = None  # integer stage one hot obs col value tracked by action gate config
+    contact_unlock_gate_threshold       : float      = 0.5  # threshold/tolerance used when evaluating contact unlock gate threshold
+    contact_unlock_gate_start           : float      = 0.20  # floating-point contact unlock gate start value used by action gate config
+    mirror_middle_to_index              : bool       = False  # index identifying the mirror middle to entry
+    three_finger_centering              : bool       = False  # boolean value indicating the three finger centering state for action gate config
+    topdown_contact_teacher_middle_scale: float      = 1.0  # multiplier applied to topdown contact teacher middle terms
+    finger_action_mode                  : str        = "absolute"  # configured interpretation of finger action columns
+    finger_close_gate_mode              : str        = "center"  # string finger close gate mode value used by action gate config
+    finger_xyz_preload_fraction         : float      = 0.20  # floating-point finger xyz preload fraction value used by action gate config
 
 
 @dataclass(frozen=True)
 class LiveFingerUnlockConfig:
     """Configuration for live curriculum finger unlock"""
 
-    contact_teacher                  : bool  = False  # Field: boolean value indicating the contact teacher state for live finger unlock config
-    contact_teacher_bypass_unlock    : bool  = False  # Field: boolean value indicating the contact teacher bypass unlock state for live finger unlock config
-    contact_teacher_start_fraction   : float = 0.0  # Field: floating-point contact teacher start fraction value used by live finger unlock config
-    contact_teacher_arm_hold_fallback: bool  = True  # Field: boolean value indicating the contact teacher arm hold fallback state for live finger unlock config
-    finger_unlock_requires_arm_hold  : bool  = False  # Field: boolean value indicating the finger unlock requires arm hold state for live finger unlock config
-    finger_unlock_requires_center    : bool  = False  # Field: boolean value indicating the finger unlock requires center state for live finger unlock config
+    contact_teacher                  : bool  = False  # boolean value indicating the contact teacher state for live finger unlock config
+    contact_teacher_bypass_unlock    : bool  = False  # boolean value indicating the contact teacher bypass unlock state for live finger unlock config
+    contact_teacher_start_fraction   : float = 0.0  # floating-point contact teacher start fraction value used by live finger unlock config
+    contact_teacher_arm_hold_fallback: bool  = True  # boolean value indicating the contact teacher arm hold fallback state for live finger unlock config
+    finger_unlock_requires_arm_hold  : bool  = False  # boolean value indicating the finger unlock requires arm hold state for live finger unlock config
+    finger_unlock_requires_center    : bool  = False  # boolean value indicating the finger unlock requires center state for live finger unlock config
 
 
 @dataclass(frozen=True)
 class LiveFingerUnlockResult:
     """Result of live curriculum finger unlock gating"""
 
-    action            : torch.Tensor  # Field: environment action tensor selected for the step
-    effective_progress: torch.Tensor | None  # Field: tensor containing effective progress values for batched env rows
-    arm_hold_gate     : torch.Tensor | None  # Field: tensor containing arm hold gate values for batched env rows
+    action            : torch.Tensor  # environment action tensor selected for the step
+    effective_progress: torch.Tensor | None  # tensor containing effective progress values for batched env rows
+    arm_hold_gate     : torch.Tensor | None  # tensor containing arm hold gate values for batched env rows
 
 
 def _bool_config_value(value: object, default: bool = False) -> bool:

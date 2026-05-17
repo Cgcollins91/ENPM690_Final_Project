@@ -50,81 +50,81 @@ ActionAssemblyFn = Callable[[torch.Tensor], torch.Tensor]
 class SizedReplayTarget(ReplayAddTarget, Protocol):
     """Replay target with a public size counter"""
 
-    size : int  # Field: integer size value tracked by sized replay target
+    size : int  # integer size value tracked by sized replay target
 
 
 @dataclass(frozen=True)
 class NativeEnvActionAssemblyConfig:
     """Action assembly inputs needed before env step"""
 
-    gate_config                    : ActionGateConfig  # Field: stores gate config for native env action assembly config
-    arm_controller                 : str  # Field: string arm controller value used by native env action assembly config
-    finger_action_mode             : str                     = "absolute"  # Field: configured interpretation of finger action columns
-    arm_reduced_action             : torch.Tensor | None     = None  # Field: tensor containing arm reduced action values for batched env rows
-    env                            : Any                     = None  # Field: environment/backend object used by this runtime helper
-    mapped_indices                 : torch.Tensor | None     = None  # Field: column indices used to map between action layouts
-    mapped_scales                  : torch.Tensor | None     = None  # Field: scales applied while mapping action columns
-    finger_delta_scale             : float                   = 0.05  # Field: scale applied to finger delta action columns
-    contact_finger_open_until_ready: ActionAssemblyFn | None = None  # Field: boolean/tensor readiness state for contact finger open until
-    align_open_hand_action         : ActionAssemblyFn | None = None  # Field: stores align open hand action for native env action assembly config
+    gate_config                    : ActionGateConfig  # stores gate config for native env action assembly config
+    arm_controller                 : str  # string arm controller value used by native env action assembly config
+    finger_action_mode             : str                     = "absolute"  # configured interpretation of finger action columns
+    arm_reduced_action             : torch.Tensor | None     = None  # tensor containing arm reduced action values for batched env rows
+    env                            : Any                     = None  # environment/backend object used by this runtime helper
+    mapped_indices                 : torch.Tensor | None     = None  # column indices used to map between action layouts
+    mapped_scales                  : torch.Tensor | None     = None  # scales applied while mapping action columns
+    finger_delta_scale             : float                   = 0.05  # scale applied to finger delta action columns
+    contact_finger_open_until_ready: ActionAssemblyFn | None = None  # boolean/tensor readiness state for contact finger open until
+    align_open_hand_action         : ActionAssemblyFn | None = None  # stores align open hand action for native env action assembly config
 
 
 @dataclass(frozen=True)
 class NativeEnvStepCallbacks:
     """Injected callbacks for one native env step"""
 
-    env_step_fn           : EnvStepFn  # Field: callback used for the env step fn operation
-    assemble_env_action_fn: ActionAssemblyFn | None = None  # Field: callback used for the assemble env action fn operation
+    env_step_fn           : EnvStepFn  # callback used for the env step fn operation
+    assemble_env_action_fn: ActionAssemblyFn | None = None  # callback used for the assemble env action fn operation
 
 
 @dataclass(frozen=True)
 class NativeEnvStepRequest:
     """Inputs for one vectorized native env step"""
 
-    obs                      : Mapping[str, object]  # Field: policy observation tensor or observation payload for this transition
-    obs_tensor               : torch.Tensor  # Field: policy observation tensor passed to the actor or replay path
-    priv_obs_tensor          : torch.Tensor | None  # Field: privileged observation tensor passed to critic-side logic
-    action_selection         : NativeActionSelection  # Field: stores action selection for native env step request
-    preroll_mask_before      : torch.Tensor  # Field: tensor containing preroll mask before values for batched env rows
-    action_source            : str  # Field: string action source value used by native env step request
-    replay                   : ReplayAddTarget  # Field: stores replay for native env step request
-    n_step_queues            : Sequence[deque]  # Field: ordered collection of n step queues entries for native env step request
-    obs_keys                 : Sequence[str]  # Field: ordered keys used to resolve obs values
-    gamma                    : float  # Field: discount factor used by TD3 updates
-    n_step                   : int  # Field: step count used for n step scheduling or reporting
-    privileged_critic        : bool                                 = False  # Field: boolean value indicating the privileged critic state for native env step request
-    active_env_mask          : torch.Tensor | None                  = None  # Field: mask selecting env rows that are still active
-    existing_checkpoint_names: tuple[str, ...]                      = ()  # Field: ordered names used to resolve existing checkpoint attributes
-    action_assembly          : NativeEnvActionAssemblyConfig | None = None  # Field: stores action assembly for native env step request
+    obs                      : Mapping[str, object]  # policy observation tensor or observation payload for this transition
+    obs_tensor               : torch.Tensor  # policy observation tensor passed to the actor or replay path
+    priv_obs_tensor          : torch.Tensor | None  # privileged observation tensor passed to critic-side logic
+    action_selection         : NativeActionSelection  # stores action selection for native env step request
+    preroll_mask_before      : torch.Tensor  # tensor containing preroll mask before values for batched env rows
+    action_source            : str  # string action source value used by native env step request
+    replay                   : ReplayAddTarget  # stores replay for native env step request
+    n_step_queues            : Sequence[deque]  # ordered collection of n step queues entries for native env step request
+    obs_keys                 : Sequence[str]  # ordered keys used to resolve obs values
+    gamma                    : float  # discount factor used by TD3 updates
+    n_step                   : int  # step count used for n step scheduling or reporting
+    privileged_critic        : bool                                 = False  # boolean value indicating the privileged critic state for native env step request
+    active_env_mask          : torch.Tensor | None                  = None  # mask selecting env rows that are still active
+    existing_checkpoint_names: tuple[str, ...]                      = ()  # ordered names used to resolve existing checkpoint attributes
+    action_assembly          : NativeEnvActionAssemblyConfig | None = None  # stores action assembly for native env step request
 
 
 @dataclass(frozen=True)
 class NativeEnvStepPayload:
     """Normalized result from env step"""
 
-    next_obs  : Mapping[str, object]  # Field: next policy observation tensor after the transition step
-    reward    : torch.Tensor  # Field: reward tensor or scalar produced by the environment step
-    terminated: torch.Tensor  # Field: tensor containing terminated values for batched env rows
-    timeout   : torch.Tensor  # Field: tensor containing timeout values for batched env rows
-    info      : object  # Field: auxiliary info mapping returned by the environment or backend
+    next_obs  : Mapping[str, object]  # next policy observation tensor after the transition step
+    reward    : torch.Tensor  # reward tensor or scalar produced by the environment step
+    terminated: torch.Tensor  # tensor containing terminated values for batched env rows
+    timeout   : torch.Tensor  # tensor containing timeout values for batched env rows
+    info      : object  # auxiliary info mapping returned by the environment or backend
 
 
 @dataclass(frozen=True)
 class NativeEnvStepResult:
     """Collected transition details for one env step"""
 
-    env_action          : torch.Tensor  # Field: tensor containing env action values for batched env rows
-    next_obs            : Mapping[str, object]  # Field: next policy observation tensor after the transition step
-    next_obs_tensor     : torch.Tensor  # Field: tensor containing next obs tensor values for batched env rows
-    next_priv_obs_tensor: torch.Tensor | None  # Field: tensor containing next priv obs tensor values for batched env rows
-    reward_tensor       : torch.Tensor  # Field: tensor containing reward tensor values for batched env rows
-    terminated_flags    : torch.Tensor  # Field: flag values describing terminated state for native env step result
-    timeout_flags       : torch.Tensor  # Field: per-env timeout flags returned by the environment step
-    terminal_next       : TerminalNextObservation  # Field: stores terminal next for native env step result
-    collection          : TransitionCollectionResult  # Field: stores collection for native env step result
-    ready_count         : int  # Field: count of ready values
-    inserted_count      : int  # Field: count of inserted values
-    batch               : NativeLoopStepBatch  # Field: stores batch for native env step result
+    env_action          : torch.Tensor  # tensor containing env action values for batched env rows
+    next_obs            : Mapping[str, object]  # next policy observation tensor after the transition step
+    next_obs_tensor     : torch.Tensor  # tensor containing next obs tensor values for batched env rows
+    next_priv_obs_tensor: torch.Tensor | None  # tensor containing next priv obs tensor values for batched env rows
+    reward_tensor       : torch.Tensor  # tensor containing reward tensor values for batched env rows
+    terminated_flags    : torch.Tensor  # flag values describing terminated state for native env step result
+    timeout_flags       : torch.Tensor  # per-env timeout flags returned by the environment step
+    terminal_next       : TerminalNextObservation  # stores terminal next for native env step result
+    collection          : TransitionCollectionResult  # stores collection for native env step result
+    ready_count         : int  # count of ready values
+    inserted_count      : int  # count of inserted values
+    batch               : NativeLoopStepBatch  # stores batch for native env step result
 
 
 def _policy_obs(obs: Mapping[str, object]) -> Mapping[str, torch.Tensor]:

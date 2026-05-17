@@ -92,14 +92,14 @@ class Critic(nn.Module):
 class FrozenPhase1PolicyTeacher:
     """Frozen actor used only for policy-arm teacher actions"""
 
-    actor        : Actor  # Field: actor network or actor checkpoint payload
-    obs_dim      : int  # Field: width of the policy observation vector
-    action_cols  : tuple[int, ...]  # Field: integer action cols value tracked by frozen phase1 policy teacher
-    obs_mean     : torch.Tensor | None  # Field: tensor containing obs mean values for batched env rows
-    obs_std      : torch.Tensor | None  # Field: tensor containing obs std values for batched env rows
-    obs_norm_eps : float  # Field: floating-point obs norm eps value used by frozen phase1 policy teacher
-    obs_norm_clip: float  # Field: floating-point obs norm clip value used by frozen phase1 policy teacher
-    obs_keys     : tuple[str, ...]  # Field: ordered keys used to resolve obs values
+    actor        : Actor  # actor network or actor checkpoint payload
+    obs_dim      : int  # width of the policy observation vector
+    action_cols  : tuple[int, ...]  # integer action cols value tracked by frozen phase1 policy teacher
+    obs_mean     : torch.Tensor | None  # tensor containing obs mean values for batched env rows
+    obs_std      : torch.Tensor | None  # tensor containing obs std values for batched env rows
+    obs_norm_eps : float  # floating-point obs norm eps value used by frozen phase1 policy teacher
+    obs_norm_clip: float  # floating-point obs norm clip value used by frozen phase1 policy teacher
+    obs_keys     : tuple[str, ...]  # ordered keys used to resolve obs values
 
     def normalize_obs(self, obs_tensor: torch.Tensor) -> torch.Tensor:
         """Normalize observations using stored running stats

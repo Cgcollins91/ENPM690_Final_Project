@@ -36,7 +36,7 @@ from typing import Any, Protocol
 class PhaseOverrideAgent(Protocol):
     """Agent surface needed by phase override application"""
 
-    train_step : int  # Field: step count used for train step scheduling or reporting
+    train_step : int  # step count used for train step scheduling or reporting
 
     def set_optimizer_lrs(self, *, actor_lr: float | None = None, critic_lr: float | None = None) -> None:
         """Set optimizer learning rates"""
@@ -55,20 +55,20 @@ class PhaseOverrideAgent(Protocol):
 class PhaseOverrideResult:
     """Outcome of a phase override attempt"""
 
-    switched  : bool  # Field: boolean value indicating the switched state for phase override result
-    phase_name: str  # Field: string phase name value used by phase override result
-    phase_id  : int  # Field: integer phase id value tracked by phase override result
-    changed   : tuple[str, ...]  # Field: string changed value used by phase override result
-    message   : str | None = None  # Field: human-readable status or error detail
+    switched  : bool  # boolean value indicating the switched state for phase override result
+    phase_name: str  # string phase name value used by phase override result
+    phase_id  : int  # integer phase id value tracked by phase override result
+    changed   : tuple[str, ...]  # string changed value used by phase override result
+    message   : str | None = None  # human-readable status or error detail
 
 
 @dataclass(frozen=True)
 class ResumeDaggerOverrideResult:
     """Outcome of force-dagger resume schedule overrides"""
 
-    applied: bool  # Field: boolean value indicating the applied state for resume dagger override result
-    changed: tuple[str, ...]  # Field: string changed value used by resume dagger override result
-    message: str | None = None  # Field: human-readable status or error detail
+    applied: bool  # boolean value indicating the applied state for resume dagger override result
+    changed: tuple[str, ...]  # string changed value used by resume dagger override result
+    message: str | None = None  # human-readable status or error detail
 
 
 RL_PHASE_INT_OVERRIDES: tuple[tuple[str, str], ...] = (

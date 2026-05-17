@@ -34,12 +34,12 @@ from .native_teacher_sources import (
 class NativeTeacherProviderOptions:
     """Options for installing env-backed native teacher hooks"""
 
-    arm_method_names      : tuple[str, ...] | None                = None  # Field: ordered names used to resolve arm method attributes
-    legacy_arm_call       : bool                                  = False  # Field: boolean value indicating the legacy arm call state for native teacher provider options
-    validate_arm_action   : bool                                  = True  # Field: boolean value indicating the validate arm action state for native teacher provider options
-    use_contact_attr_parts: bool                                  = False  # Field: boolean value indicating the use contact attr parts state for native teacher provider options
-    contact_attr_config   : NativeContactTeacherAttrConfig | None = None  # Field: stores contact attr config for native teacher provider options
-    cache_teacher_action  : bool                                  = True  # Field: boolean value indicating the cache teacher action state for native teacher provider options
+    arm_method_names      : tuple[str, ...] | None                = None  # ordered names used to resolve arm method attributes
+    legacy_arm_call       : bool                                  = False  # boolean value indicating the legacy arm call state for native teacher provider options
+    validate_arm_action   : bool                                  = True  # boolean value indicating the validate arm action state for native teacher provider options
+    use_contact_attr_parts: bool                                  = False  # boolean value indicating the use contact attr parts state for native teacher provider options
+    contact_attr_config   : NativeContactTeacherAttrConfig | None = None  # stores contact attr config for native teacher provider options
+    cache_teacher_action  : bool                                  = True  # boolean value indicating the cache teacher action state for native teacher provider options
 
 
 def build_env_teacher_provider_builder(

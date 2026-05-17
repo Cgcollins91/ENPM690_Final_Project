@@ -37,35 +37,35 @@ import torch
 class InPocketThresholds:
     """Thresholds for in-pocket live gate predicates"""
 
-    palm_max                 : float = 0.06  # Field: floating-point palm max value used by in pocket thresholds
-    palm_z_max               : float = 0.06  # Field: floating-point palm z max value used by in pocket thresholds
-    align_max                : float = 0.22  # Field: floating-point align max value used by in pocket thresholds
-    align_angle_max_deg      : float = 10.0  # Field: floating-point align angle max deg value used by in pocket thresholds
-    tip_max                  : float = 0.14  # Field: floating-point tip max value used by in pocket thresholds
-    tip_xy_max               : float = 0.08  # Field: floating-point tip xy max value used by in pocket thresholds
-    tip_z_max                : float = 0.06  # Field: floating-point tip z max value used by in pocket thresholds
-    require_wrist_yaw_release: bool  = True  # Field: boolean value indicating the require wrist yaw release state for in pocket thresholds
-    require_stage2           : bool  = True  # Field: boolean value indicating the require stage2 state for in pocket thresholds
+    palm_max                 : float = 0.06  # floating-point palm max value used by in pocket thresholds
+    palm_z_max               : float = 0.06  # floating-point palm z max value used by in pocket thresholds
+    align_max                : float = 0.22  # floating-point align max value used by in pocket thresholds
+    align_angle_max_deg      : float = 10.0  # floating-point align angle max deg value used by in pocket thresholds
+    tip_max                  : float = 0.14  # floating-point tip max value used by in pocket thresholds
+    tip_xy_max               : float = 0.08  # floating-point tip xy max value used by in pocket thresholds
+    tip_z_max                : float = 0.06  # floating-point tip z max value used by in pocket thresholds
+    require_wrist_yaw_release: bool  = True  # boolean value indicating the require wrist yaw release state for in pocket thresholds
+    require_stage2           : bool  = True  # boolean value indicating the require stage2 state for in pocket thresholds
 
 
 @dataclass(frozen=True)
 class InPocketLatchState:
     """Updated in-pocket latch state tensors"""
 
-    latched   : torch.Tensor  # Field: per-env latch mask or aggregate latch state
-    hold_count: torch.Tensor  # Field: count of hold values
-    reset_mask: torch.Tensor  # Field: boolean mask selecting reset rows for in pocket latch state
+    latched   : torch.Tensor  # per-env latch mask or aggregate latch state
+    hold_count: torch.Tensor  # count of hold values
+    reset_mask: torch.Tensor  # boolean mask selecting reset rows for in pocket latch state
 
 
 @dataclass(frozen=True)
 class ArmHoldState:
     """Updated in-pocket arm hold state tensors"""
 
-    action      : torch.Tensor  # Field: environment action tensor selected for the step
-    held        : torch.Tensor  # Field: tensor containing held values for batched env rows
-    valid       : torch.Tensor  # Field: tensor containing valid values for batched env rows
-    frozen      : torch.Tensor  # Field: tensor containing frozen values for batched env rows
-    lift_release: torch.Tensor  # Field: tensor containing lift release values for batched env rows
+    action      : torch.Tensor  # environment action tensor selected for the step
+    held        : torch.Tensor  # tensor containing held values for batched env rows
+    valid       : torch.Tensor  # tensor containing valid values for batched env rows
+    frozen      : torch.Tensor  # tensor containing frozen values for batched env rows
+    lift_release: torch.Tensor  # tensor containing lift release values for batched env rows
 
 
 def inpocket_arm_hold_enabled(value: object = False) -> bool:

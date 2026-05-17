@@ -26,20 +26,20 @@ import torch
 class EpisodeState:
     """Mutable vectorized episode counters and best-seen metrics"""
 
-    episode_idx                  : torch.Tensor  # Field: training episode index associated with this record
-    next_episode_idx             : int  # Field: index identifying the next episode entry
-    step                         : torch.Tensor  # Field: tensor containing step values for batched env rows
-    episode_return               : torch.Tensor  # Field: tensor containing episode return values for batched env rows
-    best_tip                     : torch.Tensor  # Field: tensor containing best tip values for batched env rows
-    best_phase1_palm             : torch.Tensor  # Field: tensor containing best phase1 palm values for batched env rows
-    best_phase1_orient           : torch.Tensor  # Field: tensor containing best phase1 orient values for batched env rows
-    best_contact                 : torch.Tensor  # Field: tensor containing best contact values for batched env rows
-    best_strict_contact          : torch.Tensor  # Field: tensor containing best strict contact values for batched env rows
-    best_lift                    : torch.Tensor  # Field: tensor containing best lift values for batched env rows
-    best_lift_with_strict_contact: torch.Tensor  # Field: tensor containing best lift with strict contact values for batched env rows
-    best_curl                    : torch.Tensor  # Field: tensor containing best curl values for batched env rows
-    best_topdown_stage           : torch.Tensor  # Field: highest topdown curriculum stage reached so far
-    max_topdown_unlock           : torch.Tensor  # Field: tensor containing max topdown unlock values for batched env rows
+    episode_idx                  : torch.Tensor  # training episode index associated with this record
+    next_episode_idx             : int  # index identifying the next episode entry
+    step                         : torch.Tensor  # tensor containing step values for batched env rows
+    episode_return               : torch.Tensor  # tensor containing episode return values for batched env rows
+    best_tip                     : torch.Tensor  # tensor containing best tip values for batched env rows
+    best_phase1_palm             : torch.Tensor  # tensor containing best phase1 palm values for batched env rows
+    best_phase1_orient           : torch.Tensor  # tensor containing best phase1 orient values for batched env rows
+    best_contact                 : torch.Tensor  # tensor containing best contact values for batched env rows
+    best_strict_contact          : torch.Tensor  # tensor containing best strict contact values for batched env rows
+    best_lift                    : torch.Tensor  # tensor containing best lift values for batched env rows
+    best_lift_with_strict_contact: torch.Tensor  # tensor containing best lift with strict contact values for batched env rows
+    best_curl                    : torch.Tensor  # tensor containing best curl values for batched env rows
+    best_topdown_stage           : torch.Tensor  # highest topdown curriculum stage reached so far
+    max_topdown_unlock           : torch.Tensor  # tensor containing max topdown unlock values for batched env rows
 
     @classmethod
     def create(

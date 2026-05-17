@@ -61,29 +61,29 @@ NativeStartupFn = Callable[..., NativeTrainerState]
 class NativeEntrypointOptions:
     """Native-only switches stripped before parsing trainer args"""
 
-    max_outer_steps            : int | None             = None  # Field: step count used for max outer steps scheduling or reporting
-    loose_obs_contract         : bool                   = False  # Field: boolean value indicating the loose obs contract state for native entrypoint options
-    zero_teacher_smoke         : bool                   = False  # Field: boolean value indicating the zero teacher smoke state for native entrypoint options
-    launch_app                 : bool                   = True  # Field: boolean value indicating the launch app state for native entrypoint options
-    create_env                 : bool                   = True  # Field: boolean value indicating the create env state for native entrypoint options
-    install_terminal_patch     : bool                   = True  # Field: boolean value indicating the install terminal patch state for native entrypoint options
-    teacher_provider           : str                    = "none"  # Field: string teacher provider value used by native entrypoint options
-    teacher_arm_method_names   : tuple[str, ...] | None = None  # Field: ordered names used to resolve teacher arm method attributes
-    teacher_legacy_arm_call    : bool                   = False  # Field: boolean value indicating the teacher legacy arm call state for native entrypoint options
-    validate_teacher_arm_action: bool                   = True  # Field: boolean value indicating the validate teacher arm action state for native entrypoint options
-    contact_attr_parts         : bool                   = False  # Field: boolean value indicating the contact attr parts state for native entrypoint options
-    contact_middle_teacher     : bool                   = False  # Field: boolean value indicating the contact middle teacher state for native entrypoint options
-    cache_teacher_action       : bool                   = True  # Field: boolean value indicating the cache teacher action state for native entrypoint options
+    max_outer_steps            : int | None             = None  # step count used for max outer steps scheduling or reporting
+    loose_obs_contract         : bool                   = False  # boolean value indicating the loose obs contract state for native entrypoint options
+    zero_teacher_smoke         : bool                   = False  # boolean value indicating the zero teacher smoke state for native entrypoint options
+    launch_app                 : bool                   = True  # boolean value indicating the launch app state for native entrypoint options
+    create_env                 : bool                   = True  # boolean value indicating the create env state for native entrypoint options
+    install_terminal_patch     : bool                   = True  # boolean value indicating the install terminal patch state for native entrypoint options
+    teacher_provider           : str                    = "none"  # string teacher provider value used by native entrypoint options
+    teacher_arm_method_names   : tuple[str, ...] | None = None  # ordered names used to resolve teacher arm method attributes
+    teacher_legacy_arm_call    : bool                   = False  # boolean value indicating the teacher legacy arm call state for native entrypoint options
+    validate_teacher_arm_action: bool                   = True  # boolean value indicating the validate teacher arm action state for native entrypoint options
+    contact_attr_parts         : bool                   = False  # boolean value indicating the contact attr parts state for native entrypoint options
+    contact_middle_teacher     : bool                   = False  # boolean value indicating the contact middle teacher state for native entrypoint options
+    cache_teacher_action       : bool                   = True  # boolean value indicating the cache teacher action state for native entrypoint options
 
 
 @dataclass(frozen=True)
 class NativeEntrypointPlan:
     """Validated plan for the native Isaac entrypoint"""
 
-    argv   : tuple[str, ...]  # Field: raw command-line argument list for parser entrypoints
-    context: TrainerRuntimeContext  # Field: stores context for native entrypoint plan
-    configs: RuntimeConfigBundle  # Field: stores configs for native entrypoint plan
-    options: NativeEntrypointOptions  # Field: integer options value tracked by native entrypoint plan
+    argv   : tuple[str, ...]  # raw command-line argument list for parser entrypoints
+    context: TrainerRuntimeContext  # stores context for native entrypoint plan
+    configs: RuntimeConfigBundle  # stores configs for native entrypoint plan
+    options: NativeEntrypointOptions  # integer options value tracked by native entrypoint plan
 
 
 def build_native_arg_parser() -> argparse.ArgumentParser:

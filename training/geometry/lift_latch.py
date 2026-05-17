@@ -30,24 +30,24 @@ import torch
 class ArmLiftLatchState:
     """Updated arm lift latch tensors"""
 
-    latched          : torch.Tensor  # Field: per-env latch mask or aggregate latch state
-    latch_step       : torch.Tensor  # Field: step count used for latch step scheduling or reporting
-    contact_counter  : torch.Tensor  # Field: tensor containing contact counter values for batched env rows
-    latch_update_step: torch.Tensor  # Field: step count used for latch update step scheduling or reporting
-    latch_signal     : torch.Tensor  # Field: tensor containing latch signal values for batched env rows
-    first_touch      : torch.Tensor  # Field: tensor containing first touch values for batched env rows
-    reset_mask       : torch.Tensor  # Field: boolean mask selecting reset rows for arm lift latch state
+    latched          : torch.Tensor  # per-env latch mask or aggregate latch state
+    latch_step       : torch.Tensor  # step count used for latch step scheduling or reporting
+    contact_counter  : torch.Tensor  # tensor containing contact counter values for batched env rows
+    latch_update_step: torch.Tensor  # step count used for latch update step scheduling or reporting
+    latch_signal     : torch.Tensor  # tensor containing latch signal values for batched env rows
+    first_touch      : torch.Tensor  # tensor containing first touch values for batched env rows
+    reset_mask       : torch.Tensor  # boolean mask selecting reset rows for arm lift latch state
 
 
 @dataclass(frozen=True)
 class ArmLiftTargetCapture:
     """Captured lift target tensors"""
 
-    target_xy       : torch.Tensor  # Field: tensor containing target xy values for batched env rows
-    target_base_z   : torch.Tensor  # Field: tensor containing target base z values for batched env rows
-    target_nominal_z: torch.Tensor  # Field: tensor containing target nominal z values for batched env rows
-    block_xy_latch  : torch.Tensor  # Field: tensor containing block xy latch values for batched env rows
-    target_captured : torch.Tensor  # Field: tensor containing target captured values for batched env rows
+    target_xy       : torch.Tensor  # tensor containing target xy values for batched env rows
+    target_base_z   : torch.Tensor  # tensor containing target base z values for batched env rows
+    target_nominal_z: torch.Tensor  # tensor containing target nominal z values for batched env rows
+    block_xy_latch  : torch.Tensor  # tensor containing block xy latch values for batched env rows
+    target_captured : torch.Tensor  # tensor containing target captured values for batched env rows
 
 
 def initial_arm_lift_latch_state(

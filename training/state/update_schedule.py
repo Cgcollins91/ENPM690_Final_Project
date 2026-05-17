@@ -27,18 +27,18 @@ UpdateFn = Callable[[], Mapping[str, Any]]
 class UpdateReadiness:
     """Update readiness for one outer env step"""
 
-    updates_ready: bool  # Field: boolean/tensor readiness state for updates
-    should_update: bool  # Field: boolean value indicating the should update state for update readiness
-    update_count : int  # Field: count of update values
+    updates_ready: bool  # boolean/tensor readiness state for updates
+    should_update: bool  # boolean value indicating the should update state for update readiness
+    update_count : int  # count of update values
 
 
 @dataclass(frozen=True)
 class UpdateRunResult:
     """Latest update metrics captured from update loop"""
 
-    update_count          : int  # Field: count of update values
-    last_update_info      : Mapping[str, Any] | None  # Field: string last update info value used by update run result
-    last_actor_update_info: Mapping[str, Any] | None  # Field: string last actor update info value used by update run result
+    update_count          : int  # count of update values
+    last_update_info      : Mapping[str, Any] | None  # string last update info value used by update run result
+    last_actor_update_info: Mapping[str, Any] | None  # string last actor update info value used by update run result
 
 
 def global_step_after_replay_flush(transitions_collected: int, num_added: int) -> int:

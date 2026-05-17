@@ -23,8 +23,8 @@ from ..state.phase_overrides import apply_force_dagger_resume_overrides
 class ArgNormalizationResult:
     """Normalized args plus changed field names"""
 
-    args   : dict[str, object]  # Field: parsed CLI/config arguments passed into this helper
-    changed: tuple[str, ...]  # Field: string changed value used by arg normalization result
+    args   : dict[str, object]  # parsed CLI/config arguments passed into this helper
+    changed: tuple[str, ...]  # string changed value used by arg normalization result
 
 
 def teacher_bc_decay_explicit(argv: Sequence[str]) -> bool:

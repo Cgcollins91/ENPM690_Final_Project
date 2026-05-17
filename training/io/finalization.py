@@ -30,27 +30,27 @@ SaveCheckpointFn = Callable[["FinalCheckpointJob"], None]
 class FinalCheckpointJob:
     """One final checkpoint save request"""
 
-    label         : str  # Field: string label value used by final checkpoint job
-    global_step   : int  # Field: training step associated with this record or action
-    dest_path     : str | None  # Field: destination path for the file being written or copied
-    include_replay: bool  # Field: boolean value indicating the include replay state for final checkpoint job
+    label         : str  # string label value used by final checkpoint job
+    global_step   : int  # training step associated with this record or action
+    dest_path     : str | None  # destination path for the file being written or copied
+    include_replay: bool  # boolean value indicating the include replay state for final checkpoint job
 
 
 @dataclass(frozen=True)
 class FinalCheckpointResult:
     """Outcome from best-effort final checkpoint saves"""
 
-    saved_labels: tuple[str, ...]  # Field: string saved labels value used by final checkpoint result
-    error       : Exception | None = None  # Field: stores error for final checkpoint result
+    saved_labels: tuple[str, ...]  # string saved labels value used by final checkpoint result
+    error       : Exception | None = None  # stores error for final checkpoint result
 
 
 @dataclass(frozen=True)
 class ResourceCloseResult:
     """Resource close flags for final trainer cleanup"""
 
-    tensorboard_closed: bool  # Field: boolean value indicating the tensorboard closed state for resource close result
-    env_closed        : bool  # Field: boolean value indicating the env closed state for resource close result
-    app_closed        : bool  # Field: boolean value indicating the app closed state for resource close result
+    tensorboard_closed: bool  # boolean value indicating the tensorboard closed state for resource close result
+    env_closed        : bool  # boolean value indicating the env closed state for resource close result
+    app_closed        : bool  # boolean value indicating the app closed state for resource close result
 
 
 def final_checkpoint_global_step(transitions_collected: int) -> int:

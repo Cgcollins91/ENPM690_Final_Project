@@ -31,13 +31,13 @@ def contact_preroll_debug_steps(max_steps: int) -> tuple[int, ...]:
 class EvalPrerollRetry:
     """Values printed when eval pre-roll retries from reset"""
 
-    global_step     : int  # Field: training step associated with this record or action
-    eval_episode_idx: int  # Field: evaluation episode index for this record
-    attempt         : int  # Field: integer attempt value tracked by eval preroll retry
-    steps           : int  # Field: integer steps value tracked by eval preroll retry
-    palm            : float  # Field: floating-point palm value used by eval preroll retry
-    orient          : float  # Field: floating-point orient value used by eval preroll retry
-    phase1_ready    : bool  # Field: boolean/tensor readiness state for phase1
+    global_step     : int  # training step associated with this record or action
+    eval_episode_idx: int  # evaluation episode index for this record
+    attempt         : int  # integer attempt value tracked by eval preroll retry
+    steps           : int  # integer steps value tracked by eval preroll retry
+    palm            : float  # floating-point palm value used by eval preroll retry
+    orient          : float  # floating-point orient value used by eval preroll retry
+    phase1_ready    : bool  # boolean/tensor readiness state for phase1
 
     def line(self) -> str:
         """Return the retry diagnostic line"""
@@ -52,14 +52,14 @@ class EvalPrerollRetry:
 class EvalPrerollSummary:
     """Values printed after eval pre-roll finishes"""
 
-    global_step     : int  # Field: training step associated with this record or action
-    eval_episode_idx: int  # Field: evaluation episode index for this record
-    steps           : int  # Field: integer steps value tracked by eval preroll summary
-    palm            : float  # Field: floating-point palm value used by eval preroll summary
-    orient          : float  # Field: floating-point orient value used by eval preroll summary
-    phase1_ready    : bool  # Field: boolean/tensor readiness state for phase1
-    attempts        : int  # Field: integer attempts value tracked by eval preroll summary
-    released        : bool  # Field: boolean value indicating the released state for eval preroll summary
+    global_step     : int  # training step associated with this record or action
+    eval_episode_idx: int  # evaluation episode index for this record
+    steps           : int  # integer steps value tracked by eval preroll summary
+    palm            : float  # floating-point palm value used by eval preroll summary
+    orient          : float  # floating-point orient value used by eval preroll summary
+    phase1_ready    : bool  # boolean/tensor readiness state for phase1
+    attempts        : int  # integer attempts value tracked by eval preroll summary
+    released        : bool  # boolean value indicating the released state for eval preroll summary
 
     def line(self) -> str:
         """Return the final pre-roll summary line"""
@@ -74,16 +74,16 @@ class EvalPrerollSummary:
 class EvalPrerollDebug:
     """Values printed for detailed eval pre-roll state"""
 
-    attempt      : int  # Field: integer attempt value tracked by eval preroll debug
-    step         : int  # Field: integer step value tracked by eval preroll debug
-    palm         : float  # Field: floating-point palm value used by eval preroll debug
-    height       : float  # Field: floating-point height value used by eval preroll debug
-    orient       : float  # Field: floating-point orient value used by eval preroll debug
-    align_ready  : bool  # Field: boolean/tensor readiness state for align
-    release_ready: bool  # Field: boolean/tensor readiness state for release
-    arm          : tuple[float, ...]  # Field: floating-point arm value used by eval preroll debug
-    reduced_arm  : tuple[float, ...]  # Field: floating-point reduced arm value used by eval preroll debug
-    joints       : tuple[float, ...]  # Field: floating-point joints value used by eval preroll debug
+    attempt      : int  # integer attempt value tracked by eval preroll debug
+    step         : int  # integer step value tracked by eval preroll debug
+    palm         : float  # floating-point palm value used by eval preroll debug
+    height       : float  # floating-point height value used by eval preroll debug
+    orient       : float  # floating-point orient value used by eval preroll debug
+    align_ready  : bool  # boolean/tensor readiness state for align
+    release_ready: bool  # boolean/tensor readiness state for release
+    arm          : tuple[float, ...]  # floating-point arm value used by eval preroll debug
+    reduced_arm  : tuple[float, ...]  # floating-point reduced arm value used by eval preroll debug
+    joints       : tuple[float, ...]  # floating-point joints value used by eval preroll debug
 
     def line(self) -> str:
         """Return the detailed pre-roll debug line"""
@@ -102,24 +102,24 @@ class EvalPrerollDebug:
 class EvalPrerollRequest:
     """Static settings for eval pre-roll execution"""
 
-    enabled           : bool  # Field: whether this optional feature path is enabled
-    has_phase1_teacher: bool  # Field: boolean value indicating the has phase1 teacher state for eval preroll request
-    max_steps         : int  # Field: step count used for max steps scheduling or reporting
-    max_attempts      : int = 1  # Field: integer max attempts value tracked by eval preroll request
+    enabled           : bool  # whether this optional feature path is enabled
+    has_phase1_teacher: bool  # boolean value indicating the has phase1 teacher state for eval preroll request
+    max_steps         : int  # step count used for max steps scheduling or reporting
+    max_attempts      : int = 1  # integer max attempts value tracked by eval preroll request
 
 
 @dataclass(frozen=True)
 class EvalPrerollCallbacks:
     """Callback surface for Isaac-bound eval pre-roll stepping"""
 
-    release_mask              : Callable[[], torch.Tensor]  # Field: boolean mask selecting release rows for eval preroll callbacks
-    compute_action            : Callable[[torch.Tensor, int], torch.Tensor]  # Field: callback used for the compute action operation
-    stash_action              : Callable[[torch.Tensor], None]  # Field: callback used for the stash action operation
-    assemble_action           : Callable[[torch.Tensor, int], torch.Tensor]  # Field: callback used for the assemble action operation
-    step_env                  : Callable[[torch.Tensor], torch.Tensor]  # Field: callback used for the step env operation
-    reset_env                 : Callable[[], torch.Tensor]  # Field: callback used for the reset env operation
-    clear_counters            : Callable[[], None]  # Field: callback used for the clear counters operation
-    simulation_should_continue: Callable[[], bool]  # Field: callback used for the simulation should continue operation
+    release_mask              : Callable[[], torch.Tensor]  # boolean mask selecting release rows for eval preroll callbacks
+    compute_action            : Callable[[torch.Tensor, int], torch.Tensor]  # callback used for the compute action operation
+    stash_action              : Callable[[torch.Tensor], None]  # callback used for the stash action operation
+    assemble_action           : Callable[[torch.Tensor, int], torch.Tensor]  # callback used for the assemble action operation
+    step_env                  : Callable[[torch.Tensor], torch.Tensor]  # callback used for the step env operation
+    reset_env                 : Callable[[], torch.Tensor]  # callback used for the reset env operation
+    clear_counters            : Callable[[], None]  # callback used for the clear counters operation
+    simulation_should_continue: Callable[[], bool]  # callback used for the simulation should continue operation
 
 
 def contact_preroll_eval_to_start(

@@ -253,14 +253,14 @@ def preload_one_sided_reject_mask(
 class ContactLatchUpdate:
     """Updated per-finger contact latch state"""
 
-    thumb_latched       : torch.Tensor  # Field: per-env latch state for thumb contact
-    index_latched       : torch.Tensor  # Field: per-env latch state for index-finger contact
-    middle_latched      : torch.Tensor  # Field: per-env latch state for middle-finger contact
-    newly_thumb_latched : torch.Tensor  # Field: mask for thumb contacts that latched on this update
-    newly_index_latched : torch.Tensor  # Field: mask for index contacts that latched on this update
-    newly_middle_latched: torch.Tensor  # Field: mask for middle-finger contacts that latched on this update
-    all_required_latched: torch.Tensor  # Field: mask where every required contact latch is active
-    one_sided_latched   : torch.Tensor  # Field: mask where only one pinch-side contact latch is active
+    thumb_latched       : torch.Tensor  # per-env latch state for thumb contact
+    index_latched       : torch.Tensor  # per-env latch state for index-finger contact
+    middle_latched      : torch.Tensor  # per-env latch state for middle-finger contact
+    newly_thumb_latched : torch.Tensor  # mask for thumb contacts that latched on this update
+    newly_index_latched : torch.Tensor  # mask for index contacts that latched on this update
+    newly_middle_latched: torch.Tensor  # mask for middle-finger contacts that latched on this update
+    all_required_latched: torch.Tensor  # mask where every required contact latch is active
+    one_sided_latched   : torch.Tensor  # mask where only one pinch-side contact latch is active
 
 
 def update_contact_latches(
@@ -362,9 +362,9 @@ def clamp_servo(vec: torch.Tensor, max_m: float) -> torch.Tensor:
 class ContactDescent:
     """Contact teacher descent result"""
 
-    descent     : torch.Tensor  # Field: tensor containing descent values for batched env rows
-    z_need      : torch.Tensor  # Field: tensor containing z need values for batched env rows
-    closure_gate: torch.Tensor  # Field: tensor containing closure gate values for batched env rows
+    descent     : torch.Tensor  # tensor containing descent values for batched env rows
+    z_need      : torch.Tensor  # tensor containing z need values for batched env rows
+    closure_gate: torch.Tensor  # tensor containing closure gate values for batched env rows
 
 
 def contact_descent_from_missing(

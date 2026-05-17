@@ -35,74 +35,74 @@ import torch
 class TopdownStageBitInputs:
     """Scalar inputs for topdown progress stage bits"""
 
-    topdown_stage            : int  # Field: current topdown curriculum stage per environment
-    best_topdown_stage       : int  # Field: highest topdown curriculum stage reached so far
-    reach_hold               : int  # Field: integer reach hold value tracked by topdown stage bit inputs
-    align_hold               : int  # Field: integer align hold value tracked by topdown stage bit inputs
-    contact_pose_ready       : int  # Field: boolean/tensor readiness state for contact pose
-    contact_pose_hold        : int  # Field: integer contact pose hold value tracked by topdown stage bit inputs
-    contact_pose_shell       : int  # Field: integer contact pose shell value tracked by topdown stage bit inputs
-    contact_palm_dist        : float  # Field: floating-point contact palm dist value used by topdown stage bit inputs
-    contact_palm_height      : float  # Field: floating-point contact palm height value used by topdown stage bit inputs
-    stage2_age               : int  # Field: integer stage2 age value tracked by topdown stage bit inputs
-    unlock_progress          : float  # Field: floating-point unlock progress value used by topdown stage bit inputs
-    effective_unlock_progress: float  # Field: floating-point effective unlock progress value used by topdown stage bit inputs
-    finger_arm_hold_gate     : float  # Field: floating-point finger arm hold gate value used by topdown stage bit inputs
-    prehold_servo            : float  # Field: floating-point prehold servo value used by topdown stage bit inputs
-    align_line_z             : float  # Field: floating-point align line z value used by topdown stage bit inputs
-    align_servo_q            : float  # Field: floating-point align servo q value used by topdown stage bit inputs
-    align_servo_active       : int  # Field: boolean state indicating whether align servo is active
-    pocket_sweep_q           : float  # Field: floating-point pocket sweep q value used by topdown stage bit inputs
-    pocket_score_before      : float  # Field: floating-point pocket score before value used by topdown stage bit inputs
-    pocket_score_after       : float  # Field: floating-point pocket score after value used by topdown stage bit inputs
-    stage_ge1_rate           : float  # Field: floating-point stage ge1 rate value used by topdown stage bit inputs
-    stage_ge2_rate           : float  # Field: floating-point stage ge2 rate value used by topdown stage bit inputs
-    contact                  : float  # Field: floating-point contact value used by topdown stage bit inputs
-    strict_contact           : float  # Field: floating-point strict contact value used by topdown stage bit inputs
-    thumb_contact            : float  # Field: contact strength observed at the thumb side
-    index_contact            : float  # Field: contact strength observed at the index-finger side
-    align_face               : float  # Field: block face selected for alignment scoring
-    align_angle              : float  # Field: alignment angle value used by topdown/contact metrics
-    opposed_face             : float  # Field: block face opposite the active contact/alignment face
-    lift                     : float  # Field: floating-point lift value used by topdown stage bit inputs
-    block_disp               : float  # Field: block displacement value used by metrics or summaries
+    topdown_stage            : int  # current topdown curriculum stage per environment
+    best_topdown_stage       : int  # highest topdown curriculum stage reached so far
+    reach_hold               : int  # integer reach hold value tracked by topdown stage bit inputs
+    align_hold               : int  # integer align hold value tracked by topdown stage bit inputs
+    contact_pose_ready       : int  # boolean/tensor readiness state for contact pose
+    contact_pose_hold        : int  # integer contact pose hold value tracked by topdown stage bit inputs
+    contact_pose_shell       : int  # integer contact pose shell value tracked by topdown stage bit inputs
+    contact_palm_dist        : float  # floating-point contact palm dist value used by topdown stage bit inputs
+    contact_palm_height      : float  # floating-point contact palm height value used by topdown stage bit inputs
+    stage2_age               : int  # integer stage2 age value tracked by topdown stage bit inputs
+    unlock_progress          : float  # floating-point unlock progress value used by topdown stage bit inputs
+    effective_unlock_progress: float  # floating-point effective unlock progress value used by topdown stage bit inputs
+    finger_arm_hold_gate     : float  # floating-point finger arm hold gate value used by topdown stage bit inputs
+    prehold_servo            : float  # floating-point prehold servo value used by topdown stage bit inputs
+    align_line_z             : float  # floating-point align line z value used by topdown stage bit inputs
+    align_servo_q            : float  # floating-point align servo q value used by topdown stage bit inputs
+    align_servo_active       : int  # boolean state indicating whether align servo is active
+    pocket_sweep_q           : float  # floating-point pocket sweep q value used by topdown stage bit inputs
+    pocket_score_before      : float  # floating-point pocket score before value used by topdown stage bit inputs
+    pocket_score_after       : float  # floating-point pocket score after value used by topdown stage bit inputs
+    stage_ge1_rate           : float  # floating-point stage ge1 rate value used by topdown stage bit inputs
+    stage_ge2_rate           : float  # floating-point stage ge2 rate value used by topdown stage bit inputs
+    contact                  : float  # floating-point contact value used by topdown stage bit inputs
+    strict_contact           : float  # floating-point strict contact value used by topdown stage bit inputs
+    thumb_contact            : float  # contact strength observed at the thumb side
+    index_contact            : float  # contact strength observed at the index-finger side
+    align_face               : float  # block face selected for alignment scoring
+    align_angle              : float  # alignment angle value used by topdown/contact metrics
+    opposed_face             : float  # block face opposite the active contact/alignment face
+    lift                     : float  # floating-point lift value used by topdown stage bit inputs
+    block_disp               : float  # block displacement value used by metrics or summaries
 
 
 @dataclass(frozen=True)
 class GraspAlignStageBitInputs:
     """Scalar inputs for grasp-align stage bits"""
 
-    contact     : float  # Field: floating-point contact value used by grasp align stage bit inputs
-    curl        : float  # Field: floating-point curl value used by grasp align stage bit inputs
-    pinch_curl  : float  # Field: floating-point pinch curl value used by grasp align stage bit inputs
-    opposed_face: float  # Field: block face opposite the active contact/alignment face
-    align_face  : float  # Field: block face selected for alignment scoring
-    align_angle : float  # Field: alignment angle value used by topdown/contact metrics
-    hand_force  : float  # Field: aggregate hand/contact force used for diagnostics or gates
-    block_disp  : float  # Field: block displacement value used by metrics or summaries
+    contact     : float  # floating-point contact value used by grasp align stage bit inputs
+    curl        : float  # floating-point curl value used by grasp align stage bit inputs
+    pinch_curl  : float  # floating-point pinch curl value used by grasp align stage bit inputs
+    opposed_face: float  # block face opposite the active contact/alignment face
+    align_face  : float  # block face selected for alignment scoring
+    align_angle : float  # alignment angle value used by topdown/contact metrics
+    hand_force  : float  # aggregate hand/contact force used for diagnostics or gates
+    block_disp  : float  # block displacement value used by metrics or summaries
 
 
 @dataclass(frozen=True)
 class ContactStageBitInputs:
     """Scalar inputs for contact-family stage bits"""
 
-    contact          : float  # Field: floating-point contact value used by contact stage bit inputs
-    both_contact     : float  # Field: floating-point both contact value used by contact stage bit inputs
-    strict_contact   : float  # Field: floating-point strict contact value used by contact stage bit inputs
-    fingertip_contact: float  # Field: floating-point fingertip contact value used by contact stage bit inputs
-    thumb_contact    : float  # Field: contact strength observed at the thumb side
-    index_contact    : float  # Field: contact strength observed at the index-finger side
-    thumb_contact_raw: float  # Field: floating-point thumb contact raw value used by contact stage bit inputs
-    index_contact_raw: float  # Field: floating-point index contact raw value used by contact stage bit inputs
-    hand_contact     : float  # Field: floating-point hand contact value used by contact stage bit inputs
-    lift             : float  # Field: floating-point lift value used by contact stage bit inputs
-    curl             : float  # Field: floating-point curl value used by contact stage bit inputs
-    pinch_curl       : float  # Field: floating-point pinch curl value used by contact stage bit inputs
-    opposed_face     : float  # Field: block face opposite the active contact/alignment face
-    align_face       : float  # Field: block face selected for alignment scoring
-    align_angle      : float  # Field: alignment angle value used by topdown/contact metrics
-    hand_force       : float  # Field: aggregate hand/contact force used for diagnostics or gates
-    block_disp       : float  # Field: block displacement value used by metrics or summaries
+    contact          : float  # floating-point contact value used by contact stage bit inputs
+    both_contact     : float  # floating-point both contact value used by contact stage bit inputs
+    strict_contact   : float  # floating-point strict contact value used by contact stage bit inputs
+    fingertip_contact: float  # floating-point fingertip contact value used by contact stage bit inputs
+    thumb_contact    : float  # contact strength observed at the thumb side
+    index_contact    : float  # contact strength observed at the index-finger side
+    thumb_contact_raw: float  # floating-point thumb contact raw value used by contact stage bit inputs
+    index_contact_raw: float  # floating-point index contact raw value used by contact stage bit inputs
+    hand_contact     : float  # floating-point hand contact value used by contact stage bit inputs
+    lift             : float  # floating-point lift value used by contact stage bit inputs
+    curl             : float  # floating-point curl value used by contact stage bit inputs
+    pinch_curl       : float  # floating-point pinch curl value used by contact stage bit inputs
+    opposed_face     : float  # block face opposite the active contact/alignment face
+    align_face       : float  # block face selected for alignment scoring
+    align_angle      : float  # alignment angle value used by topdown/contact metrics
+    hand_force       : float  # aggregate hand/contact force used for diagnostics or gates
+    block_disp       : float  # block displacement value used by metrics or summaries
 
 
 def tensor_env_float(owner: object, attr_name: str, env_id: int, default: float = 0.0) -> float:

@@ -43,30 +43,30 @@ HookCallable = Callable[..., Any]
 class NativeIsaacHookConfig:
     """Attribute names used to discover Isaac live hooks"""
 
-    teacher_action_names       : tuple[str, ...] = (                                                  # Field: ordered names used to resolve teacher action attributes
+    teacher_action_names       : tuple[str, ...] = (                                                  # ordered names used to resolve teacher action attributes
         "teacher_action_fn",
         "compute_teacher_action",
         "get_teacher_action",
     )
-    assemble_action_names      : tuple[str, ...] = (                                                  # Field: ordered names used to resolve assemble action attributes
+    assemble_action_names      : tuple[str, ...] = (                                                  # ordered names used to resolve assemble action attributes
         "assemble_env_action_fn",
         "assemble_env_action",
     )
-    arm_reduced_action_names   : tuple[str, ...] = (                                                  # Field: ordered names used to resolve arm reduced action attributes
+    arm_reduced_action_names   : tuple[str, ...] = (                                                  # ordered names used to resolve arm reduced action attributes
         "arm_reduced_action_fn",
         "current_arm_reduced_action",
         "_teacher_arm_reduced_action",
     )
-    mapped_indices_names     : tuple[str, ...] = ("mapped_indices", "_mapped_indices")  # Field: source names for mapped action-column indices
-    mapped_scales_names      : tuple[str, ...] = ("mapped_scales", "_mapped_scales")  # Field: source names for mapped action-column scales
-    preroll_action_names     : tuple[str, ...] = ("preroll_action_fn", "current_preroll_action")  # Field: ordered names used to resolve preroll action attributes
-    preroll_mask_names       : tuple[str, ...] = ("preroll_mask_fn", "current_preroll_mask")  # Field: ordered names used to resolve preroll mask attributes
-    active_env_mask_names    : tuple[str, ...] = ("active_env_mask_fn", "current_active_env_mask")  # Field: ordered names used to resolve active env mask attributes
-    existing_checkpoint_names: tuple[str, ...] = (  # Field: ordered names used to resolve existing checkpoint attributes
+    mapped_indices_names     : tuple[str, ...] = ("mapped_indices", "_mapped_indices")  # source names for mapped action-column indices
+    mapped_scales_names      : tuple[str, ...] = ("mapped_scales", "_mapped_scales")  # source names for mapped action-column scales
+    preroll_action_names     : tuple[str, ...] = ("preroll_action_fn", "current_preroll_action")  # ordered names used to resolve preroll action attributes
+    preroll_mask_names       : tuple[str, ...] = ("preroll_mask_fn", "current_preroll_mask")  # ordered names used to resolve preroll mask attributes
+    active_env_mask_names    : tuple[str, ...] = ("active_env_mask_fn", "current_active_env_mask")  # ordered names used to resolve active env mask attributes
+    existing_checkpoint_names: tuple[str, ...] = (  # ordered names used to resolve existing checkpoint attributes
         "existing_checkpoint_names_fn",
         "existing_checkpoint_names",
     )
-    use_action_assembly_config : bool = True                                                          # Field: boolean value indicating the use action assembly config state for native isaac hook config
+    use_action_assembly_config : bool = True                                                          # boolean value indicating the use action assembly config state for native isaac hook config
 
 
 def _owners(state: NativeTrainerState) -> tuple[object, ...]:

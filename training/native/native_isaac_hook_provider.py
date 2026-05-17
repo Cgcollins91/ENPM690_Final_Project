@@ -49,16 +49,16 @@ def _resolve_names(value: Iterable[str] | NamesFn | None) -> tuple[str, ...]:
 class NativeIsaacHookProvider:
     """Env wrapper exposing the default hook names used by native_isaac_hooks"""
 
-    env               : Any  # Field: environment/backend object used by this runtime helper
-    teacher_action    : torch.Tensor | TensorFn | None        = None  # Field: teacher action tensor used for override or behavior cloning
-    arm_reduced_action: torch.Tensor | TensorFn | None        = None  # Field: tensor containing arm reduced action values for batched env rows
-    mapped_indices    : torch.Tensor | None                   = None  # Field: column indices used to map between action layouts
-    mapped_scales     : torch.Tensor | None                   = None  # Field: scales applied while mapping action columns
-    preroll_action    : torch.Tensor | RuntimeTensorFn | None = None  # Field: tensor containing preroll action values for batched env rows
-    preroll_mask      : torch.Tensor | RuntimeTensorFn | None = None  # Field: boolean mask selecting preroll rows for native isaac hook provider
-    active_env_mask   : torch.Tensor | RuntimeTensorFn | None = None  # Field: mask selecting env rows that are still active
-    checkpoint_names  : Iterable[str] | NamesFn | None        = None  # Field: ordered names used to resolve checkpoint attributes
-    reset_callback    : ResetCallback | None                  = None  # Field: stores reset callback for native isaac hook provider
+    env               : Any  # environment/backend object used by this runtime helper
+    teacher_action    : torch.Tensor | TensorFn | None        = None  # teacher action tensor used for override or behavior cloning
+    arm_reduced_action: torch.Tensor | TensorFn | None        = None  # tensor containing arm reduced action values for batched env rows
+    mapped_indices    : torch.Tensor | None                   = None  # column indices used to map between action layouts
+    mapped_scales     : torch.Tensor | None                   = None  # scales applied while mapping action columns
+    preroll_action    : torch.Tensor | RuntimeTensorFn | None = None  # tensor containing preroll action values for batched env rows
+    preroll_mask      : torch.Tensor | RuntimeTensorFn | None = None  # boolean mask selecting preroll rows for native isaac hook provider
+    active_env_mask   : torch.Tensor | RuntimeTensorFn | None = None  # mask selecting env rows that are still active
+    checkpoint_names  : Iterable[str] | NamesFn | None        = None  # ordered names used to resolve checkpoint attributes
+    reset_callback    : ResetCallback | None                  = None  # stores reset callback for native isaac hook provider
 
     def __getattr__(self, name: str):
         """Delegate missing attributes to the wrapped env"""

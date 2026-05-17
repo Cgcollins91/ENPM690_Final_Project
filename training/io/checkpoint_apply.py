@@ -36,11 +36,11 @@ from ..model.normalization import reset_obs_stats_for_actor_rollout
 class CheckpointAgent(Protocol):
     """Agent surface needed by startup checkpoint application"""
 
-    train_step  : int  # Field: step count used for train step scheduling or reporting
-    actor       : torch.nn.Module  # Field: actor network or actor checkpoint payload
-    actor_target: torch.nn.Module  # Field: stores actor target for checkpoint agent
-    obs_stats   : object  # Field: stores obs stats for checkpoint agent
-    reward_stats: object  # Field: stores reward stats for checkpoint agent
+    train_step  : int  # step count used for train step scheduling or reporting
+    actor       : torch.nn.Module  # actor network or actor checkpoint payload
+    actor_target: torch.nn.Module  # stores actor target for checkpoint agent
+    obs_stats   : object  # stores obs stats for checkpoint agent
+    reward_stats: object  # stores reward stats for checkpoint agent
 
     def load_state_dict(self, state: Mapping[str, object]) -> None:
         """Load full agent state"""
@@ -51,30 +51,30 @@ class CheckpointAgent(Protocol):
 class ResumeApplyResult:
     """Outcome of loading a resume checkpoint"""
 
-    resume_loaded           : bool  # Field: boolean value indicating the resume loaded state for resume apply result
-    train_step_reset        : bool  # Field: boolean value indicating the train step reset state for resume apply result
-    optimizer_states_cleared: tuple[str, ...]  # Field: string optimizer states cleared value used by resume apply result
-    source_train_step       : object  # Field: step count used for source train step scheduling or reporting
-    source_global_step      : object  # Field: step count used for source global step scheduling or reporting
+    resume_loaded           : bool  # boolean value indicating the resume loaded state for resume apply result
+    train_step_reset        : bool  # boolean value indicating the train step reset state for resume apply result
+    optimizer_states_cleared: tuple[str, ...]  # string optimizer states cleared value used by resume apply result
+    source_train_step       : object  # step count used for source train step scheduling or reporting
+    source_global_step      : object  # step count used for source global step scheduling or reporting
 
 
 @dataclass(frozen=True)
 class ActorInitApplyResult:
     """Outcome of loading actor-init checkpoint state"""
 
-    actor_init_loaded : bool  # Field: boolean value indicating the actor init loaded state for actor init apply result
-    obs_stats_loaded  : bool  # Field: boolean value indicating the obs stats loaded state for actor init apply result
-    source_global_step: object  # Field: step count used for source global step scheduling or reporting
+    actor_init_loaded : bool  # boolean value indicating the actor init loaded state for actor init apply result
+    obs_stats_loaded  : bool  # boolean value indicating the obs stats loaded state for actor init apply result
+    source_global_step: object  # step count used for source global step scheduling or reporting
 
 
 @dataclass(frozen=True)
 class PlayCheckpointApplyResult:
     """Outcome of loading play-mode actor checkpoint state"""
 
-    checkpoint_loaded  : bool  # Field: boolean value indicating the checkpoint loaded state for play checkpoint apply result
-    obs_stats_loaded   : bool  # Field: boolean value indicating the obs stats loaded state for play checkpoint apply result
-    reward_stats_loaded: bool  # Field: boolean value indicating the reward stats loaded state for play checkpoint apply result
-    source_train_step  : object  # Field: step count used for source train step scheduling or reporting
+    checkpoint_loaded  : bool  # boolean value indicating the checkpoint loaded state for play checkpoint apply result
+    obs_stats_loaded   : bool  # boolean value indicating the obs stats loaded state for play checkpoint apply result
+    reward_stats_loaded: bool  # boolean value indicating the reward stats loaded state for play checkpoint apply result
+    source_train_step  : object  # step count used for source train step scheduling or reporting
 
 
 def optimizer_state_attrs(agent: object) -> tuple[str, ...]:

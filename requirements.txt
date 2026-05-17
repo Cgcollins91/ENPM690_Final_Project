@@ -6,4 +6,4 @@ toml==0.10.2
 PyYAML==6.0.2
 tensorboard==2.20.0
 tensordict==0.12.2
-fast_td3 @ git+https://github.com/younggyoseo/FastTD3.git@229ed59bbf43ea2f7a2d5d90d1076314839944d7
+fast_td3 @ git+https://github.com/younggyoseo/FastTD3.git@7acc3a3c739d2beaae57386407acfb29ee3928fa

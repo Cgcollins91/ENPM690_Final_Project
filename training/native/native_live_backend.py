@@ -61,15 +61,15 @@ FinalizeFn = Callable[[TrainerRuntimeContext, RuntimeConfigBundle, NativeTrainer
 class NativeLiveTrainerAssembly:
     """Callbacks and options needed by the live native backend"""
 
-    live_hooks_fn                  : LiveHooksFn  # Field: callback used for the live hooks fn operation
-    startup_options                : NativeStartupOptions     = NativeStartupOptions()  # Field: stores startup options for native live trainer assembly
-    loop_options                   : NativeLoopOptions        = NativeLoopOptions()  # Field: stores loop options for native live trainer assembly
-    component_fn                   : ComponentFn              = create_native_training_components  # Field: callback used for the component fn operation
-    checkpoint_startup_fn          : CheckpointStartupFn      = apply_native_checkpoint_startup  # Field: callback used for the checkpoint startup fn operation
-    phase1_startup_fn              : Phase1StartupFn          = apply_native_phase1_startup  # Field: callback used for the phase1 startup fn operation
-    finalize_fn                    : FinalizeFn               = finalize_native_training  # Field: callback used for the finalize fn operation
-    event_callbacks                : NativeLiveEventCallbacks = field(default_factory=NativeLiveEventCallbacks)  # Field: stores event callbacks for native live trainer assembly
-    topdown_curriculum_obs_contract: bool                     = True  # Field: boolean value indicating the topdown curriculum obs contract state for native live trainer assembly
+    live_hooks_fn                  : LiveHooksFn  # callback used for the live hooks fn operation
+    startup_options                : NativeStartupOptions     = NativeStartupOptions()  # stores startup options for native live trainer assembly
+    loop_options                   : NativeLoopOptions        = NativeLoopOptions()  # stores loop options for native live trainer assembly
+    component_fn                   : ComponentFn              = create_native_training_components  # callback used for the component fn operation
+    checkpoint_startup_fn          : CheckpointStartupFn      = apply_native_checkpoint_startup  # callback used for the checkpoint startup fn operation
+    phase1_startup_fn              : Phase1StartupFn          = apply_native_phase1_startup  # callback used for the phase1 startup fn operation
+    finalize_fn                    : FinalizeFn               = finalize_native_training  # callback used for the finalize fn operation
+    event_callbacks                : NativeLiveEventCallbacks = field(default_factory=NativeLiveEventCallbacks)  # stores event callbacks for native live trainer assembly
+    topdown_curriculum_obs_contract: bool                     = True  # boolean value indicating the topdown curriculum obs contract state for native live trainer assembly
 
 
 def _env_reset_fn(startup_state: NativeTrainerState):

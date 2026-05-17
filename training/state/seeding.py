@@ -33,13 +33,13 @@ def _env_bool(name: str, default: bool, env: Mapping[str, str] | None) -> bool:
 class SeedConfig:
     """Global RNG and deterministic backend settings"""
 
-    seed                         : int  # Field: integer seed value tracked by seed config
-    include_cuda                 : bool = True  # Field: boolean value indicating the include cuda state for seed config
-    seed_numpy                   : bool = True  # Field: boolean value indicating the seed numpy state for seed config
-    cudnn_benchmark              : bool = False  # Field: boolean value indicating the cudnn benchmark state for seed config
-    cudnn_deterministic          : bool = True  # Field: boolean value indicating the cudnn deterministic state for seed config
-    torch_deterministic          : bool = True  # Field: boolean value indicating the torch deterministic state for seed config
-    torch_deterministic_warn_only: bool = True  # Field: boolean value indicating the torch deterministic warn only state for seed config
+    seed                         : int  # integer seed value tracked by seed config
+    include_cuda                 : bool = True  # boolean value indicating the include cuda state for seed config
+    seed_numpy                   : bool = True  # boolean value indicating the seed numpy state for seed config
+    cudnn_benchmark              : bool = False  # boolean value indicating the cudnn benchmark state for seed config
+    cudnn_deterministic          : bool = True  # boolean value indicating the cudnn deterministic state for seed config
+    torch_deterministic          : bool = True  # boolean value indicating the torch deterministic state for seed config
+    torch_deterministic_warn_only: bool = True  # boolean value indicating the torch deterministic warn only state for seed config
 
 
 def seed_config_from_env(

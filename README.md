@@ -10,36 +10,31 @@ python3 scripts/launch_pipeline.py
 ```
 
 It resolves to `training/curriculum/pipeline.py`, which starts a fresh
-adaptive BC/DAgger/FastTD3 run and launches the trainer through
-`python -m training.native_entrypoint`.
+adaptive BC/DAgger/FastTD3 run and launches the trainer through `python -m training.native_entrypoint`
 
 ## Contents
 
-- `scripts/launch_pipeline.py`: canonical pipeline launcher.
-- `scripts/eval_checkpoint.py`: headless checkpoint evaluation from a run
-  manifest.
-- `scripts/eval_visualization.py`: GUI checkpoint playback from a run manifest.
-- `src/enpm690_final_project/`: typed run profiles, manifest generation, and
-  subprocess planning.
-- `training/`: modular training runtime.
-- `tasks/`: Isaac Lab task registration and MDP code.
-- `robots/` and `assets/`: Unitree G1/Dex3 robot config and required USD/URDF
-  assets.
-- `Dockerfile` and `docker/`: reproducible Isaac Sim / Isaac Lab container.
-- `requirements.txt` and `pyproject.toml`: Python dependency metadata.
+- `scripts/launch_pipeline.py`: canonical pipeline launcher
+- `scripts/eval_checkpoint.py`: headless checkpoint evaluation from a run manifest
+- `scripts/eval_visualization.py`: GUI checkpoint playback from a run manifest
+- `src/enpm690_final_project/`: typed run profiles, manifest generation, and subprocess planning
+- `training/`: modular training runtime
+- `tasks/`: Isaac Lab task registration and MDP code
+- `robots/` and `assets/`: Unitree G1/Dex3 robot config and required USD/URDF assets
+- `Dockerfile` and `docker/`: reproducible Isaac Sim / Isaac Lab container
+- `requirements.txt` and `pyproject.toml`: Python dependency metadata
 
 Generated outputs are not part of the package: `runs/`, `runs_training/`,
-`checkpoints/`, TensorBoard events, JSONL logs, and `.pt` checkpoints.
+`checkpoints/`, TensorBoard events, JSONL logs, and `.pt` checkpoints
 
 ## Submission Artifacts
 
 - `Chris_Collins_ENPM_690_Final_Report.pdf`: final written report.
-- Source code, robot assets, Dockerfile, and launch scripts are included in
-  this repository.
+- Source code, robot assets, Dockerfile, and launch scripts are included in this repository.
 - Trained checkpoints and full run logs are generated artifacts. If a grader
   needs to reproduce evaluation or visualization from an existing trained
   policy, provide the matching run directory separately with at least
-  `manifest.json` and the referenced checkpoint, for example `latest.pt`.
+  `manifest.json` and the referenced checkpoint, for example `latest.pt`
 
 ## Git LFS Assets
 
@@ -82,9 +77,10 @@ docker image inspect enpm690-final-project:latest \
   --format '{{.Created}} {{json .Config.WorkingDir}}'
 ```
 
-Resolve the canonical command without launching Isaac:
-
+Start Docker Container:
 ```bash
+mkdir -p runs runs_training checkpoints
+
 docker run --gpus all --rm -it --network host \
   --user "$(id -u):$(id -g)" \
   -e ENPM690_PYTHON=/opt/conda/envs/unitree_sim_env/bin/python \
@@ -92,53 +88,8 @@ docker run --gpus all --rm -it --network host \
   -v "$PWD/runs_training:/workspace/project/runs_training" \
   -v "$PWD/checkpoints:/workspace/project/checkpoints" \
   enpm690-final-project:latest \
-  python scripts/launch_pipeline.py \
-    --run-dir runs_training/Final/pipeline_dry_run \
-    --dry-run
 ```
 
-Run a 100-step smoke test:
-
-```bash
-docker run --gpus all --rm -it --network host \
-  --user "$(id -u):$(id -g)" \
-  -e ENPM690_PYTHON=/opt/conda/envs/unitree_sim_env/bin/python \
-  -v "$PWD/runs:/workspace/project/runs" \
-  -v "$PWD/runs_training:/workspace/project/runs_training" \
-  -v "$PWD/checkpoints:/workspace/project/checkpoints" \
-  enpm690-final-project:latest \
-  python scripts/launch_pipeline.py \
-    --run-dir runs_training/Final/pipeline_smoke_100steps \
-    --num-envs 1 \
-    --total-steps 100 \
-    --teacher-only-steps 10 \
-    --dagger-steps 10 \
-    --eval-every 0 \
-    --checkpoint-every 100 \
-    --log-every 10
-```
-
-Run the full pipeline:
-
-```bash
-docker run --gpus all --rm -it --network host \
-  --user "$(id -u):$(id -g)" \
-  -e ENPM690_PYTHON=/opt/conda/envs/unitree_sim_env/bin/python \
-  -v "$PWD/runs:/workspace/project/runs" \
-  -v "$PWD/runs_training:/workspace/project/runs_training" \
-  -v "$PWD/checkpoints:/workspace/project/checkpoints" \
-  enpm690-final-project:latest \
-  python scripts/launch_pipeline.py \
-    --run-dir runs_training/v35_canonical_fresh_fullreward_adaptive_bc_final_r5
-```
-
-The same workflows are available through Compose:
-
-```bash
-UID="$(id -u)" GID="$(id -g)" docker compose run --rm dry-run
-UID="$(id -u)" GID="$(id -g)" docker compose run --rm smoke
-UID="$(id -u)" GID="$(id -g)" docker compose run --rm train
-```
 
 ## Local Install
 
@@ -172,8 +123,7 @@ export UNITREE_G1_TASKS_IMPORT_FILTER=cgc_topdown_curriculum_g1_29dof_dex3
 export ENPM690_PYTHON="$(command -v python3)"
 ```
 
-If Isaac must be launched through a separate Python wrapper, point
-`ENPM690_PYTHON` at that Isaac Sim Python executable:
+If Isaac must be launched through a separate Python wrapper, point `ENPM690_PYTHON` at that Isaac Sim Python executable:
 
 ```bash
 export ENPM690_PYTHON="/path/to/isaac-sim/python.sh"
@@ -185,47 +135,69 @@ Create local output directories:
 mkdir -p runs runs_training checkpoints
 ```
 
-Resolve the command without launching Isaac:
+## Validate Local or Docker Install
+
+Validate environment setup (Same commands for local or within docker container)
+
+
+Dry Run Pipeline:
 
 ```bash
-python3 scripts/launch_pipeline.py \
-  --run-dir runs_training/Final/pipeline_dry_run \
-  --dry-run
+  python scripts/launch_pipeline.py \
+    --run-dir runs_training/Final/pipeline_dry_run \
+    --dry-run
 ```
 
-Run local 100-step smoke test:
+Run a 100-step smoke test:
 
 ```bash
-python3 scripts/launch_pipeline.py \
-  --run-dir runs_training/Final/pipeline_smoke_100steps \
-  --num-envs 1 \
-  --total-steps 100 \
-  --teacher-only-steps 10 \
-  --dagger-steps 10 \
-  --eval-every 0 \
-  --checkpoint-every 100 \
-  --log-every 10
+
+  python scripts/launch_pipeline.py \
+    --run-dir runs_training/Final/pipeline_smoke_100steps \
+    --num-envs 1 \
+    --total-steps 100 \
+    --teacher-only-steps 10 \
+    --dagger-steps 10 \
+    --eval-every 0 \
+    --checkpoint-every 100 \
+    --log-every 10
 ```
 
-
-Run the full pipeline locally:
+The same workflows are available through Compose:
 
 ```bash
-python3 scripts/launch_pipeline.py \
-  --run-dir runs_training/v35_canonical_fresh_fullreward_adaptive_bc_final_r5
+UID="$(id -u)" GID="$(id -g)" docker compose run --rm dry-run
+UID="$(id -u)" GID="$(id -g)" docker compose run --rm smoke
+UID="$(id -u)" GID="$(id -g)" docker compose run --rm train
 ```
+
+## Running the Full Pipeline
+
+
+```bash
+  python scripts/launch_pipeline.py \
+    --run-dir runs_training/v35_canonical_fresh_fullreward_adaptive_bc_final_r5
+```
+
+
 
 ## CLI
 
 Common options:
 
-- `--run-dir`: output directory.
-- `--resume-from`: checkpoint to load.
-- `--no-resume-replay`: resume model/optimizers without replay.
+- `--run-dir`:               output directory.
+- `--resume-from`:           checkpoint to load.
+- `--no-resume-replay`:      resume model/optimizers without replay.
 - `--no-resume-global-step`: restart step counters from zero.
-- `--num-envs`, `--total-steps`, `--teacher-only-steps`, `--dagger-steps`.
-- `--post-floor-rl-steps`, `--assist-floor`.
-- `--eval-every`, `--checkpoint-every`, `--log-every`.
+- `--num-envs`:              
+ `--total-steps`, 
+ `--teacher-only-steps`,
+  `--dagger-steps`.
+- `--post-floor-rl-steps`, 
+`--assist-floor`.
+- `--eval-every`, 
+`--checkpoint-every`, 
+`--log-every`.
 - `--tensorboard-dir`: TensorBoard event directory. Defaults to `<run-dir>/tb`.
 - `--dry-run`: write `manifest.json` and print the resolved command only.
 
@@ -233,35 +205,20 @@ Common options:
 
 Each pipeline run writes:
 
-- `manifest.json`: resolved command, environment, source hashes, git state, and
-  run metadata.
-- `stdout.log`: trainer/stdout trace.
-- `log.jsonl`: structured metrics and diagnostics.
-- `latest.pt`: latest replay-bearing checkpoint.
-- `step_XXXXXX.pt`: rolling replay-bearing checkpoints.
-- `final_replay.pt`: final handoff checkpoint.
-- `tb/`: TensorBoard event files.
+- `manifest.json`: resolved command, environment, source hashes, git state, and run metadata
+- `stdout.log`: trainer/stdout trace
+- `log.jsonl`: structured metrics and diagnostics
+- `latest.pt`: latest replay-bearing checkpoint
+- `step_XXXXXX.pt`: rolling replay-bearing checkpoints
+- `final_replay.pt`: final handoff checkpoint
+- `tb/`: TensorBoard event files
 
 ## TensorBoard
 
 TensorBoard events are written to `<run-dir>/tb` unless `--tensorboard-dir`
-overrides the location. Dry-runs write a manifest only and do not create useful
-TensorBoard data.
+overrides the location. Dry-runs write a manifest only and do not create useful TensorBoard data
 
-Docker:
 
-```bash
-docker run --rm -it --network host \
-  --user "$(id -u):$(id -g)" \
-  -v "$PWD/runs_training:/workspace/project/runs_training" \
-  enpm690-final-project:latest \
-  python -m tensorboard.main \
-    --logdir runs_training/v35_canonical_fresh_fullreward_adaptive_bc_final_r5/tb \
-    --host 0.0.0.0 \
-    --port 6006
-```
-
-Local:
 
 ```bash
 python3 -m tensorboard.main \
@@ -283,18 +240,11 @@ If port `6006` is busy, use another port such as `6007`.
 `scripts/eval_checkpoint.py` evaluates a saved policy checkpoint using the
 source training run's `manifest.json`. Relative checkpoint names resolve inside
 `--source-run-dir`. These commands require a generated or separately provided
-run directory; checkpoints are not tracked in the source package.
+run directory; checkpoints are not tracked in the source package. By default
+this launcher runs Isaac Sim headless; add `--gui` for a visible GUI smoke run.
 
-Docker:
 
 ```bash
-docker run --gpus all --rm -it --network host \
-  --user "$(id -u):$(id -g)" \
-  -e ENPM690_PYTHON=/opt/conda/envs/unitree_sim_env/bin/python \
-  -v "$PWD/runs:/workspace/project/runs" \
-  -v "$PWD/runs_training:/workspace/project/runs_training" \
-  -v "$PWD/checkpoints:/workspace/project/checkpoints" \
-  enpm690-final-project:latest \
   python scripts/eval_checkpoint.py \
     --source-run-dir runs_training/v35_canonical_fresh_fullreward_adaptive_bc_final_r5 \
     --checkpoint latest.pt \
@@ -303,19 +253,6 @@ docker run --gpus all --rm -it --network host \
     --steps 1000 \
     --num-envs 1 \
     --stream
-```
-
-Local:
-
-```bash
-python3 scripts/eval_checkpoint.py \
-  --source-run-dir runs_training/v35_canonical_fresh_fullreward_adaptive_bc_final_r5 \
-  --checkpoint latest.pt \
-  --run-dir runs_training/v35_canonical_fresh_fullreward_adaptive_bc_final_r5/eval_latest \
-  --episodes 5 \
-  --steps 1000 \
-  --num-envs 1 \
-  --stream
 ```
 
 Use `--dry-run` to print the resolved Isaac command without running evaluation.
@@ -347,7 +284,7 @@ docker run --gpus all --rm -it --network host \
   python scripts/eval_visualization.py \
     --run-dir runs_training/v35_canonical_fresh_fullreward_adaptive_bc_final_r5 \
     --checkpoint latest.pt \
-    --mode policy \
+    --mode teacher \
     --episodes 3 \
     --steps 1000 \
     --num-envs 1
@@ -359,7 +296,7 @@ Local:
 python3 scripts/eval_visualization.py \
   --run-dir runs_training/v35_canonical_fresh_fullreward_adaptive_bc_final_r5 \
   --checkpoint latest.pt \
-  --mode policy \
+  --mode teacher \
   --episodes 3 \
   --steps 1000 \
   --num-envs 1
@@ -368,11 +305,8 @@ python3 scripts/eval_visualization.py \
 The visualization output defaults to
 `<run-dir>/eval_visualization_<checkpoint-stem>/`. Use `--mode teacher` for
 teacher-only playback, or `--mode mixed --teacher-assist-mix 0.5` for mixed
-teacher/policy playback. Use `--dry-run` to write the visualization manifest
-and print the resolved Isaac command without launching the GUI.
-
-## License
-
-Project-specific coursework material is covered by `LICENSE`. Third-party
-notices for Unitree, Isaac Lab / Isaac Sim, FastTD3, PyTorch, and Python
-dependencies are in `NOTICE`.
+teacher/policy playback. The default viewport is `--camera table_overhead`,
+which opens above the table looking toward the active block and robot hand; use
+`--camera overview` or `--camera top` for the older presets. Use `--dry-run` to
+write the visualization manifest and print the resolved Isaac command without
+launching the GUI.

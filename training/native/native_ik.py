@@ -26,28 +26,28 @@ import torch
 class DifferentialIKControllerSpec:
     """Controller settings used for Isaac DifferentialIK construction"""
 
-    command_type     : str  = "pose"  # Field: string command type value used by differential i k controller spec
-    use_relative_mode: bool = False  # Field: boolean value indicating the use relative mode state for differential i k controller spec
-    ik_method        : str  = "dls"  # Field: string ik method value used by differential i k controller spec
+    command_type     : str  = "pose"  # string command type value used by differential i k controller spec
+    use_relative_mode: bool = False  # boolean value indicating the use relative mode state for differential i k controller spec
+    ik_method        : str  = "dls"  # string ik method value used by differential i k controller spec
 
 
 @dataclass(frozen=True)
 class NativeDifferentialIKControllers:
     """Pose and position DifferentialIK controller pair"""
 
-    controller             : Any  # Field: stores controller for native differential i k controllers
-    position_controller    : Any  # Field: stores position controller for native differential i k controllers
-    controller_cfg         : Any  # Field: stores controller cfg for native differential i k controllers
-    position_controller_cfg: Any  # Field: stores position controller cfg for native differential i k controllers
+    controller             : Any  # stores controller for native differential i k controllers
+    position_controller    : Any  # stores position controller for native differential i k controllers
+    controller_cfg         : Any  # stores controller cfg for native differential i k controllers
+    position_controller_cfg: Any  # stores position controller cfg for native differential i k controllers
 
 
 @dataclass(frozen=True)
 class NativeJacobianSelection:
     """Selected arm Jacobian slice"""
 
-    jacobian  : torch.Tensor  # Field: tensor containing jacobian values for batched env rows
-    body_index: int  # Field: index identifying the body entry
-    joint_ids : tuple[int, ...]  # Field: integer joint ids value tracked by native jacobian selection
+    jacobian  : torch.Tensor  # tensor containing jacobian values for batched env rows
+    body_index: int  # index identifying the body entry
+    joint_ids : tuple[int, ...]  # integer joint ids value tracked by native jacobian selection
 
 
 def create_differential_ik_controller_pair(

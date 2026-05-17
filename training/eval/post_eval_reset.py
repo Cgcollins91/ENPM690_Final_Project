@@ -33,11 +33,11 @@ SampleAllPrerollMaskFn = Callable[[], torch.Tensor]
 class PostEvalResetResult:
     """State returned after resetting training from eval"""
 
-    obs            : Mapping[str, Any]  # Field: policy observation tensor or observation payload for this transition
-    info           : Mapping[str, Any]  # Field: auxiliary info mapping returned by the environment or backend
-    obs_tensor     : torch.Tensor  # Field: policy observation tensor passed to the actor or replay path
-    priv_obs_tensor: torch.Tensor | None  # Field: privileged observation tensor passed to critic-side logic
-    next_eval_step : int | None  # Field: step count used for next eval step scheduling or reporting
+    obs            : Mapping[str, Any]  # policy observation tensor or observation payload for this transition
+    info           : Mapping[str, Any]  # auxiliary info mapping returned by the environment or backend
+    obs_tensor     : torch.Tensor  # policy observation tensor passed to the actor or replay path
+    priv_obs_tensor: torch.Tensor | None  # privileged observation tensor passed to critic-side logic
+    next_eval_step : int | None  # step count used for next eval step scheduling or reporting
 
 
 def advance_next_eval_step(next_eval_step: int | None, eval_every: int | None) -> int | None:

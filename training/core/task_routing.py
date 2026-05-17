@@ -33,8 +33,8 @@ from .runtime import SUPPORTED_TOPDOWN_TASK, env_flag
 class TaskRoute:
     """Resolved task-family flags for the standalone trainer"""
 
-    task             : str  # Field: string task value used by task route
-    topdown_lift_task: bool = False  # Field: boolean value indicating the topdown lift task state for task route
+    task             : str  # string task value used by task route
+    topdown_lift_task: bool = False  # boolean value indicating the topdown lift task state for task route
 
     @property
     def is_lift_only_task(self) -> bool:

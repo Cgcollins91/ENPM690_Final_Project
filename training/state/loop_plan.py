@@ -26,13 +26,13 @@ from ..logging.progress import crossed_log_boundary, should_run_eval
 class LoopStepPlan:
     """Actions the trainer loop should take after one env step"""
 
-    global_step    : int  # Field: training step associated with this record or action
-    num_added      : int  # Field: count of added values
-    replay_size    : int  # Field: configured or observed replay-buffer size
-    should_log     : bool  # Field: boolean value indicating the should log state for loop step plan
-    should_eval    : bool  # Field: boolean value indicating the should eval state for loop step plan
-    checkpoint_plan: ScheduledCheckpointPlan  # Field: integer checkpoint plan value tracked by loop step plan
-    done_reset_plan: DoneEpisodeResetPlan  # Field: stores done reset plan for loop step plan
+    global_step    : int  # training step associated with this record or action
+    num_added      : int  # count of added values
+    replay_size    : int  # configured or observed replay-buffer size
+    should_log     : bool  # boolean value indicating the should log state for loop step plan
+    should_eval    : bool  # boolean value indicating the should eval state for loop step plan
+    checkpoint_plan: ScheduledCheckpointPlan  # integer checkpoint plan value tracked by loop step plan
+    done_reset_plan: DoneEpisodeResetPlan  # stores done reset plan for loop step plan
 
 
 def build_loop_step_plan(

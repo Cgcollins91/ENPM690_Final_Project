@@ -24,7 +24,7 @@ from typing import Any
 
 from ..core.configs import RuntimeConfigBundle
 from ..core.context import TrainerRuntimeContext
-from ..core.env_config import TouchEnvModeConfig, configure_touch_env_for_mode
+from ..core.env_config import TouchEnvModeConfig, configure_touch_env_for_mode, viewport_camera_pose
 from .isaac_backend import IsaacRuntimeSymbols, load_isaac_app_launcher_symbol, load_isaac_runtime_symbols
 
 
@@ -72,18 +72,18 @@ class AppLauncherArgs(SimpleNamespace):
 class IsaacAppStartupResult:
     """Created Isaac application objects"""
 
-    app_launcher  : Any  # Field: stores app launcher for isaac app startup result
-    simulation_app: Any  # Field: stores simulation app for isaac app startup result
+    app_launcher  : Any  # stores app launcher for isaac app startup result
+    simulation_app: Any  # stores simulation app for isaac app startup result
 
 
 @dataclass(frozen=True)
 class IsaacEnvStartupResult:
     """Created Isaac environment and launch metadata"""
 
-    env_cfg                   : Any  # Field: stores env cfg for isaac env startup result
-    env                       : Any  # Field: environment/backend object used by this runtime helper
-    camera_perception_disabled: bool  # Field: boolean value indicating the camera perception disabled state for isaac env startup result
-    removed_obs_terms         : tuple[str, ...]  # Field: string removed obs terms value used by isaac env startup result
+    env_cfg                   : Any  # stores env cfg for isaac env startup result
+    env                       : Any  # environment/backend object used by this runtime helper
+    camera_perception_disabled: bool  # boolean value indicating the camera perception disabled state for isaac env startup result
+    removed_obs_terms         : tuple[str, ...]  # string removed obs terms value used by isaac env startup result
 
 
 def app_launcher_namespace(context: TrainerRuntimeContext, configs: RuntimeConfigBundle) -> AppLauncherArgs:
@@ -140,6 +140,20 @@ def _env_mode_tuple(result: TouchEnvModeConfig | tuple[bool, tuple[str, ...]]) -
     return bool(camera_disabled), tuple(removed_obs_terms)
 
 
+def _apply_viewport_camera(env: object, context: TrainerRuntimeContext) -> bool:
+    pose = viewport_camera_pose(str(context.args.get("viewport_camera", "overview")))
+    if pose is None:
+        return False
+    sim = getattr(env, "sim", None)
+    set_camera_view = getattr(sim, "set_camera_view", None)
+    if not callable(set_camera_view):
+        return False
+    eye, target = pose
+    set_camera_view(eye=eye, target=target)
+    print(f"viewport_camera name={context.args.get('viewport_camera', 'overview')} eye={eye} target={target}", flush=True)
+    return True
+
+
 def create_isaac_env(
     context: TrainerRuntimeContext,  # Param: runtime context carrying validated trainer settings
     configs: RuntimeConfigBundle,  # Param: typed runtime config bundle used to derive this plan
@@ -170,6 +184,7 @@ def create_isaac_env(
     )
     make = _default_gym_make() if gym_make is None else gym_make
     env = make(context.task, cfg=env_cfg).unwrapped
+    _apply_viewport_camera(env, context)
     return IsaacEnvStartupResult(
         env_cfg=env_cfg,
         env=env,

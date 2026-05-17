@@ -47,18 +47,18 @@ EvalTaskKind = Literal[
 class EvalAggregationOptions:
     """Task knobs needed for pure eval aggregation"""
 
-    task_kind               : EvalTaskKind = "topdown_lift"  # Field: stores task kind for eval aggregation options
-    contact_success_strength: float        = 0.30  # Field: floating-point contact success strength value used by eval aggregation options
+    task_kind               : EvalTaskKind = "topdown_lift"  # stores task kind for eval aggregation options
+    contact_success_strength: float        = 0.30  # floating-point contact success strength value used by eval aggregation options
 
 
 @dataclass(frozen=True)
 class EvalComparison:
     """Lexicographic eval comparison result"""
 
-    is_better    : bool  # Field: boolean value indicating the is better state for eval comparison
-    decisive_key : str | None   = None  # Field: string decisive key value used by eval comparison
-    current_value: float | None = None  # Field: floating-point current value value used by eval comparison
-    best_value   : float | None = None  # Field: floating-point best value value used by eval comparison
+    is_better    : bool  # boolean value indicating the is better state for eval comparison
+    decisive_key : str | None   = None  # string decisive key value used by eval comparison
+    current_value: float | None = None  # floating-point current value value used by eval comparison
+    best_value   : float | None = None  # floating-point best value value used by eval comparison
 
 
 def eval_metric_values(

@@ -45,48 +45,48 @@ TeacherActionFn = Callable[[], torch.Tensor]
 class NativeActionDiagnostics:
     """Action diagnostics for one native rollout step"""
 
-    actor_teacher_arm_mse   : float = math.nan  # Field: floating-point actor teacher arm mse value used by native action diagnostics
-    actor_teacher_finger_mse: float = math.nan  # Field: floating-point actor teacher finger mse value used by native action diagnostics
-    teacher_available       : bool  = False  # Field: whether teacher action data is available for this row
-    bc_relabel_applied      : bool  = False  # Field: boolean value indicating the bc relabel applied state for native action diagnostics
-    preroll_all             : bool  = False  # Field: boolean value indicating the preroll all state for native action diagnostics
-    teacher_warmup          : bool  = False  # Field: whether this step used the teacher-only warmup path
-    assist_mix              : float = 0.0  # Field: effective whole-action assist mix used for this step
-    assist_arm_mix          : float = 0.0  # Field: effective arm assist mix used for this step
-    assist_finger_mix       : float = 0.0  # Field: effective finger assist mix used for this step
+    actor_teacher_arm_mse   : float = math.nan  # floating-point actor teacher arm mse value used by native action diagnostics
+    actor_teacher_finger_mse: float = math.nan  # floating-point actor teacher finger mse value used by native action diagnostics
+    teacher_available       : bool  = False  # whether teacher action data is available for this row
+    bc_relabel_applied      : bool  = False  # boolean value indicating the bc relabel applied state for native action diagnostics
+    preroll_all             : bool  = False  # boolean value indicating the preroll all state for native action diagnostics
+    teacher_warmup          : bool  = False  # whether this step used the teacher-only warmup path
+    assist_mix              : float = 0.0  # effective whole-action assist mix used for this step
+    assist_arm_mix          : float = 0.0  # effective arm assist mix used for this step
+    assist_finger_mix       : float = 0.0  # effective finger assist mix used for this step
 
 
 @dataclass(frozen=True)
 class NativeActionSelection:
     """Policy teacher replay and BC actions for one rollout step"""
 
-    policy_action : torch.Tensor  # Field: raw policy action before teacher or gate overrides
-    mixed_action  : torch.Tensor  # Field: tensor containing mixed action values for batched env rows
-    replay_action : torch.Tensor  # Field: tensor containing replay action values for batched env rows
-    bc_action     : torch.Tensor  # Field: behavior-cloning target action tensor
-    teacher_action: torch.Tensor | None  # Field: teacher action tensor used for override or behavior cloning
-    diagnostics   : NativeActionDiagnostics  # Field: structured diagnostic values captured with the result
+    policy_action : torch.Tensor  # raw policy action before teacher or gate overrides
+    mixed_action  : torch.Tensor  # tensor containing mixed action values for batched env rows
+    replay_action : torch.Tensor  # tensor containing replay action values for batched env rows
+    bc_action     : torch.Tensor  # behavior-cloning target action tensor
+    teacher_action: torch.Tensor | None  # teacher action tensor used for override or behavior cloning
+    diagnostics   : NativeActionDiagnostics  # structured diagnostic values captured with the result
 
 
 @dataclass(frozen=True)
 class NativeActionMixConfig:
     """Teacher assist and BC relabel settings"""
 
-    assist_mix              : float = 0.0  # Field: floating-point assist mix value used by native action mix config
-    assist_arm_mix          : float = 0.0  # Field: floating-point assist arm mix value used by native action mix config
-    assist_finger_mix       : float = 0.0  # Field: floating-point assist finger mix value used by native action mix config
-    global_step             : int   = 0  # Field: global transition step used for rollout schedules
-    start_steps             : int   = 0  # Field: teacher-only warmup step count
-    policy_bc_relabel       : bool  = False  # Field: boolean value indicating the policy bc relabel state for native action mix config
-    bc_only_steps           : int   = 0  # Field: step count used for bc only steps scheduling or reporting
-    teacher_bc_weight       : float = 0.0  # Field: weight applied to teacher bc terms
-    teacher_bc_arm_weight   : float = -1.0  # Field: weight applied to teacher bc arm terms
-    teacher_bc_finger_weight: float = -1.0  # Field: weight applied to teacher bc finger terms
-    assist_noise_arm        : float = 0.0  # Field: noise sigma applied to assisted arm actions
-    assist_noise_finger     : float = 0.0  # Field: noise sigma applied to assisted finger actions
-    assist_noise_clean_bc_target: bool = True  # Field: keep BC target equal to the clean teacher action when assist noise is applied
-    use_policy_arm_teacher  : bool  = False  # Field: boolean value indicating the use policy arm teacher state for native action mix config
-    soft_policy_arm_assist  : bool  = False  # Field: boolean value indicating the soft policy arm assist state for native action mix config
+    assist_mix              : float = 0.0  # floating-point assist mix value used by native action mix config
+    assist_arm_mix          : float = 0.0  # floating-point assist arm mix value used by native action mix config
+    assist_finger_mix       : float = 0.0  # floating-point assist finger mix value used by native action mix config
+    global_step             : int   = 0  # global transition step used for rollout schedules
+    start_steps             : int   = 0  # teacher-only warmup step count
+    policy_bc_relabel       : bool  = False  # boolean value indicating the policy bc relabel state for native action mix config
+    bc_only_steps           : int   = 0  # step count used for bc only steps scheduling or reporting
+    teacher_bc_weight       : float = 0.0  # weight applied to teacher bc terms
+    teacher_bc_arm_weight   : float = -1.0  # weight applied to teacher bc arm terms
+    teacher_bc_finger_weight: float = -1.0  # weight applied to teacher bc finger terms
+    assist_noise_arm        : float = 0.0  # noise sigma applied to assisted arm actions
+    assist_noise_finger     : float = 0.0  # noise sigma applied to assisted finger actions
+    assist_noise_clean_bc_target: bool = True  # keep BC target equal to the clean teacher action when assist noise is applied
+    use_policy_arm_teacher  : bool  = False  # boolean value indicating the use policy arm teacher state for native action mix config
+    soft_policy_arm_assist  : bool  = False  # boolean value indicating the soft policy arm assist state for native action mix config
 
 
 def _component_mix(value: float, fallback: float) -> float:

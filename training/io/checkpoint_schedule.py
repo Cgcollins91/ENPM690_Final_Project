@@ -33,20 +33,20 @@ RemovePathFn = Callable[[str], None]
 class ScheduledCheckpointJob:
     """One scheduled checkpoint save request"""
 
-    label         : str  # Field: string label value used by scheduled checkpoint job
-    global_step   : int  # Field: training step associated with this record or action
-    dest_path     : str | None  # Field: destination path for the file being written or copied
-    include_replay: bool  # Field: boolean value indicating the include replay state for scheduled checkpoint job
+    label         : str  # string label value used by scheduled checkpoint job
+    global_step   : int  # training step associated with this record or action
+    dest_path     : str | None  # destination path for the file being written or copied
+    include_replay: bool  # boolean value indicating the include replay state for scheduled checkpoint job
 
 
 @dataclass(frozen=True)
 class ScheduledCheckpointPlan:
     """Scheduled checkpoint jobs and advanced cadence state"""
 
-    jobs                        : tuple[ScheduledCheckpointJob, ...]  # Field: integer jobs value tracked by scheduled checkpoint plan
-    next_checkpoint_step        : int | None  # Field: step count used for next checkpoint step scheduling or reporting
-    next_rolling_checkpoint_step: int | None  # Field: step count used for next rolling checkpoint step scheduling or reporting
-    prune_paths                 : tuple[str, ...]  # Field: string prune paths value used by scheduled checkpoint plan
+    jobs                        : tuple[ScheduledCheckpointJob, ...]  # integer jobs value tracked by scheduled checkpoint plan
+    next_checkpoint_step        : int | None  # step count used for next checkpoint step scheduling or reporting
+    next_rolling_checkpoint_step: int | None  # step count used for next rolling checkpoint step scheduling or reporting
+    prune_paths                 : tuple[str, ...]  # string prune paths value used by scheduled checkpoint plan
 
 
 def build_scheduled_checkpoint_plan(

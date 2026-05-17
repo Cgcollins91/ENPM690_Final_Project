@@ -33,49 +33,49 @@ from .topdown_metrics import topdown_source_block_name
 class TopdownSummaryContext:
     """Loop-level fields for a topdown curriculum summary row"""
 
-    global_step            : int  # Field: training step associated with this record or action
-    episode_idx            : int  # Field: training episode index associated with this record
-    episode_step           : int  # Field: per-env step count inside the current episode
-    reward                 : float  # Field: reward tensor or scalar produced by the environment step
-    done_envs              : int  # Field: integer done envs value tracked by topdown summary context
-    replay_size            : int  # Field: configured or observed replay-buffer size
-    training_phase         : str  # Field: string training phase value used by topdown summary context
-    training_phase_id      : int  # Field: integer training phase id value tracked by topdown summary context
-    active_n_step          : int  # Field: step count used for active n step scheduling or reporting
-    active_updates_per_step: int  # Field: step count used for active updates per step scheduling or reporting
-    active_policy_delay    : int  # Field: integer active policy delay value tracked by topdown summary context
-    assist_mix             : float  # Field: floating-point assist mix value used by topdown summary context
-    assist_arm_mix         : float  # Field: floating-point assist arm mix value used by topdown summary context
-    assist_finger_mix      : float  # Field: floating-point assist finger mix value used by topdown summary context
-    action_source          : str  # Field: string action source value used by topdown summary context
+    global_step            : int  # training step associated with this record or action
+    episode_idx            : int  # training episode index associated with this record
+    episode_step           : int  # per-env step count inside the current episode
+    reward                 : float  # reward tensor or scalar produced by the environment step
+    done_envs              : int  # integer done envs value tracked by topdown summary context
+    replay_size            : int  # configured or observed replay-buffer size
+    training_phase         : str  # string training phase value used by topdown summary context
+    training_phase_id      : int  # integer training phase id value tracked by topdown summary context
+    active_n_step          : int  # step count used for active n step scheduling or reporting
+    active_updates_per_step: int  # step count used for active updates per step scheduling or reporting
+    active_policy_delay    : int  # integer active policy delay value tracked by topdown summary context
+    assist_mix             : float  # floating-point assist mix value used by topdown summary context
+    assist_arm_mix         : float  # floating-point assist arm mix value used by topdown summary context
+    assist_finger_mix      : float  # floating-point assist finger mix value used by topdown summary context
+    action_source          : str  # string action source value used by topdown summary context
 
 
 @dataclass(frozen=True)
 class TopdownEnv0Summary:
     """Env0 scalar fields for a topdown curriculum summary row"""
 
-    topdown_stage                  : int  # Field: current topdown curriculum stage per environment
-    topdown_source_pose_idx        : int  # Field: index identifying the topdown source pose entry
-    topdown_reach_hold             : int  # Field: integer topdown reach hold value tracked by topdown env0 summary
-    topdown_align_hold             : int  # Field: integer topdown align hold value tracked by topdown env0 summary
-    topdown_stage2_age             : int  # Field: integer topdown stage2 age value tracked by topdown env0 summary
-    topdown_contact_pose_hold      : int  # Field: integer topdown contact pose hold value tracked by topdown env0 summary
-    topdown_contact_pose_ready     : int  # Field: boolean/tensor readiness state for topdown contact pose
-    topdown_contact_pose_age       : int  # Field: integer topdown contact pose age value tracked by topdown env0 summary
-    topdown_unlock                 : float  # Field: floating-point topdown unlock value used by topdown env0 summary
-    topdown_effective_unlock       : float  # Field: floating-point topdown effective unlock value used by topdown env0 summary
-    finger_unlock_arm_hold_gate    : float  # Field: floating-point finger unlock arm hold gate value used by topdown env0 summary
-    topdown_contact_pose_shell     : int  # Field: integer topdown contact pose shell value tracked by topdown env0 summary
-    topdown_contact_palm_dist      : float  # Field: floating-point topdown contact palm dist value used by topdown env0 summary
-    topdown_contact_palm_height    : float  # Field: floating-point topdown contact palm height value used by topdown env0 summary
-    best_topdown_stage_this_episode: int  # Field: integer best topdown stage this episode value tracked by topdown env0 summary
-    max_topdown_unlock_this_episode: float  # Field: floating-point max topdown unlock this episode value used by topdown env0 summary
-    palm_dist                      : float  # Field: floating-point palm dist value used by topdown env0 summary
-    orient_deg                     : float  # Field: floating-point orient deg value used by topdown env0 summary
-    align_face_dist                : float  # Field: floating-point align face dist value used by topdown env0 summary
-    align_angle                    : float  # Field: alignment angle value used by topdown/contact metrics
-    any_contact_strength           : float  # Field: floating-point any contact strength value used by topdown env0 summary
-    strict_light_contact           : float  # Field: floating-point strict light contact value used by topdown env0 summary
+    topdown_stage                  : int  # current topdown curriculum stage per environment
+    topdown_source_pose_idx        : int  # index identifying the topdown source pose entry
+    topdown_reach_hold             : int  # integer topdown reach hold value tracked by topdown env0 summary
+    topdown_align_hold             : int  # integer topdown align hold value tracked by topdown env0 summary
+    topdown_stage2_age             : int  # integer topdown stage2 age value tracked by topdown env0 summary
+    topdown_contact_pose_hold      : int  # integer topdown contact pose hold value tracked by topdown env0 summary
+    topdown_contact_pose_ready     : int  # boolean/tensor readiness state for topdown contact pose
+    topdown_contact_pose_age       : int  # integer topdown contact pose age value tracked by topdown env0 summary
+    topdown_unlock                 : float  # floating-point topdown unlock value used by topdown env0 summary
+    topdown_effective_unlock       : float  # floating-point topdown effective unlock value used by topdown env0 summary
+    finger_unlock_arm_hold_gate    : float  # floating-point finger unlock arm hold gate value used by topdown env0 summary
+    topdown_contact_pose_shell     : int  # integer topdown contact pose shell value tracked by topdown env0 summary
+    topdown_contact_palm_dist      : float  # floating-point topdown contact palm dist value used by topdown env0 summary
+    topdown_contact_palm_height    : float  # floating-point topdown contact palm height value used by topdown env0 summary
+    best_topdown_stage_this_episode: int  # integer best topdown stage this episode value tracked by topdown env0 summary
+    max_topdown_unlock_this_episode: float  # floating-point max topdown unlock this episode value used by topdown env0 summary
+    palm_dist                      : float  # floating-point palm dist value used by topdown env0 summary
+    orient_deg                     : float  # floating-point orient deg value used by topdown env0 summary
+    align_face_dist                : float  # floating-point align face dist value used by topdown env0 summary
+    align_angle                    : float  # alignment angle value used by topdown/contact metrics
+    any_contact_strength           : float  # floating-point any contact strength value used by topdown env0 summary
+    strict_light_contact           : float  # floating-point strict light contact value used by topdown env0 summary
 
 
 INPOCKET_ARM_HOLD_ATTRS = (

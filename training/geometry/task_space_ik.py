@@ -34,24 +34,24 @@ import torch
 class TaskSpaceIKResult:
     """Solved task-space IK state and residual diagnostics"""
 
-    joint_pos_des   : torch.Tensor  # Field: desired joint positions after the IK step and soft-limit clamp
-    delta_q         : torch.Tensor  # Field: per-joint IK increment applied to the current joint positions
-    center_err      : torch.Tensor  # Field: norm of the center-position error before the IK update
-    center_err_after: torch.Tensor  # Field: predicted center-position error norm after the IK update
-    span_err_z      : torch.Tensor  # Field: absolute Z component of the span error before the IK update
-    span_err_z_after: torch.Tensor  # Field: predicted absolute Z span error after the IK update
-    orient_err      : torch.Tensor  # Field: norm of the orientation error before the IK update
-    orient_err_after: torch.Tensor  # Field: predicted orientation error norm after the IK update
+    joint_pos_des   : torch.Tensor  # desired joint positions after the IK step and soft-limit clamp
+    delta_q         : torch.Tensor  # per-joint IK increment applied to the current joint positions
+    center_err      : torch.Tensor  # norm of the center-position error before the IK update
+    center_err_after: torch.Tensor  # predicted center-position error norm after the IK update
+    span_err_z      : torch.Tensor  # absolute Z component of the span error before the IK update
+    span_err_z_after: torch.Tensor  # predicted absolute Z span error after the IK update
+    orient_err      : torch.Tensor  # norm of the orientation error before the IK update
+    orient_err_after: torch.Tensor  # predicted orientation error norm after the IK update
 
 
 @dataclass(frozen=True)
 class TaskSpaceIKWeightScales:
     """Per-env task-space IK weight scales and lift mode mask"""
 
-    span_scale        : torch.Tensor  # Field: per-env multiplier for span-error rows in the task-space IK solve
-    orient_scale      : torch.Tensor  # Field: per-env multiplier for orientation-error rows in the task-space IK solve
-    posture_weight    : torch.Tensor  # Field: nullspace weight pulling joints back toward the default posture
-    lift_position_only: torch.Tensor  # Field: mask for lift rows that should solve position only
+    span_scale        : torch.Tensor  # per-env multiplier for span-error rows in the task-space IK solve
+    orient_scale      : torch.Tensor  # per-env multiplier for orientation-error rows in the task-space IK solve
+    posture_weight    : torch.Tensor  # nullspace weight pulling joints back toward the default posture
+    lift_position_only: torch.Tensor  # mask for lift rows that should solve position only
 
 
 def _as_row_weight(

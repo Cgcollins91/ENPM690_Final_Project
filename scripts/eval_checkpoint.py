@@ -48,6 +48,8 @@ TRAINING_ENV_KEYS = {
     "CHECKPOINT_PATH",
     "RESUME_CKPT",
     "RESUME_CHECKPOINT",
+    "RESUME_REPLAY",
+    "RESUME_GLOBAL_STEP",
     "ACTOR_INIT_CKPT",
     "PHASE1_CKPT",
     "FASTTD3_REPO",
@@ -58,9 +60,11 @@ TRAINING_ENV_KEYS = {
     "NUM_ENVS",
     "TOTAL_STEPS",
     "START_STEPS",
+    "REPLAY_SIZE",
     "HEADLESS",
     "ENABLE_CAMERAS",
     "DISABLE_CAMERA_PERCEPTION",
+    "SAVE_REPLAY_IN_CHECKPOINT",
 }
 
 
@@ -110,6 +114,13 @@ def _parse_env_overrides(items: Iterable[str]) -> dict[str, str]:
             raise RuntimeError(f"--env has empty key: {item!r}")
         overrides[key] = value
     return overrides
+
+
+def _scrub_playback_replay_env(env: dict[str, str]) -> None:
+    env["RESUME_REPLAY"] = "0"
+    env["RESUME_GLOBAL_STEP"] = "0"
+    env["SAVE_REPLAY_IN_CHECKPOINT"] = "0"
+    env["REPLAY_SIZE"] = "0"
 
 
 def _manifest_path(args: argparse.Namespace, checkpoint: Path) -> Path:
@@ -353,6 +364,7 @@ def build_plan(args: argparse.Namespace) -> tuple[list[str], dict[str, str], dic
     _remove_arg(command, "--tensorboard-dir")
     _remove_arg(command, "--save-replay-in-checkpoint", takes_value=False)
     _remove_arg(command, "--adaptive-policy-assist", takes_value=False)
+    _scrub_playback_replay_env(env)
 
     if args.gui:
         _remove_arg(command, "--headless", takes_value=False)
@@ -365,6 +377,7 @@ def build_plan(args: argparse.Namespace) -> tuple[list[str], dict[str, str], dic
     _replace_arg(command, "--start-steps", 0)
     _replace_arg(command, "--updates-per-step", 0)
     _replace_arg(command, "--num-envs", args.num_envs)
+    _replace_arg(command, "--replay-size", args.replay_size)
     _replace_arg(command, "--eval-steps", args.steps)
     _replace_arg(command, "--eval-episodes", args.episodes)
     _replace_arg(command, "--play-episodes", args.episodes)
@@ -408,12 +421,15 @@ def build_plan(args: argparse.Namespace) -> tuple[list[str], dict[str, str], dic
             "START_STEPS": "0",
             "UPDATES_PER_STEP": "0",
             "NUM_ENVS": str(args.num_envs),
+            "REPLAY_SIZE": str(args.replay_size),
             "EVAL_STEPS": str(args.steps),
             "EVAL_EPISODES": str(args.episodes),
             "EVAL_EVERY": "0",
             "CHECKPOINT_EVERY": "0",
             "ROLLING_CHECKPOINT_EVERY": "0",
             "SAVE_REPLAY_IN_CHECKPOINT": "0",
+            "RESUME_REPLAY": "0",
+            "RESUME_GLOBAL_STEP": "0",
             "LOG_EVERY": str(log_every),
             "HEADLESS": "0" if args.gui else "1",
             "ENABLE_CAMERAS": "1" if args.gui else "0",
@@ -430,6 +446,7 @@ def build_plan(args: argparse.Namespace) -> tuple[list[str], dict[str, str], dic
         "steps": int(args.steps),
         "episodes": int(args.episodes),
         "num_envs": int(args.num_envs),
+        "replay_size": int(args.replay_size),
         "outer_steps": int(outer_steps),
         "total_steps": int(total_steps),
         "log_every": int(log_every),
@@ -449,6 +466,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--steps", type=int, default=1000)
     parser.add_argument("--episodes", type=int, default=5)
     parser.add_argument("--num-envs", type=int, default=1)
+    parser.add_argument("--replay-size", type=int, default=0)
     parser.add_argument("--teacher-assist-mix", type=float, default=0.0)
     parser.add_argument("--gui", action="store_true")
     parser.add_argument("--sleep", type=float, default=0.0)

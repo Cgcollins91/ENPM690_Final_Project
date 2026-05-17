@@ -27,26 +27,26 @@ from ..geometry.geometry import joint_selection_weights, parse_joint_name_list, 
 class TeacherIkBodyIndices:
     """Resolved body and Jacobian indices for teacher IK"""
 
-    palm_body_idx                   : int  # Field: index identifying the palm body entry
-    palm_jacobian_body_idx          : int  # Field: index identifying the palm jacobian body entry
-    contact_thumb_jacobian_body_idx : int  # Field: index identifying the contact thumb jacobian body entry
-    contact_index_jacobian_body_idx : int  # Field: index identifying the contact index jacobian body entry
-    contact_middle_jacobian_body_idx: int  # Field: index identifying the contact middle jacobian body entry
-    thumb_body_idx                  : int  # Field: index identifying the thumb body entry
-    index_body_idx                  : int  # Field: index identifying the index body entry
+    palm_body_idx                   : int  # index identifying the palm body entry
+    palm_jacobian_body_idx          : int  # index identifying the palm jacobian body entry
+    contact_thumb_jacobian_body_idx : int  # index identifying the contact thumb jacobian body entry
+    contact_index_jacobian_body_idx : int  # index identifying the contact index jacobian body entry
+    contact_middle_jacobian_body_idx: int  # index identifying the contact middle jacobian body entry
+    thumb_body_idx                  : int  # index identifying the thumb body entry
+    index_body_idx                  : int  # index identifying the index body entry
 
 
 @dataclass(frozen=True)
 class TeacherIkStatePlan:
     """Import-safe tensor plan for teacher IK state construction"""
 
-    arm_joint_ids             : tuple[int, ...]  # Field: integer arm joint ids value tracked by teacher ik state plan
-    body_indices              : TeacherIkBodyIndices  # Field: stores body indices for teacher ik state plan
-    target_quat               : torch.Tensor  # Field: tensor containing target quat values for batched env rows
-    thumb_local_offset        : torch.Tensor  # Field: tensor containing thumb local offset values for batched env rows
-    index_local_offset        : torch.Tensor  # Field: tensor containing index local offset values for batched env rows
-    align_servo_joint_weights : torch.Tensor  # Field: weight applied to align servo joint terms
-    planar_align_joint_weights: torch.Tensor  # Field: weight applied to planar align joint terms
+    arm_joint_ids             : tuple[int, ...]  # integer arm joint ids value tracked by teacher ik state plan
+    body_indices              : TeacherIkBodyIndices  # stores body indices for teacher ik state plan
+    target_quat               : torch.Tensor  # tensor containing target quat values for batched env rows
+    thumb_local_offset        : torch.Tensor  # tensor containing thumb local offset values for batched env rows
+    index_local_offset        : torch.Tensor  # tensor containing index local offset values for batched env rows
+    align_servo_joint_weights : torch.Tensor  # weight applied to align servo joint terms
+    planar_align_joint_weights: torch.Tensor  # weight applied to planar align joint terms
 
 
 def jacobian_body_index(body_idx: int, *, fixed_base: bool) -> int:

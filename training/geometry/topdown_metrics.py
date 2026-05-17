@@ -35,10 +35,10 @@ SOURCE_BLOCK_NAMES = ("red", "yellow", "blue")
 class TopdownAxisThresholds:
     """Stage-0 topdown reach shell thresholds"""
 
-    palm_dist_max    : float  # Field: floating-point palm dist max value used by topdown axis thresholds
-    palm_height_max  : float  # Field: floating-point palm height max value used by topdown axis thresholds
-    drop_axis_max_deg: float  # Field: floating-point drop axis max deg value used by topdown axis thresholds
-    yaw_axis_max_deg : float  # Field: floating-point yaw axis max deg value used by topdown axis thresholds
+    palm_dist_max    : float  # floating-point palm dist max value used by topdown axis thresholds
+    palm_height_max  : float  # floating-point palm height max value used by topdown axis thresholds
+    drop_axis_max_deg: float  # floating-point drop axis max deg value used by topdown axis thresholds
+    yaw_axis_max_deg : float  # floating-point yaw axis max deg value used by topdown axis thresholds
 
 
 def topdown_source_block_name(source_idx: int, names: Sequence[str] = SOURCE_BLOCK_NAMES) -> str:

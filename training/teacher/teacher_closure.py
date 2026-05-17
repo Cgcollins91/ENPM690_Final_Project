@@ -26,11 +26,11 @@ import torch
 class TouchTeacherLatchState:
     """Updated teacher contact latch state"""
 
-    fraction          : torch.Tensor  # Field: tensor containing fraction values for batched env rows
-    latched           : torch.Tensor  # Field: per-env latch mask or aggregate latch state
-    hold_fraction     : torch.Tensor  # Field: tensor containing hold fraction values for batched env rows
-    first_contact_step: torch.Tensor  # Field: step count used for first contact step scheduling or reporting
-    latch_step        : torch.Tensor  # Field: step count used for latch step scheduling or reporting
+    fraction          : torch.Tensor  # tensor containing fraction values for batched env rows
+    latched           : torch.Tensor  # per-env latch mask or aggregate latch state
+    hold_fraction     : torch.Tensor  # tensor containing hold fraction values for batched env rows
+    first_contact_step: torch.Tensor  # step count used for first contact step scheduling or reporting
+    latch_step        : torch.Tensor  # step count used for latch step scheduling or reporting
 
 
 def smoothstep01(value: torch.Tensor) -> torch.Tensor:

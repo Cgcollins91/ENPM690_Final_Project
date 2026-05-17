@@ -163,6 +163,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     bash \
     ca-certificates \
     git \
+    libnss-wrapper \
     libgl1-mesa-glx \
     libglib2.0-0 \
     libglu1-mesa-dev \

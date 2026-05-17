@@ -328,7 +328,7 @@ def register_legacy_training_args(
         "--viewport-camera",
         type=str,
         default="overview",
-        choices=("front_camera", "left_wrist_camera", "right_wrist_camera", "world", "overview", "top"),
+        choices=("front_camera", "left_wrist_camera", "right_wrist_camera", "world", "overview", "table_overhead", "top"),
     )
     _add(parser, "--phase1-checkpoint",             type=str, default="")
     _add(parser, "--resume-checkpoint",             type=str, default="")

@@ -26,26 +26,26 @@ EnvResetFn = Callable[[], object]
 class NativeResetPayload:
     """Normalized result from env reset"""
 
-    obs : Mapping[str, object]  # Field: policy observation tensor or observation payload for this transition
-    info: object  # Field: auxiliary info mapping returned by the environment or backend
+    obs : Mapping[str, object]  # policy observation tensor or observation payload for this transition
+    info: object  # auxiliary info mapping returned by the environment or backend
 
 
 @dataclass(frozen=True)
 class NativeResetRequest:
     """Inputs for native env reset contract resolution"""
 
-    env_reset_fn      : EnvResetFn  # Field: callback used for the env reset fn operation
-    privileged_critic : bool  # Field: boolean value indicating the privileged critic state for native reset request
-    topdown_curriculum: bool = True  # Field: boolean value indicating the topdown curriculum state for native reset request
+    env_reset_fn      : EnvResetFn  # callback used for the env reset fn operation
+    privileged_critic : bool  # boolean value indicating the privileged critic state for native reset request
+    topdown_curriculum: bool = True  # boolean value indicating the topdown curriculum state for native reset request
 
 
 @dataclass(frozen=True)
 class NativeResetResult:
     """Initial obs and resolved startup observation contract"""
 
-    obs        : Mapping[str, object]  # Field: policy observation tensor or observation payload for this transition
-    info       : object  # Field: auxiliary info mapping returned by the environment or backend
-    observation: StartupObservationContract  # Field: stores observation for native reset result
+    obs        : Mapping[str, object]  # policy observation tensor or observation payload for this transition
+    info       : object  # auxiliary info mapping returned by the environment or backend
+    observation: StartupObservationContract  # stores observation for native reset result
 
 
 def normalize_native_env_reset_result(raw: object) -> NativeResetPayload:

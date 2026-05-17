@@ -371,6 +371,16 @@ def _active_contact_sensor_name(env: "ManagerBasedRLEnv", sensor_name: str) -> s
     return sensor_name
 
 
+def _active_filter_forces(env: "ManagerBasedRLEnv", force_matrix: torch.Tensor) -> torch.Tensor:
+    """Return per-env forces for the active source object from a filtered contact matrix."""
+    link_forces = force_matrix[:, 0]
+    if _use_visible_source_objects(env) and link_forces.dim() == 3 and link_forces.shape[1] >= 3:
+        source_idx = _active_source_pose_idx(env).view(env.num_envs, 1, 1)
+        gather_idx = source_idx.expand(-1, 1, link_forces.shape[-1])
+        return link_forces.gather(1, gather_idx).squeeze(1)
+    return link_forces.sum(dim=1)
+
+
 def _block_pose(env: "ManagerBasedRLEnv") -> tuple[torch.Tensor, torch.Tensor]:
     """Return the active block world position and orientation."""
     if _use_visible_source_objects(env):
@@ -925,7 +935,7 @@ def _per_link_contact_strength(env: "ManagerBasedRLEnv", sensor_name: str) -> to
     force_matrix = getattr(sensor.data, "force_matrix_w", None)
     if force_matrix is not None:
         # Single-link filtered ContactSensor: (N, 1, num_filters, 3).
-        forces = force_matrix[:, 0].sum(dim=1)
+        forces = _active_filter_forces(env, force_matrix)
     else:
         net_forces = getattr(sensor.data, "net_forces_w", None)
         if net_forces is None:

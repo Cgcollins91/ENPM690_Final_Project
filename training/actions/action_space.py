@@ -120,9 +120,10 @@ FINGER_ACTION_SCALES = (+0.942, -0.964, -1.658, +1.492, +1.658, +1.492, +1.658)
 RIGHT_PALM_LINK = "right_hand_palm_link"
 WORKSPACE_CAMERA_TARGET = (-4.20, -3.74, 0.94)
 WORKSPACE_CAMERA_EYES = {
-    "world"   : (-2.98, -2.46, 1.98),
-    "overview": (-2.98, -2.46, 1.98),
-    "top"     : (-4.20, -3.74, 3.20),
+    "world"         : (-2.98, -2.46, 1.98),
+    "overview"      : (-2.98, -2.46, 1.98),
+    "table_overhead": (-3.34, -2.82, 2.18),
+    "top"           : (-4.20, -3.74, 3.20),
 }
 
 
@@ -130,29 +131,29 @@ WORKSPACE_CAMERA_EYES = {
 class ReducedActionSpec:
     """Description of the reduced policy action surface"""
 
-    joint_names: tuple[str, ...]  # Field: ordered names used to resolve joint attributes
-    scales     : tuple[float, ...]  # Field: floating-point scales value used by reduced action spec
+    joint_names: tuple[str, ...]  # ordered names used to resolve joint attributes
+    scales     : tuple[float, ...]  # floating-point scales value used by reduced action spec
 
 
 @dataclass(frozen=True)
 class ActionLayoutOptions:
     """CLI-derived options that define the action layout"""
 
-    include_wrist_roll      : bool  = False  # Field: boolean value indicating the include wrist roll state for action layout options
-    include_waist_yaw       : bool  = False  # Field: boolean value indicating the include waist yaw state for action layout options
-    waist_yaw_action_scale  : float = 1.0  # Field: multiplier applied to waist yaw action terms
-    arm_action_scale_profile: str   = "side"  # Field: string arm action scale profile value used by action layout options
-    arm_controller          : str   = "policy"  # Field: string arm controller value used by action layout options
+    include_wrist_roll      : bool  = False  # boolean value indicating the include wrist roll state for action layout options
+    include_waist_yaw       : bool  = False  # boolean value indicating the include waist yaw state for action layout options
+    waist_yaw_action_scale  : float = 1.0  # multiplier applied to waist yaw action terms
+    arm_action_scale_profile: str   = "side"  # string arm action scale profile value used by action layout options
+    arm_controller          : str   = "policy"  # string arm controller value used by action layout options
 
 
 @dataclass(frozen=True)
 class ActionLayout:
     """Resolved reduced action layout for policy and environment actions"""
 
-    arm_joints        : tuple[str, ...]  # Field: string arm joints value used by action layout
-    finger_joints     : tuple[str, ...]  # Field: string finger joints value used by action layout
-    env_action_spec   : ReducedActionSpec  # Field: action layout spec expected by the environment
-    policy_action_spec: ReducedActionSpec  # Field: action layout spec expected by the policy output
+    arm_joints        : tuple[str, ...]  # string arm joints value used by action layout
+    finger_joints     : tuple[str, ...]  # string finger joints value used by action layout
+    env_action_spec   : ReducedActionSpec  # action layout spec expected by the environment
+    policy_action_spec: ReducedActionSpec  # action layout spec expected by the policy output
 
     @property
     def num_arm(self) -> int:

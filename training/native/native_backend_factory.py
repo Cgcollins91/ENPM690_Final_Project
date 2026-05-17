@@ -31,11 +31,11 @@ from ..core.runner import TrainingRunResult
 class NativeLiveIsaacBackendOptions:
     """Options for constructing the live native Isaac backend"""
 
-    startup_options                : NativeStartupOptions     = NativeStartupOptions()  # Field: stores startup options for native live isaac backend options
-    loop_options                   : NativeLoopOptions        = NativeLoopOptions()  # Field: stores loop options for native live isaac backend options
-    hook_config                    : NativeIsaacHookConfig    = NativeIsaacHookConfig()  # Field: stores hook config for native live isaac backend options
-    event_callbacks                : NativeLiveEventCallbacks = field(default_factory=NativeLiveEventCallbacks)  # Field: stores event callbacks for native live isaac backend options
-    topdown_curriculum_obs_contract: bool                     = True  # Field: boolean value indicating the topdown curriculum obs contract state for native live isaac backend options
+    startup_options                : NativeStartupOptions     = NativeStartupOptions()  # stores startup options for native live isaac backend options
+    loop_options                   : NativeLoopOptions        = NativeLoopOptions()  # stores loop options for native live isaac backend options
+    hook_config                    : NativeIsaacHookConfig    = NativeIsaacHookConfig()  # stores hook config for native live isaac backend options
+    event_callbacks                : NativeLiveEventCallbacks = field(default_factory=NativeLiveEventCallbacks)  # stores event callbacks for native live isaac backend options
+    topdown_curriculum_obs_contract: bool                     = True  # boolean value indicating the topdown curriculum obs contract state for native live isaac backend options
 
 
 class NativeLiveIsaacBackend:

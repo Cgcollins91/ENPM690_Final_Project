@@ -42,16 +42,16 @@ TraceFn = Callable[[str], None]
 class NativeFinalizationCallbacks:
     """Injected side effects for native finalization"""
 
-    save_checkpoint_fn: NativeCheckpointSaveFn = save_training_checkpoint  # Field: callback used for the save checkpoint fn operation
-    trace_fn          : TraceFn | None         = None  # Field: callback used for the trace fn operation
+    save_checkpoint_fn: NativeCheckpointSaveFn = save_training_checkpoint  # callback used for the save checkpoint fn operation
+    trace_fn          : TraceFn | None         = None  # callback used for the trace fn operation
 
 
 @dataclass(frozen=True)
 class NativeFinalizationResult:
     """Final checkpoint and resource cleanup outcome"""
 
-    checkpoint_result: FinalCheckpointResult | None  # Field: integer checkpoint result value tracked by native finalization result
-    close_result     : ResourceCloseResult | None  # Field: stores close result for native finalization result
+    checkpoint_result: FinalCheckpointResult | None  # integer checkpoint result value tracked by native finalization result
+    close_result     : ResourceCloseResult | None  # stores close result for native finalization result
 
 
 def _trace_noop(message: str) -> None:

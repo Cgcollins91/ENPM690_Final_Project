@@ -45,12 +45,12 @@ from ..teacher.contact_teacher import (
 class NativeContactTeacherAttrConfig:
     """Contact-teacher attr names and action layout"""
 
-    prefix            : str   = "_topdown_contact_teacher_"  # Field: string prefix value used by native contact teacher attr config
-    num_arm           : int   = 6  # Field: number of arm action dimensions in the active layout
-    num_fingers       : int   = 7  # Field: number of finger action dimensions in the active layout
-    max_fraction      : float = 1.0  # Field: floating-point max fraction value used by native contact teacher attr config
-    middle_scale      : float = 0.0  # Field: multiplier applied to middle terms
-    use_middle_teacher: bool  = False  # Field: boolean value indicating the use middle teacher state for native contact teacher attr config
+    prefix            : str   = "_topdown_contact_teacher_"  # string prefix value used by native contact teacher attr config
+    num_arm           : int   = 6  # number of arm action dimensions in the active layout
+    num_fingers       : int   = 7  # number of finger action dimensions in the active layout
+    max_fraction      : float = 1.0  # floating-point max fraction value used by native contact teacher attr config
+    middle_scale      : float = 0.0  # multiplier applied to middle terms
+    use_middle_teacher: bool  = False  # boolean value indicating the use middle teacher state for native contact teacher attr config
 
 
 def native_contact_teacher_attr_config_from_runtime(

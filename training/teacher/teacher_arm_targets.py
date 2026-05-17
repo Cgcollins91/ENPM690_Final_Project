@@ -162,9 +162,9 @@ def apply_vertical_descent(
 class LiftProgress:
     """Smoothed lift and nominal-Z blend progress"""
 
-    steps_since_latch: torch.Tensor  # Field: tensor containing steps since latch values for batched env rows
-    lift_progress    : torch.Tensor  # Field: tensor containing lift progress values for batched env rows
-    nominal_z_blend  : torch.Tensor  # Field: tensor containing nominal z blend values for batched env rows
+    steps_since_latch: torch.Tensor  # tensor containing steps since latch values for batched env rows
+    lift_progress    : torch.Tensor  # tensor containing lift progress values for batched env rows
+    nominal_z_blend  : torch.Tensor  # tensor containing nominal z blend values for batched env rows
 
 
 def lift_progress_from_latch(
@@ -251,8 +251,8 @@ def freeze_lift_target_pose(
 class BlockXYStabilizer:
     """Block XY stabilizer correction and active mask"""
 
-    correction: torch.Tensor  # Field: tensor containing correction values for batched env rows
-    active    : torch.Tensor  # Field: whether this configuration or runtime path is active
+    correction: torch.Tensor  # tensor containing correction values for batched env rows
+    active    : torch.Tensor  # whether this configuration or runtime path is active
 
 
 def block_xy_stabilizer(

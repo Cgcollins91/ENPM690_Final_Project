@@ -23,12 +23,12 @@ import torch
 class DoneState:
     """Done row selection for one vectorized step"""
 
-    done_ids         : torch.Tensor  # Field: tensor containing done ids values for batched env rows
-    active_done_ids  : torch.Tensor  # Field: tensor containing active done ids values for batched env rows
-    done_count       : int  # Field: count of done values
-    active_done_count: int  # Field: count of active done values
-    env0_done        : bool  # Field: boolean value indicating the env0 done state for done state
-    env0_active      : bool  # Field: boolean state indicating whether env0 is active
+    done_ids         : torch.Tensor  # tensor containing done ids values for batched env rows
+    active_done_ids  : torch.Tensor  # tensor containing active done ids values for batched env rows
+    done_count       : int  # count of done values
+    active_done_count: int  # count of active done values
+    env0_done        : bool  # boolean value indicating the env0 done state for done state
+    env0_active      : bool  # boolean state indicating whether env0 is active
 
 
 def done_env_ids(done_flags: torch.Tensor) -> torch.Tensor:

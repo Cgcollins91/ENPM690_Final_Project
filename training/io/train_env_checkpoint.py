@@ -42,20 +42,20 @@ TRAIN_ENV_BEST_COMPARATOR: tuple[tuple[str, str, float], ...] = (
 class TrainEnvBestCheckpointJob:
     """One train-env best checkpoint save request."""
 
-    global_step   : int  # Field: current absolute training step
-    dest_path     : str  # Field: destination path for best.pt
-    include_replay: bool  # Field: whether to include replay in this checkpoint
+    global_step   : int  # current absolute training step
+    dest_path     : str  # destination path for best.pt
+    include_replay: bool  # whether to include replay in this checkpoint
 
 
 @dataclass(frozen=True)
 class TrainEnvBestCheckpointDecision:
     """Best-checkpoint decision from train-env summary metrics."""
 
-    current_state  : dict[str, float | int]  # Field: current train-env best state
-    next_best_state: Mapping[str, float | int]  # Field: selected next best state
-    is_better      : bool  # Field: whether current state improves over previous best
-    job            : TrainEnvBestCheckpointJob | None  # Field: optional checkpoint save request
-    message        : str | None  # Field: printable progress message for stdout
+    current_state  : dict[str, float | int]  # current train-env best state
+    next_best_state: Mapping[str, float | int]  # selected next best state
+    is_better      : bool  # whether current state improves over previous best
+    job            : TrainEnvBestCheckpointJob | None  # optional checkpoint save request
+    message        : str | None  # printable progress message for stdout
 
 
 def _summary_float(row: Mapping[str, object], key: str, default: float = 0.0) -> float:

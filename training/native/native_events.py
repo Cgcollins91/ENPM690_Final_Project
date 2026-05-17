@@ -130,26 +130,26 @@ NativeEvalPostFn = Callable[
 class NativeLogEventCallbacks:
     """Injected side effects for native progress logging"""
 
-    trace_fn : TraceFn | None = None  # Field: callback used for the trace fn operation
+    trace_fn : TraceFn | None = None  # callback used for the trace fn operation
 
 
 @dataclass(frozen=True)
 class NativeCheckpointEventCallbacks:
     """Injected side effects for native scheduled checkpoints"""
 
-    save_checkpoint_fn: NativeCheckpointSaveFn = save_training_checkpoint  # Field: callback used for the save checkpoint fn operation
-    remove_path_fn    : RemovePathFn           = os.remove  # Field: callback used for the remove path fn operation
-    trace_fn          : TraceFn | None         = None  # Field: callback used for the trace fn operation
+    save_checkpoint_fn: NativeCheckpointSaveFn = save_training_checkpoint  # callback used for the save checkpoint fn operation
+    remove_path_fn    : RemovePathFn           = os.remove  # callback used for the remove path fn operation
+    trace_fn          : TraceFn | None         = None  # callback used for the trace fn operation
 
 
 @dataclass(frozen=True)
 class NativeEvalEventCallbacks:
     """Injected side effects for native scheduled eval"""
 
-    eval_callbacks_fn: NativeEvalCallbacksFn  # Field: callback used for the eval callbacks fn operation
-    eval_config_fn   : NativeEvalConfigFn | None = None  # Field: callback used for the eval config fn operation
-    result_fn        : NativeEvalResultFn | None = None  # Field: callback used for the result fn operation
-    post_eval_fn     : NativeEvalPostFn | None   = None  # Field: callback used for the post eval fn operation
+    eval_callbacks_fn: NativeEvalCallbacksFn  # callback used for the eval callbacks fn operation
+    eval_config_fn   : NativeEvalConfigFn | None = None  # callback used for the eval config fn operation
+    result_fn        : NativeEvalResultFn | None = None  # callback used for the result fn operation
+    post_eval_fn     : NativeEvalPostFn | None   = None  # callback used for the post eval fn operation
 
 
 def _native_components(state: NativeTrainerState) -> NativeTrainingComponents:
@@ -397,6 +397,16 @@ def _topdown_tensors(env: Any, state_machine: Any | None) -> dict[str, torch.Ten
     align_angle = torch.rad2deg(_safe_call_tensor(env, getattr(state_machine, "fingertip_line_angle_rad"), default=0.0))
     lift = _safe_call_tensor(env, getattr(state_machine, "block_lift_height"), default=0.0)
     disp = _safe_call_tensor(env, getattr(state_machine, "block_displacement"), default=0.0)
+    block_x = zero
+    block_y = zero
+    block_pose_fn = getattr(state_machine, "_block_pose", None)
+    if callable(block_pose_fn):
+        try:
+            block_pos, _ = block_pose_fn(env)
+            block_x = block_pos[:, 0].to(dtype=torch.float32)
+            block_y = block_pos[:, 1].to(dtype=torch.float32)
+        except Exception:
+            pass
     return {
         "stage"                : stage,
         "contact"              : fingertip,
@@ -419,6 +429,8 @@ def _topdown_tensors(env: Any, state_machine: Any | None) -> dict[str, torch.Ten
         if callable(getattr(state_machine, "lift_success_held", None))
         else zero,
         "block_disp": disp,
+        "block_x"   : block_x,
+        "block_y"   : block_y,
     }
 
 

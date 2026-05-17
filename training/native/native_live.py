@@ -85,14 +85,14 @@ class NativeTrainEpisodeAggregateState:
 class NativeLiveRolloutState:
     """Mutable current observation tensors for live native rollout"""
 
-    obs                  : dict[str, object]  # Field: policy observation tensor or observation payload for this transition
-    obs_tensor           : torch.Tensor  # Field: policy observation tensor passed to the actor or replay path
-    priv_obs_tensor      : torch.Tensor | None          = None  # Field: privileged observation tensor passed to critic-side logic
-    last_action_selection: NativeActionSelection | None = None  # Field: stores last action selection for native live rollout state
-    last_step_result     : object | None                = None  # Field: stores last step result for native live rollout state
-    last_stats_rows      : int                          = 0  # Field: integer last stats rows value tracked by native live rollout state
-    adaptive_assist      : "AdaptivePolicyAssistState | None" = None  # Field: state for actor-error-gated assist decay
-    episode_aggregate    : NativeTrainEpisodeAggregateState | None = None  # Field: train-env completed-episode metric accumulator
+    obs                  : dict[str, object]  # policy observation tensor or observation payload for this transition
+    obs_tensor           : torch.Tensor  # policy observation tensor passed to the actor or replay path
+    priv_obs_tensor      : torch.Tensor | None          = None  # privileged observation tensor passed to critic-side logic
+    last_action_selection: NativeActionSelection | None = None  # stores last action selection for native live rollout state
+    last_step_result     : object | None                = None  # stores last step result for native live rollout state
+    last_stats_rows      : int                          = 0  # integer last stats rows value tracked by native live rollout state
+    adaptive_assist      : "AdaptivePolicyAssistState | None" = None  # state for actor-error-gated assist decay
+    episode_aggregate    : NativeTrainEpisodeAggregateState | None = None  # train-env completed-episode metric accumulator
 
 
 @dataclass
@@ -121,28 +121,28 @@ class AdaptivePolicyAssistState:
 class NativeLiveHooks:
     """Injected live callbacks for the native loop"""
 
-    env_step_fn                 : EnvStepFn  # Field: callback used for the env step fn operation
-    teacher_action_fn           : TeacherActionFn | None        = None  # Field: callback used for the teacher action fn operation
-    policy_processors           : Sequence[ActionProcessor]     = ()  # Field: ordered collection of policy processors entries for native live hooks
-    teacher_processors          : Sequence[ActionProcessor]     = ()  # Field: ordered collection of teacher processors entries for native live hooks
-    assemble_env_action_fn      : ActionAssemblyFn | None       = None  # Field: callback used for the assemble env action fn operation
-    action_assembly_fn          : ActionAssemblyConfigFn | None = None  # Field: callback used for the action assembly fn operation
-    preroll_action_fn           : PrerollActionFn | None        = None  # Field: callback used for the preroll action fn operation
-    preroll_mask_fn             : MaskFn | None                 = None  # Field: callback used for the preroll mask fn operation
-    active_env_mask_fn          : MaskFn | None                 = None  # Field: callback used for the active env mask fn operation
-    existing_checkpoint_names_fn: CheckpointNamesFn | None      = None  # Field: callback used for the existing checkpoint names fn operation
-    action_source_fn            : ActionSourceFn | None         = None  # Field: callback used for the action source fn operation
+    env_step_fn                 : EnvStepFn  # callback used for the env step fn operation
+    teacher_action_fn           : TeacherActionFn | None        = None  # callback used for the teacher action fn operation
+    policy_processors           : Sequence[ActionProcessor]     = ()  # ordered collection of policy processors entries for native live hooks
+    teacher_processors          : Sequence[ActionProcessor]     = ()  # ordered collection of teacher processors entries for native live hooks
+    assemble_env_action_fn      : ActionAssemblyFn | None       = None  # callback used for the assemble env action fn operation
+    action_assembly_fn          : ActionAssemblyConfigFn | None = None  # callback used for the action assembly fn operation
+    preroll_action_fn           : PrerollActionFn | None        = None  # callback used for the preroll action fn operation
+    preroll_mask_fn             : MaskFn | None                 = None  # callback used for the preroll mask fn operation
+    active_env_mask_fn          : MaskFn | None                 = None  # callback used for the active env mask fn operation
+    existing_checkpoint_names_fn: CheckpointNamesFn | None      = None  # callback used for the existing checkpoint names fn operation
+    action_source_fn            : ActionSourceFn | None         = None  # callback used for the action source fn operation
 
 
 @dataclass(frozen=True)
 class NativeLiveEventCallbacks:
     """Optional live loop event callbacks"""
 
-    on_step_plan : PlanFn | None = None  # Field: stores on step plan for native live event callbacks
-    on_log       : PlanFn | None = None  # Field: stores on log for native live event callbacks
-    on_eval      : PlanFn | None = None  # Field: stores on eval for native live event callbacks
-    on_checkpoint: PlanFn | None = None  # Field: stores on checkpoint for native live event callbacks
-    on_done_reset: PlanFn | None = None  # Field: stores on done reset for native live event callbacks
+    on_step_plan : PlanFn | None = None  # stores on step plan for native live event callbacks
+    on_log       : PlanFn | None = None  # stores on log for native live event callbacks
+    on_eval      : PlanFn | None = None  # stores on eval for native live event callbacks
+    on_checkpoint: PlanFn | None = None  # stores on checkpoint for native live event callbacks
+    on_done_reset: PlanFn | None = None  # stores on done reset for native live event callbacks
 
 
 def native_live_action_mix_config(

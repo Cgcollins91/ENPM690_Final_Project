@@ -39,11 +39,11 @@ from ..model.normalization import RunningTensorMoments
 class ActorWarmStartConfig:
     """Action mapping used when copying a source actor into a wider actor"""
 
-    arm_joint_names    : tuple[str, ...]                     # Field: ordered names used to resolve arm joint attributes
-    expected_arm_scales: tuple[float, ...] = ()              # Field: floating-point expected arm scales value used by actor warm start config
-    first_weight_suffix: str               = "net.0.weight"  # Field: string first weight suffix value used by actor warm start config
-    final_weight_suffix: str               = "net.6.weight"  # Field: string final weight suffix value used by actor warm start config
-    final_bias_suffix  : str               = "net.6.bias"    # Field: string final bias suffix value used by actor warm start config
+    arm_joint_names    : tuple[str, ...]                     # ordered names used to resolve arm joint attributes
+    expected_arm_scales: tuple[float, ...] = ()              # floating-point expected arm scales value used by actor warm start config
+    first_weight_suffix: str               = "net.0.weight"  # string first weight suffix value used by actor warm start config
+    final_weight_suffix: str               = "net.6.weight"  # string final weight suffix value used by actor warm start config
+    final_bias_suffix  : str               = "net.6.bias"    # string final bias suffix value used by actor warm start config
 
 
 def _checkpoint_or_load(

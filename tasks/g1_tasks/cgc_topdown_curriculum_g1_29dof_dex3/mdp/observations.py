@@ -62,7 +62,13 @@ if TYPE_CHECKING:
 
 
 def _to_env_local_world_frame(env: "ManagerBasedRLEnv", pos_w: torch.Tensor) -> torch.Tensor:
-    """Return world-axis-aligned positions with env-grid offsets removed."""
+    """
+    Return world-axis-aligned positions with env-grid offsets removed.\
+        The "world" frame for the block and palm may have a constant offset from the "world" 
+        frame of the robot root and teacher state, which are used for curriculum logic and may be more stable for learning. 
+        Removing the offset keeps the block and palm positions consistent across envs with different grid placements, and 
+        consistent with the robot-relative features.
+    """
     env_origins = getattr(env.scene, "env_origins", None)
     if env_origins is None:
         return pos_w
@@ -70,13 +76,18 @@ def _to_env_local_world_frame(env: "ManagerBasedRLEnv", pos_w: torch.Tensor) -> 
 
 
 def get_palm_pos_world(env: "ManagerBasedRLEnv") -> torch.Tensor:
-    """Return palm position in world coordinates."""
+    """
+    Return palm position in world coordinates
+    
+    """
     pos, _ = _palm_pose(env)
     return _to_env_local_world_frame(env, pos)
 
 
 def get_palm_quat_world(env: "ManagerBasedRLEnv") -> torch.Tensor:
-    """Return palm orientation quaternion in world coordinates."""
+    """
+    Return palm orientation quaternion in world coordinates
+    """
     _, quat = _palm_pose(env)
     return quat
 

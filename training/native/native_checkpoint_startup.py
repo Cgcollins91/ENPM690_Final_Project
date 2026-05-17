@@ -40,17 +40,17 @@ from ..io.replay_startup import (
 class NativeCheckpointStartupResult:
     """Summary of checkpoint state applied during native startup"""
 
-    resume                           : ResumeApplyResult | None         = None  # Field: stores resume for native checkpoint startup result
-    actor_init                       : ActorInitApplyResult | None      = None  # Field: stores actor init for native checkpoint startup result
-    replay_resume                    : ReplayResumeResult | None        = None  # Field: stores replay resume for native checkpoint startup result
-    handoff_reuse                    : HandoffReuseResult | None        = None  # Field: stores handoff reuse for native checkpoint startup result
-    play                             : PlayCheckpointApplyResult | None = None  # Field: integer play value tracked by native checkpoint startup result
-    play_skip_checkpoint             : bool                             = False  # Field: boolean value indicating the play skip checkpoint state for native checkpoint startup result
-    obs_stats_reset                  : bool                             = False  # Field: boolean value indicating the obs stats reset state for native checkpoint startup result
-    transitions_collected            : int                              = 0  # Field: number of replay transitions collected so far
-    replay_size                      : int                              = 0  # Field: configured or observed replay-buffer size
-    auto_handoff_loaded              : bool                             = False  # Field: boolean value indicating the auto handoff loaded state for native checkpoint startup result
-    skip_training_after_handoff_reuse: bool                             = False  # Field: boolean value indicating the skip training after handoff reuse state for native checkpoint startup result
+    resume                           : ResumeApplyResult | None         = None  # stores resume for native checkpoint startup result
+    actor_init                       : ActorInitApplyResult | None      = None  # stores actor init for native checkpoint startup result
+    replay_resume                    : ReplayResumeResult | None        = None  # stores replay resume for native checkpoint startup result
+    handoff_reuse                    : HandoffReuseResult | None        = None  # stores handoff reuse for native checkpoint startup result
+    play                             : PlayCheckpointApplyResult | None = None  # integer play value tracked by native checkpoint startup result
+    play_skip_checkpoint             : bool                             = False  # boolean value indicating the play skip checkpoint state for native checkpoint startup result
+    obs_stats_reset                  : bool                             = False  # boolean value indicating the obs stats reset state for native checkpoint startup result
+    transitions_collected            : int                              = 0  # number of replay transitions collected so far
+    replay_size                      : int                              = 0  # configured or observed replay-buffer size
+    auto_handoff_loaded              : bool                             = False  # boolean value indicating the auto handoff loaded state for native checkpoint startup result
+    skip_training_after_handoff_reuse: bool                             = False  # boolean value indicating the skip training after handoff reuse state for native checkpoint startup result
 
 
 def _required_checkpoint(checkpoint: Mapping[str, object] | None, label: str) -> Mapping[str, object]:

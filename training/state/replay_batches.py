@@ -25,17 +25,17 @@ import torch
 class ReplayTransitionBatch:
     """Stacked ready transitions for replay insertion"""
 
-    obs          : torch.Tensor  # Field: policy observation tensor or observation payload for this transition
-    action       : torch.Tensor  # Field: environment action tensor selected for the step
-    bc_action    : torch.Tensor  # Field: behavior-cloning target action tensor
-    reward       : torch.Tensor  # Field: reward tensor or scalar produced by the environment step
-    discount     : torch.Tensor  # Field: tensor containing discount values for batched env rows
-    next_obs     : torch.Tensor  # Field: next policy observation tensor after the transition step
-    terminated   : torch.Tensor  # Field: tensor containing terminated values for batched env rows
-    timeout      : torch.Tensor  # Field: tensor containing timeout values for batched env rows
-    is_teacher   : torch.Tensor  # Field: tensor containing is teacher values for batched env rows
-    priv_obs     : torch.Tensor | None  # Field: privileged observation tensor used by critic/training code
-    next_priv_obs: torch.Tensor | None  # Field: tensor containing next priv obs values for batched env rows
+    obs          : torch.Tensor  # policy observation tensor or observation payload for this transition
+    action       : torch.Tensor  # environment action tensor selected for the step
+    bc_action    : torch.Tensor  # behavior-cloning target action tensor
+    reward       : torch.Tensor  # reward tensor or scalar produced by the environment step
+    discount     : torch.Tensor  # tensor containing discount values for batched env rows
+    next_obs     : torch.Tensor  # next policy observation tensor after the transition step
+    terminated   : torch.Tensor  # tensor containing terminated values for batched env rows
+    timeout      : torch.Tensor  # tensor containing timeout values for batched env rows
+    is_teacher   : torch.Tensor  # tensor containing is teacher values for batched env rows
+    priv_obs     : torch.Tensor | None  # privileged observation tensor used by critic/training code
+    next_priv_obs: torch.Tensor | None  # tensor containing next priv obs values for batched env rows
 
     @property
     def size(self) -> int:

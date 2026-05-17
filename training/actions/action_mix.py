@@ -25,11 +25,11 @@ import torch
 class PrerollActionOverride:
     """Action tensors after applying preroll rows"""
 
-    policy_level_action: torch.Tensor  # Field: tensor containing policy level action values for batched env rows
-    replay_action      : torch.Tensor  # Field: tensor containing replay action values for batched env rows
-    bc_action          : torch.Tensor  # Field: behavior-cloning target action tensor
-    teacher_action     : torch.Tensor | None  # Field: teacher action tensor used for override or behavior cloning
-    all_preroll        : bool  # Field: boolean value indicating the all preroll state for preroll action override
+    policy_level_action: torch.Tensor  # tensor containing policy level action values for batched env rows
+    replay_action      : torch.Tensor  # tensor containing replay action values for batched env rows
+    bc_action          : torch.Tensor  # behavior-cloning target action tensor
+    teacher_action     : torch.Tensor | None  # teacher action tensor used for override or behavior cloning
+    all_preroll        : bool  # boolean value indicating the all preroll state for preroll action override
 
 
 def assist_action_requested(*mixes: float) -> bool:

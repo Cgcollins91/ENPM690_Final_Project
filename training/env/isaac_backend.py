@@ -26,11 +26,11 @@ from .terminal_patch import install_terminal_observation_patch
 class IsaacRuntimeSymbols:
     """Runtime symbols loaded from the Isaac Python environment"""
 
-    app_launcher                  : type  # Field: stores app launcher for isaac runtime symbols
-    manager_based_rl_env          : type  # Field: stores manager based rl env for isaac runtime symbols
-    differential_ik_controller    : type  # Field: stores differential ik controller for isaac runtime symbols
-    differential_ik_controller_cfg: type  # Field: stores differential ik controller cfg for isaac runtime symbols
-    parse_env_cfg                 : Callable[..., object]  # Field: callback used for the parse env cfg operation
+    app_launcher                  : type  # stores app launcher for isaac runtime symbols
+    manager_based_rl_env          : type  # stores manager based rl env for isaac runtime symbols
+    differential_ik_controller    : type  # stores differential ik controller for isaac runtime symbols
+    differential_ik_controller_cfg: type  # stores differential ik controller cfg for isaac runtime symbols
+    parse_env_cfg                 : Callable[..., object]  # callback used for the parse env cfg operation
 
 
 def ensure_isaacsim_export_available() -> None:

@@ -1,6 +1,41 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+CURRENT_UID="$(id -u)"
+CURRENT_GID="$(id -g)"
+
+if [ "${CURRENT_UID}" != "0" ] && { ! getent passwd "${CURRENT_UID}" >/dev/null || ! getent group "${CURRENT_GID}" >/dev/null; }; then
+    NSS_WRAPPER_DIR="${NSS_WRAPPER_DIR:-/tmp/enpm690_nss_wrapper}"
+    NSS_WRAPPER_PASSWD="${NSS_WRAPPER_PASSWD:-${NSS_WRAPPER_DIR}/passwd}"
+    NSS_WRAPPER_GROUP="${NSS_WRAPPER_GROUP:-${NSS_WRAPPER_DIR}/group}"
+    CONTAINER_USER_NAME="${CONTAINER_USER_NAME:-enpm690}"
+    CONTAINER_GROUP_NAME="${CONTAINER_GROUP_NAME:-enpm690}"
+
+    mkdir -p "${NSS_WRAPPER_DIR}"
+    cp /etc/passwd "${NSS_WRAPPER_PASSWD}"
+    cp /etc/group "${NSS_WRAPPER_GROUP}"
+
+    if ! getent passwd "${CURRENT_UID}" >/dev/null; then
+        printf '%s:x:%s:%s:ENPM690 runtime user:%s:/bin/bash\n' \
+            "${CONTAINER_USER_NAME}" \
+            "${CURRENT_UID}" \
+            "${CURRENT_GID}" \
+            "${HOME:-/tmp/enpm690_cache/home}" \
+            >> "${NSS_WRAPPER_PASSWD}"
+    fi
+
+    if ! getent group "${CURRENT_GID}" >/dev/null; then
+        printf '%s:x:%s:\n' \
+            "${CONTAINER_GROUP_NAME}" \
+            "${CURRENT_GID}" \
+            >> "${NSS_WRAPPER_GROUP}"
+    fi
+
+    export NSS_WRAPPER_PASSWD
+    export NSS_WRAPPER_GROUP
+    export LD_PRELOAD="${LD_PRELOAD:+${LD_PRELOAD}:}/usr/lib/x86_64-linux-gnu/libnss_wrapper.so"
+fi
+
 source /opt/conda/etc/profile.d/conda.sh
 conda activate unitree_sim_env
 

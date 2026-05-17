@@ -40,9 +40,9 @@ PRIVILEGED_OBS_KEYS = (
 class ObservationColumnLayout:
     """Resolved special observation column offsets"""
 
-    stage_one_hot_col         : int | None = None  # Field: integer stage one hot col value tracked by observation column layout
-    contact_finger_unlock_col : int | None = None  # Field: integer contact finger unlock col value tracked by observation column layout
-    finger_unlock_progress_col: int | None = None  # Field: integer finger unlock progress col value tracked by observation column layout
+    stage_one_hot_col         : int | None = None  # integer stage one hot col value tracked by observation column layout
+    contact_finger_unlock_col : int | None = None  # integer contact finger unlock col value tracked by observation column layout
+    finger_unlock_progress_col: int | None = None  # integer finger unlock progress col value tracked by observation column layout
 
 
 def _term_width(term) -> int:

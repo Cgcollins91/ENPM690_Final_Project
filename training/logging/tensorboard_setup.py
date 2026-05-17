@@ -21,10 +21,10 @@ from typing import Any
 class TensorBoardPlan:
     """Resolved TensorBoard writer setup plan"""
 
-    enabled    : bool  # Field: whether this optional feature path is enabled
-    unavailable: bool  # Field: boolean value indicating the unavailable state for tensor board plan
-    log_dir    : str | None  # Field: filesystem location for log dir
-    message    : str | None  # Field: human-readable status or error detail
+    enabled    : bool  # whether this optional feature path is enabled
+    unavailable: bool  # boolean value indicating the unavailable state for tensor board plan
+    log_dir    : str | None  # filesystem location for log dir
+    message    : str | None  # human-readable status or error detail
 
 
 def resolve_tensorboard_plan(

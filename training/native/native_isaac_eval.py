@@ -83,37 +83,37 @@ CORE_EVAL_ENV_VALUE_KEYS = {
 class NativeIsaacEvalHookConfig:
     """Attribute names used to discover Isaac eval hooks"""
 
-    teacher_action_names       : tuple[str, ...] = (                                      # Field: ordered names used to resolve teacher action attributes
+    teacher_action_names       : tuple[str, ...] = (                                      # ordered names used to resolve teacher action attributes
         "teacher_action_fn",
         "compute_teacher_action",
         "get_teacher_action",
     )
-    assemble_action_names      : tuple[str, ...] = (                                      # Field: ordered names used to resolve assemble action attributes
+    assemble_action_names      : tuple[str, ...] = (                                      # ordered names used to resolve assemble action attributes
         "assemble_env_action_fn",
         "assemble_env_action",
     )
-    arm_reduced_action_names   : tuple[str, ...] = (                                      # Field: ordered names used to resolve arm reduced action attributes
+    arm_reduced_action_names   : tuple[str, ...] = (                                      # ordered names used to resolve arm reduced action attributes
         "arm_reduced_action_fn",
         "current_arm_reduced_action",
         "_teacher_arm_reduced_action",
     )
-    mapped_indices_names: tuple[str, ...] = ("mapped_indices", "_mapped_indices")  # Field: source names for mapped action-column indices
-    mapped_scales_names : tuple[str, ...] = ("mapped_scales", "_mapped_scales")  # Field: source names for mapped action-column scales
-    terminal_flags_names: tuple[str, ...] = (  # Field: ordered names used to resolve terminal flags attributes
+    mapped_indices_names: tuple[str, ...] = ("mapped_indices", "_mapped_indices")  # source names for mapped action-column indices
+    mapped_scales_names : tuple[str, ...] = ("mapped_scales", "_mapped_scales")  # source names for mapped action-column scales
+    terminal_flags_names: tuple[str, ...] = (  # ordered names used to resolve terminal flags attributes
         "native_eval_terminal_flags",
         "eval_terminal_flags",
         "terminal_flags_fn",
     )
-    env_values_names           : tuple[str, ...] = (                                      # Field: ordered names used to resolve env values attributes
+    env_values_names           : tuple[str, ...] = (                                      # ordered names used to resolve env values attributes
         "native_eval_env_values",
         "eval_env_values",
         "eval_values_fn",
     )
-    reset_cache_names          : tuple[str, ...] = (                                      # Field: ordered names used to resolve reset cache attributes
+    reset_cache_names          : tuple[str, ...] = (                                      # ordered names used to resolve reset cache attributes
         "clear_cached_teacher_action",
         "reset_eval_cache",
     )
-    use_action_assembly_config : bool = True                                              # Field: boolean value indicating the use action assembly config state for native isaac eval hook config
+    use_action_assembly_config : bool = True                                              # boolean value indicating the use action assembly config state for native isaac eval hook config
 
 
 def _owners(state: NativeTrainerState) -> tuple[object, ...]:
@@ -381,7 +381,9 @@ class _TopdownEvalMetricCollector:
         print(
             "eval_env0_metrics "
             f"step={step} "
+            f"source={int(scalar('source_idx', -1.0))} "
             f"stage={int(scalar('stage', -1.0))} "
+            f"block=({scalar('block_x'):.3f},{scalar('block_y'):.3f}) "
             f"tip={scalar('tip'):.4f} "
             f"palm={scalar('phase1_palm_dist'):.4f} "
             f"orient_deg={scalar('phase1_orient_deg'):.2f} "
@@ -483,6 +485,7 @@ class _TopdownEvalMetricCollector:
             "phase1_orient_deg": orient,
             "block_disp": block_disp,
             "block_tilt_deg": block_tilt,
+            "source_idx": source_idx.to(device=stage.device, dtype=torch.float32) if source_idx.numel() == stage.numel() else self._fill(-1.0),
         }
         self._trace_env0(step_index=step_index, metrics=metrics)
 

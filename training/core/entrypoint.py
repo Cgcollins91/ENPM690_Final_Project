@@ -26,9 +26,9 @@ from .configs import RuntimeConfigBundle
 class TrainingEntrypointPlan:
     """Validated plan for the compatibility entrypoint"""
 
-    argv   : tuple[str, ...]  # Field: raw command-line argument list for parser entrypoints
-    context: TrainerRuntimeContext  # Field: stores context for training entrypoint plan
-    configs: RuntimeConfigBundle  # Field: stores configs for training entrypoint plan
+    argv   : tuple[str, ...]  # raw command-line argument list for parser entrypoints
+    context: TrainerRuntimeContext  # stores context for training entrypoint plan
+    configs: RuntimeConfigBundle  # stores configs for training entrypoint plan
 
 
 def build_entrypoint_plan(argv: list[str] | tuple[str, ...]) -> TrainingEntrypointPlan:

@@ -21,15 +21,15 @@ import torch
 class TeacherArmRequest:
     """Inputs needed to compute teacher arm reduced actions"""
 
-    env                      : object  # Field: environment/backend object used by this runtime helper
-    mapped_indices           : torch.Tensor  # Field: column indices used to map between action layouts
-    mapped_scales            : torch.Tensor  # Field: scales applied while mapping action columns
-    closure_fraction         : float | torch.Tensor        = 0.0  # Field: normalized finger-closure progress fraction
-    episode_step             : int | torch.Tensor | None   = None  # Field: per-env step count inside the current episode
-    topdown_contact_descent  : float | torch.Tensor | None = None  # Field: tensor containing topdown contact descent values for batched env rows
-    topdown_contact_xy_offset: torch.Tensor | None         = None  # Field: tensor containing topdown contact xy offset values for batched env rows
-    topdown_contact_inward   : float | torch.Tensor | None = None  # Field: tensor containing topdown contact inward values for batched env rows
-    topdown_contact_tip_servo: torch.Tensor | None         = None  # Field: tensor containing topdown contact tip servo values for batched env rows
+    env                      : object  # environment/backend object used by this runtime helper
+    mapped_indices           : torch.Tensor  # column indices used to map between action layouts
+    mapped_scales            : torch.Tensor  # scales applied while mapping action columns
+    closure_fraction         : float | torch.Tensor        = 0.0  # normalized finger-closure progress fraction
+    episode_step             : int | torch.Tensor | None   = None  # per-env step count inside the current episode
+    topdown_contact_descent  : float | torch.Tensor | None = None  # tensor containing topdown contact descent values for batched env rows
+    topdown_contact_xy_offset: torch.Tensor | None         = None  # tensor containing topdown contact xy offset values for batched env rows
+    topdown_contact_inward   : float | torch.Tensor | None = None  # tensor containing topdown contact inward values for batched env rows
+    topdown_contact_tip_servo: torch.Tensor | None         = None  # tensor containing topdown contact tip servo values for batched env rows
 
 
 class TeacherArmBackend(Protocol):

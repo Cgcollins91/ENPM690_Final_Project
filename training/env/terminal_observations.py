@@ -26,9 +26,9 @@ from .observations import flatten_policy_obs, flatten_privileged_obs
 class TerminalNextObservation:
     """Replay next-observation tensors after terminal row substitution"""
 
-    next_obs           : torch.Tensor  # Field: next policy observation tensor after the transition step
-    next_privileged_obs: torch.Tensor | None  # Field: tensor containing next privileged obs values for batched env rows
-    applied            : bool  # Field: boolean value indicating the applied state for terminal next observation
+    next_obs           : torch.Tensor  # next policy observation tensor after the transition step
+    next_privileged_obs: torch.Tensor | None  # tensor containing next privileged obs values for batched env rows
+    applied            : bool  # boolean value indicating the applied state for terminal next observation
 
 
 def clone_observation_tree(obs):

@@ -37,9 +37,9 @@ FinalizeFn  = Callable[[TrainerRuntimeContext, RuntimeConfigBundle, NativeTraine
 class NativeStartupOptions:
     """Runtime startup switches for the native backend"""
 
-    launch_app            : bool = True  # Field: boolean value indicating the launch app state for native startup options
-    create_env            : bool = True  # Field: boolean value indicating the create env state for native startup options
-    install_terminal_patch: bool = True  # Field: boolean value indicating the install terminal patch state for native startup options
+    launch_app            : bool = True  # boolean value indicating the launch app state for native startup options
+    create_env            : bool = True  # boolean value indicating the create env state for native startup options
+    install_terminal_patch: bool = True  # boolean value indicating the install terminal patch state for native startup options
 
 
 def build_native_startup_state(

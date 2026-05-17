@@ -21,19 +21,19 @@ from ..core.configs import RuntimeConfigBundle
 class CheckpointStartupPlan:
     """Pure checkpoint and warm-start decisions before loading tensors"""
 
-    resume_requested              : bool  # Field: boolean value indicating the resume requested state for checkpoint startup plan
-    actor_init_requested          : bool  # Field: boolean value indicating the actor init requested state for checkpoint startup plan
-    phase1_requested              : bool  # Field: boolean value indicating the phase1 requested state for checkpoint startup plan
-    phase1_teacher_only           : bool  # Field: boolean value indicating the phase1 teacher only state for checkpoint startup plan
-    phase1_ik_skip                : bool  # Field: boolean value indicating the phase1 ik skip state for checkpoint startup plan
-    phase1_actor_copy_allowed     : bool  # Field: boolean value indicating the phase1 actor copy allowed state for checkpoint startup plan
-    phase1_policy_teacher_required: bool  # Field: boolean value indicating the phase1 policy teacher required state for checkpoint startup plan
-    reset_obs_stats_after_load    : bool  # Field: boolean value indicating the reset obs stats after load state for checkpoint startup plan
-    play_requested                : bool  # Field: boolean value indicating the play requested state for checkpoint startup plan
-    play_checkpoint_required      : bool  # Field: boolean value indicating the play checkpoint required state for checkpoint startup plan
-    replay_resume_requested       : bool  # Field: boolean value indicating the replay resume requested state for checkpoint startup plan
-    global_step_resume_requested  : bool  # Field: boolean value indicating the global step resume requested state for checkpoint startup plan
-    force_dagger_after_resume     : bool  # Field: boolean value indicating the force dagger after resume state for checkpoint startup plan
+    resume_requested              : bool  # boolean value indicating the resume requested state for checkpoint startup plan
+    actor_init_requested          : bool  # boolean value indicating the actor init requested state for checkpoint startup plan
+    phase1_requested              : bool  # boolean value indicating the phase1 requested state for checkpoint startup plan
+    phase1_teacher_only           : bool  # boolean value indicating the phase1 teacher only state for checkpoint startup plan
+    phase1_ik_skip                : bool  # boolean value indicating the phase1 ik skip state for checkpoint startup plan
+    phase1_actor_copy_allowed     : bool  # boolean value indicating the phase1 actor copy allowed state for checkpoint startup plan
+    phase1_policy_teacher_required: bool  # boolean value indicating the phase1 policy teacher required state for checkpoint startup plan
+    reset_obs_stats_after_load    : bool  # boolean value indicating the reset obs stats after load state for checkpoint startup plan
+    play_requested                : bool  # boolean value indicating the play requested state for checkpoint startup plan
+    play_checkpoint_required      : bool  # boolean value indicating the play checkpoint required state for checkpoint startup plan
+    replay_resume_requested       : bool  # boolean value indicating the replay resume requested state for checkpoint startup plan
+    global_step_resume_requested  : bool  # boolean value indicating the global step resume requested state for checkpoint startup plan
+    force_dagger_after_resume     : bool  # boolean value indicating the force dagger after resume state for checkpoint startup plan
 
 
 def build_checkpoint_startup_plan(

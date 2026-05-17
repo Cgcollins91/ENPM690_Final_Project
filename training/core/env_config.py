@@ -27,9 +27,9 @@ DEFAULT_CAMERA_ATTRS = ("front_camera", "left_wrist_camera", "right_wrist_camera
 class TouchEnvModeConfig:
     """Result of applying trainer mode changes to env config"""
 
-    camera_perception_disabled: bool  # Field: boolean value indicating the camera perception disabled state for touch env mode config
-    removed_obs_terms         : tuple[str, ...]  # Field: string removed obs terms value used by touch env mode config
-    removed_scene_terms       : tuple[str, ...]  # Field: string removed scene terms value used by touch env mode config
+    camera_perception_disabled: bool  # boolean value indicating the camera perception disabled state for touch env mode config
+    removed_obs_terms         : tuple[str, ...]  # string removed obs terms value used by touch env mode config
+    removed_scene_terms       : tuple[str, ...]  # string removed scene terms value used by touch env mode config
 
 
 def should_disable_camera_perception(*, disable_camera_perception: bool, arm_controller: str) -> bool:
