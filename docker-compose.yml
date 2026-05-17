@@ -1,0 +1,105 @@
+services:
+  smoke:
+    image: enpm690-final-project:latest
+    build:
+      context: .
+    network_mode: host
+    user: "${UID:-1000}:${GID:-1000}"
+    environment:
+      ENPM690_PYTHON: /opt/conda/envs/unitree_sim_env/bin/python
+      NVIDIA_VISIBLE_DEVICES: all
+      NVIDIA_DRIVER_CAPABILITIES: compute,utility,video,graphics,display
+    volumes:
+      - ./runs:/workspace/project/runs
+      - ./runs_training:/workspace/project/runs_training
+      - ./checkpoints:/workspace/project/checkpoints
+    gpus: all
+    command:
+      - python
+      - scripts/launch_pipeline.py
+      - --run-dir
+      - runs_training/Final/pipeline_smoke_100steps
+      - --num-envs
+      - "1"
+      - --total-steps
+      - "100"
+      - --teacher-only-steps
+      - "10"
+      - --dagger-steps
+      - "10"
+      - --eval-every
+      - "0"
+      - --checkpoint-every
+      - "100"
+      - --log-every
+      - "10"
+
+  dry-run:
+    extends:
+      service: smoke
+    command:
+      - python
+      - scripts/launch_pipeline.py
+      - --run-dir
+      - runs_training/Final/pipeline_dry_run
+      - --dry-run
+
+  train:
+    extends:
+      service: smoke
+    command:
+      - python
+      - scripts/launch_pipeline.py
+      - --run-dir
+      - runs_training/v35_canonical_fresh_fullreward_adaptive_bc_final_r5
+
+  eval:
+    extends:
+      service: smoke
+    command:
+      - python
+      - scripts/eval_checkpoint.py
+      - --source-run-dir
+      - runs_training/v35_canonical_fresh_fullreward_adaptive_bc_final_r5
+      - --checkpoint
+      - latest.pt
+      - --run-dir
+      - runs_training/v35_canonical_fresh_fullreward_adaptive_bc_final_r5/eval_latest
+      - --episodes
+      - "5"
+      - --steps
+      - "1000"
+      - --num-envs
+      - "1"
+      - --stream
+
+  viz:
+    extends:
+      service: smoke
+    environment:
+      ENPM690_PYTHON: /opt/conda/envs/unitree_sim_env/bin/python
+      DISPLAY: "${DISPLAY:-:0}"
+      NVIDIA_VISIBLE_DEVICES: all
+      NVIDIA_DRIVER_CAPABILITIES: compute,utility,video,graphics,display
+    volumes:
+      - ./runs:/workspace/project/runs
+      - ./runs_training:/workspace/project/runs_training
+      - ./checkpoints:/workspace/project/checkpoints
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /etc/vulkan/icd.d:/etc/vulkan/icd.d:ro
+      - /usr/share/vulkan/icd.d:/usr/share/vulkan/icd.d:ro
+    command:
+      - python
+      - scripts/eval_visualization.py
+      - --run-dir
+      - runs_training/v35_canonical_fresh_fullreward_adaptive_bc_final_r5
+      - --checkpoint
+      - latest.pt
+      - --mode
+      - policy
+      - --episodes
+      - "3"
+      - --steps
+      - "1000"
+      - --num-envs
+      - "1"

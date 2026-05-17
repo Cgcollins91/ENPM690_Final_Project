@@ -1,0 +1,9 @@
+# Isaac Sim / IsaacLab are expected to come from the configured simulator environment.
+gymnasium==1.2.1
+numpy==1.26.0
+packaging==23.0
+toml==0.10.2
+PyYAML==6.0.2
+tensorboard==2.20.0
+tensordict==0.12.2
+fast_td3 @ git+https://github.com/younggyoseo/FastTD3.git@229ed59bbf43ea2f7a2d5d90d1076314839944d7

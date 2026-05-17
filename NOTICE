@@ -1,0 +1,35 @@
+# Third-Party Notices
+
+This submission includes referenced
+third-party components. Third-party materials retain their upstream licenses.
+
+## Unitree Robotics
+
+- Source: https://github.com/unitreerobotics/unitree_sim_isaaclab
+- Source: https://github.com/unitreerobotics/unitree_ros
+- Use: Unitree G1/Dex3 task structure, robot configuration patterns, and robot
+  description assets.
+- License: upstream files in this repository preserve their Unitree copyright
+  headers. The bundled URDF source note is in
+  `assets/robots/g1-29dof-dex3-base-fix-usd/g1_29dof_with_hand_rev_1_0.urdf.SOURCE.md`.
+
+## Isaac Lab / Isaac Sim
+
+- Source: https://github.com/isaac-sim/IsaacLab
+- Use: Isaac Lab task extension patterns and runtime environment.
+- License: BSD-3-Clause for Isaac Lab source files where indicated by upstream
+  headers. Isaac Sim itself is installed as a runtime dependency under NVIDIA's
+  applicable terms.
+
+## FastTD3
+
+- Source: https://github.com/younggyoseo/FastTD3
+- Use: optional upstream FastTD3 learner backend installed from the pinned
+  commit in `requirements.txt`.
+- License: see the upstream FastTD3 repository for current license terms.
+
+## PyTorch And Python Dependencies
+
+The Dockerfile and requirements install PyTorch, Gymnasium, TensorBoard,
+TensorDict, PyYAML, toml, Isaac Sim, and Isaac Lab. These packages retain their
+own upstream licenses.

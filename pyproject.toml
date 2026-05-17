@@ -1,0 +1,30 @@
+[project]
+name = "enpm690-final-project"
+version = "0.1.0"
+description = "Clean Python launcher and config surface for deterministic topdown lift training."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "gymnasium==1.2.1",
+    "numpy==1.26.0",
+    "packaging==23.0",
+    "toml==0.10.2",
+    "PyYAML==6.0.2",
+    "tensorboard==2.20.0",
+    "tensordict==0.12.2",
+    "fast_td3 @ git+https://github.com/younggyoseo/FastTD3.git@229ed59bbf43ea2f7a2d5d90d1076314839944d7",
+]
+
+[project.scripts]
+enpm690-final-project = "enpm690_final_project.launch:main"
+
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src", "."]
+include = ["enpm690_final_project*", "training*", "tasks*", "robots*"]
+
+[tool.enpm690]
+config_field_limit = 25

@@ -1,0 +1,32 @@
+.git
+.ai_docs
+.agents
+.codex
+Archive/
+.pytest_cache
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+*.swp
+*.swo
+
+# Local IDE/cache files.
+.vscode/
+
+# Training outputs/checkpoints are mounted at runtime, not baked into images.
+runs
+runs_training
+checkpoints
+*.pt
+*.pth
+*.ckpt
+
+# Large/local generated artifacts.
+*.pdf
+*.html
+
+# Build/install byproducts.
+build
+dist
+*.egg-info

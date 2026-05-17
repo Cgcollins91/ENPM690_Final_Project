@@ -1,0 +1,16 @@
+[package]
+version = "0.1.0"
+title = "ENPM690 Topdown Curriculum"
+description = "Standalone task registration for the ENPM690 red-block topdown curriculum."
+category = "robotics"
+keywords = ["robotics", "rl", "imitation-learning", "topdown"]
+
+[dependencies]
+"isaaclab" = {}
+"isaaclab_assets" = {}
+
+[core]
+reloadable = false
+
+[[python.module]]
+name = "tasks"
