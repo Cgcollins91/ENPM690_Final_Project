@@ -40,8 +40,7 @@ TensorBoard commands.
 - `eval/`: eval action selection, rollout state, success overrides, summary
   rows, eval logging, and post-eval reset helpers.
 - `geometry/`: geometric math, block/tip diagnostics, top-down metrics, IK
-  masks, IK solvers, lift latch logic, in-pocket helpers, and source-conditioned
-  rows.
+  masks, IK solvers, lift latch logic, in-pocket helpers, and source-conditioned rows.
 - `io/`: checkpoint IO, checkpoint scheduling, compatibility checks, replay
   handoff handling, warm starts, and finalization.
 - `logging/`: JSONL rows, progress lines, diagnostics, reward/termination

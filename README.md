@@ -3,6 +3,9 @@
 Chris Collins ENPM 690 Final Project Unitree G1/Dex3 top-down red-block
 reach, grasp, and lift training pipeline in Isaac Sim / Isaac Lab.
 
+Teacher_GUI.mp4 shows an isaac simulation with head of Teacher 
+Adaptive_RL_Policy_Assist_Decay.mp4 shows example of our training pipeline continuing the adaptive RL phase shown in the report
+
 The Training launcher is:
 
 ```bash
@@ -11,6 +14,8 @@ python3 scripts/launch_pipeline.py
 
 It resolves to `training/curriculum/pipeline.py`, which starts a fresh
 adaptive BC/DAgger/FastTD3 run and launches the trainer through `python -m training.native_entrypoint`
+
+The runs_training.zip folder includes the run output for the Teacher -> dAgger/BC phase shown in the report
 
 ## Contents
 
@@ -179,20 +184,25 @@ UID="$(id -u)" GID="$(id -g)" docker compose run --rm train
     --run-dir runs_training/v35_canonical_fresh_fullreward_adaptive_bc_final_r5
 ```
 
-
+Example command to continue the adaptive RL phase shown in the report:
+```bash
+python3 scripts/launch_pipeline.py \
+  --run-dir runs_training/runs/Final/v35_canonical_from1m_replay_strictadaptive_r1_cont_from2500099 \
+  --resume-from runs_training/runs/Final/v35_canonical_from1m_replay_strictadaptive_r1/step_2500099.pt
+```
 
 ## CLI
 
 Common options:
 
-- `--run-dir`:               output directory.
-- `--resume-from`:           checkpoint to load.
-- `--no-resume-replay`:      resume model/optimizers without replay.
-- `--no-resume-global-step`: restart step counters from zero.
-- `--num-envs`:              
- `--total-steps`, 
- `--teacher-only-steps`,
-  `--dagger-steps`.
+- `--run-dir`:               output directory
+- `--resume-from`:           checkpoint to load
+- `--no-resume-replay`:      resume model/optimizers without replay
+- `--no-resume-global-step`: restart step counters from zero
+- `--num-envs`:              Number of parallel environments
+ `--total-steps`,            Total Training Steps
+ `--teacher-only-steps`,     Number of Teacher only steps (to full replay)
+  `--dagger-steps`.          Number of Teacher + Noise Data Aggregation Steps with Teacher Relabels
 - `--post-floor-rl-steps`, 
 `--assist-floor`.
 - `--eval-every`, 
@@ -221,10 +231,7 @@ overrides the location. Dry-runs write a manifest only and do not create useful 
 
 
 ```bash
-python3 -m tensorboard.main \
-  --logdir runs_training/v35_canonical_fresh_fullreward_adaptive_bc_final_r5/tb \
-  --host localhost \
-  --port 6006
+tensorboard --logdir runs_training/runs/Final/v35_canonical_from1m_replay_strictadaptive_r1_cont_from2500099/tb --host 0.0.0.0 --port 6006
 ```
 
 Then open:
@@ -293,13 +300,11 @@ docker run --gpus all --rm -it --network host \
 Local:
 
 ```bash
-python3 scripts/eval_visualization.py \
-  --run-dir runs_training/v35_canonical_fresh_fullreward_adaptive_bc_final_r5 \
-  --checkpoint latest.pt \
-  --mode teacher \
-  --episodes 3 \
-  --steps 1000 \
-  --num-envs 1
+python3 scripts/launch_pipeline.py \
+  --run-dir runs_training/runs/Final/v35_canonical_from1m_replay_strictadaptive_r2_cont_from2500099_noeval \
+  --resume-from runs_training/runs/Final/v35_canonical_from1m_replay_strictadaptive_r1/step_2500099.pt \
+  --total-steps 3500099 \
+  --eval-every 0
 ```
 
 The visualization output defaults to
