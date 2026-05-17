@@ -3,7 +3,7 @@
 Chris Collins ENPM 690 Final Project Unitree G1/Dex3 top-down red-block
 reach, grasp, and lift training pipeline in Isaac Sim / Isaac Lab.
 
-The canonical launcher is:
+The Training launcher is:
 
 ```bash
 python3 scripts/launch_pipeline.py
@@ -14,14 +14,14 @@ adaptive BC/DAgger/FastTD3 run and launches the trainer through `python -m train
 
 ## Contents
 
-- `scripts/launch_pipeline.py`: canonical pipeline launcher
-- `scripts/eval_checkpoint.py`: headless checkpoint evaluation from a run manifest
-- `scripts/eval_visualization.py`: GUI checkpoint playback from a run manifest
-- `src/enpm690_final_project/`: typed run profiles, manifest generation, and subprocess planning
-- `training/`: modular training runtime
-- `tasks/`: Isaac Lab task registration and MDP code
-- `robots/` and `assets/`: Unitree G1/Dex3 robot config and required USD/URDF assets
-- `Dockerfile` and `docker/`: reproducible Isaac Sim / Isaac Lab container
+- `scripts/launch_pipeline.py`:      canonical pipeline launcher
+- `scripts/eval_checkpoint.py`:      headless checkpoint evaluation from a run manifest
+- `scripts/eval_visualization.py`:   GUI checkpoint playback from a run manifest
+- `src/enpm690_final_project/`:      typed run profiles, manifest generation, and subprocess planning
+- `training/`:                       modular training runtime
+- `tasks/`:                          Isaac Lab task registration and MDP code
+- `robots/` and `assets/`:           Unitree G1/Dex3 robot config and required USD/URDF assets
+- `Dockerfile` and `docker/`:        reproducible Isaac Sim / Isaac Lab container
 - `requirements.txt` and `pyproject.toml`: Python dependency metadata
 
 Generated outputs are not part of the package: `runs/`, `runs_training/`,
